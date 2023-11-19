@@ -41,10 +41,6 @@
   assert( type(pattern) in (regex, type(none)), message: "Pattern must be of type regex")
   assert( type(pattern-error) in (str, type(auto)), message: "Pattern-error must be a string")
   assert( type(transform) == function, message: "Transform must be a function that takes a single string and return a string")
-  
-  let fail(self, it, ctx: context(), scope: (), message: "") = {
-    assert(false, message: "Schema validation failed on " + scope.join(".") + ": " + message)
-  }
 
   return (:..base-type(),
     name: name,

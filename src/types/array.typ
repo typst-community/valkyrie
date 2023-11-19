@@ -25,7 +25,7 @@
   assert( type(length) in (int, type(auto)), message: "Length must be an integer")
   if ( length != auto){assert( length >= 0, message: "Maximum length must be a positive integer")}
 
-  assert( type(custom) in (function, type(none)), message: "Custom must be of type regex")
+  assert( type(custom) in (function, type(none)), message: "Custom must be a function")
   assert( type(custom-error) in (str, type(auto)), message: "Custom-error must be a string")
   assert( type(transform) == function, message: "Transform must be a function that takes a single string and return a string")
 
