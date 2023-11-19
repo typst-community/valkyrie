@@ -14,7 +14,10 @@
     assert-base-type(option, scope: ("arguments",))
   }
 
+  let name = "[" + options.map(it=>it.name).join( ", ", last: " or ") + "]"
+
   return (:..base-type(),
+    name: name,
     validate: (self, it, ctx: context(), scope: ()) => {
       for option in options {
         let ret = (option.validate)(option, it, ctx: context(ctx, soft-error: true), scope: scope)
@@ -22,7 +25,7 @@
       }
       // Somehow handle error? Not sure how to retrieve from ctx
       return (self.fail-validation)(self, it, ctx: ctx, scope: scope,
-          message: "Type failed to match any of possible options: " + options.map(it=>it.name).join(", "))
+          message: "Type failed to match any of possible options: " + options.map(it=>it.name).join(", ", last: " or "))
     }
   )
 }

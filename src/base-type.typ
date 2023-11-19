@@ -1,24 +1,45 @@
 #import "context.typ": context
 
-#let assert-base-type(t, scope: ("arguments",)) = {
-  assert("valkyrie-type" in t,
+/// Asserts the presence of the magic number on the given object.
+///
+/// - arg (any):
+/// - scope (scope): Array of strings containing information for error generation.
+/// -> none
+#let assert-base-type(arg, scope: ("arguments",)) = {
+  assert("valkyrie-type" in arg,
     message: "Invalid valkyrie type in " + scope.join(".")
   )
 }
 
-#let assert-base-type-array(args, scope: ("arguments",)) = {
-  for (name, value) in args.enumerate(){ 
+/// Asserts the presence of the magic number on an array of object.
+///
+/// - arg (any):
+/// - scope (scope): Array of strings containing information for error generation.
+/// -> none
+#let assert-base-type-array(arg, scope: ("arguments",)) = {
+  for (name, value) in arg.enumerate(){ 
     assert-base-type(value, scope: (..scope, str(name))) 
   }
 }
 
-#let assert-base-type-dictionary(args, scope: ("arguments",)) = {
+/// Asserts the presence of the magic number in a dictionary of object.
+///
+/// - arg (any):
+/// - scope (scope): Array of strings containing information for error generation.
+/// -> none
+#let assert-base-type-dictionary(arg, scope: ("arguments",)) = {
   for (name, value) in args{ 
     assert-base-type(value, scope: (..scope, name)) 
   }
 }
 
-#let assert-base-type-arguments(args, scope: ("arguments",)) = {
+
+/// Asserts the presence of the magic number in an argument of object.
+///
+/// - arg (any):
+/// - scope (scope): Array of strings containing information for error generation.
+/// -> none
+#let assert-base-type-arguments(arg, scope: ("arguments",)) = {
   for (name, value) in args.named(){ 
     assert-base-type(value, scope: (..scope, name)) 
   }
@@ -28,11 +49,7 @@
   }
 }
 
-#let joinWithAnd(arr, join, with) = {
-  if ( arr.len() <= 1 ){ return arr.first() }
-  let last = arr.pop(); return arr.join(join) + with + last
-}
-
+/// Schema generator. Provides default values for when defining custom types.
 #let base-type() = {
   return (
     valkyrie-type: true,
@@ -40,15 +57,15 @@
     assert-type: (self, it, scope:(), ctx: context(), types: ()) => {
       if ( type(it) not in types){
         (self.fail-validation)(self, it, scope: scope, ctx: ctx,
-          message: "Expected " + joinWithAnd(types, ", ", " or ") + ". Got " + type(it))
+          message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
         return false
       }
       return true
     },
     
-    validate: (self, it, scope: (), ctx: (:)) => it,
+    validate: (self, it, scope: (), ctx: context()) => it,
     
-    fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
+    fail-validation: (self, it, scope: (), ctx: context(), message: "") => {
       let display = "Schema validation failed on " + scope.join(".")
       if ( message.len() > 0){ display += ": " + message}
       ctx.outcome = display

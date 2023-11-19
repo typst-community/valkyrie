@@ -1,5 +1,6 @@
 #import "types.typ": *
 #import "context.typ": context
+#import "base-type.typ" as advanced
 
 /// This is the main function for validating an object against a schema. *WILL* return the given object after validation if successful, or none and *MAY* throw a failed assertion error.
 ///
