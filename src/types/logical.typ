@@ -1,6 +1,10 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../context.typ": context
 
+/// Valkyrie schema generator for objects that can be any of multiple types.
+///
+/// - ..options (schema): Variadic position arguments for possible types. *MUST* have at least `1` positional argument. Schemas *SHOULD* be given in order of "preference".
+/// -> schema
 #let either( ..options ) = {
   let options = options.pos()
 

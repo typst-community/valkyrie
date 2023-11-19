@@ -1,8 +1,11 @@
 #import "../base-type.typ": base-type, assert-base-type-dictionary
 #import "../context.typ": context
 
+/// Valkyrie schema generator for dictionary types
+///
+/// - ..args (schema): Variadic named arguments, the values for which are schema types. *MUST* not contain positional arguments.
+/// -> schema
 #let dictionary(
-  // Additional arguments before variadic
   ..args
 ) = {
 
@@ -12,7 +15,8 @@
   args = args.named()
   assert-base-type-dictionary(args)
   
-  return (..base-type(),
+  return (:..base-type(),
+    name: "dictionary",
     dictionary-schema: args,
     validate: (self, dict, ctx: context(), scope: ("arguments",) ) => {
 

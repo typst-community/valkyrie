@@ -1,13 +1,20 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../context.typ": context
 
+/// Validation schema representing all types. *SHOULD* never produce an error.
+///
+/// - name (internal): 
+/// - default (any, none): Default value to validate is none is provided.
+/// - custom (function): Function that maps an input to an output. If the function returns `none`, then an error *WILL* be generated using `custom-error`. 
+/// - custom-error (string): Error to return if custom function returns none.
+/// - transform (function): Function that maps an input to an output, called after validation.
+/// -> schema
 #let any(
   name: "any", 
   default: none,
-  custom: none, // regex, string
-  custom-error: auto, // string, auto
-  transform: it=>it, // function(string)=>string
-  ..args
+  custom: none,
+  custom-error: auto,
+  transform: it=>it,
 ) = {
 
   assert( type(custom) in (function, type(none)), message: "Custom must be a function")

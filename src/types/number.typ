@@ -1,15 +1,26 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../context.typ": context
 
+/// Valkyrie schema generator for integer- and floating-point numbers
+///
+/// - name (internal):
+/// - default (integer, float, none): Default value to set if none is provided. *MUST* respect all other validation requirements.
+/// - min (integer, none): If not none, the minimum value that satisfies the validation. The program is *ILL-FORMED* if `min` is greater than `max`.
+/// - max (integer, none): If not none, the maximum value that satisfies the validation. The program is *ILL-FORMED* if `max` is less than `min`.
+/// - custom (function, none): If not none, a function that, if itself returns none, will produce the error set by `custom-error`.
+/// - custom-error (string, none): If set, the error produced upon failure of `custom`.
+/// - transform (function): a mapping function called after validation.
+/// - types (internal):
+/// -> schema
 #let number(
+  name: "number",
   default: none,
   min: none,
   max: none,
-  custom: none, // function, none
-  custom-error: auto, // string, auto
-  transform: it=>it, // function(number)=>number
+  custom: none,
+  custom-error: auto,
+  transform: it=>it,
   types: (float, int),
-  name: "number"
 ) = {
 
   // Type safety
@@ -68,7 +79,11 @@
   )
 }
 
+/// Specialization of @@number() that is only satisfied by whole numbers. Parameters of @@number remain available for further requirments.
 #let integer = number.with( name: "integer", types: (int,))
+
+/// Specialization of @@number() that is only satisfied by floating point numbers. Parameters of @@number remain available for further requirments.
 #let floating-point = number.with( name: "float", types: (float,))
 
+/// Specialization of @@integer() that is only satisfied by positive whole numbers. Parameters of @@number remain available for further requirments.
 #let natural = number.with( name: "natural number", types: (int,), min: 0)

@@ -6,6 +6,12 @@
   )
 }
 
+#let assert-base-type-array(args, scope: ("arguments",)) = {
+  for (name, value) in args.enumerate(){ 
+    assert-base-type(value, scope: (..scope, str(name))) 
+  }
+}
+
 #let assert-base-type-dictionary(args, scope: ("arguments",)) = {
   for (name, value) in args{ 
     assert-base-type(value, scope: (..scope, name)) 

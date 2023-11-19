@@ -1,18 +1,32 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../context.typ": context
 
+/// Valkyrie schema generator for integer- and floating-point numbers
+///
+/// - name (internal):
+/// - default (string): Default value to set if none is provided. *MUST* respect all other validation requirements.
+/// - min (integer, none): If not none, the minimum string length that satisfies the validation. *MUST* be a positive integer. The program is *ILL-FORMED* if `min` is greater than `max`.
+/// - max (integer, none): If not none, the maximum string length that satisfies the validation. *MUST* be a positive integer. The program is *ILL-FORMED* if `max` is less than `min`.
+/// - length (integer, auto): If not auto, the exact string length that satisfies validation. *MUST* be a positiive integer. The program *MAY* be *ILL-FORMED* is concurrently set with either `min` or `max`.
+/// - includes (array, string, none): If set, a coerced array of required strings that are required to pass validation.
+/// - starts-with (string, regex, none): If set, a string or regex requirement that the string *SHOULD* start with in order to pass validation.
+/// - ends-with (string, regex, none): If set, a string or regex requirement that the string *SHOULD* end with in order to pass validation.
+/// - pattern (string, regex, none): If set, a string or regex requirment over the entire string that *SHOULD* be matched in order to pass validation.
+/// - pattern-error (string, auto): If set, the error thrown if `pattern` is not satisfied.
+/// - transform (function): A transformation applied after successful validation.
+/// -> schema
 #let string(
-  default: none, // string, none
-  min: none, // integer, none
-  max: none, // integer, none
-  length: auto, // integer, auto
-  includes: (), // string, array, regex
-  starts-with: none, // string, regex, none
-  ends-with: none, // string, regex, none
-  pattern: none, // regex, string
-  pattern-error: auto, // string, auto
-  transform: it=>it, // function(string)=>string
-  name: "string" // String
+  name: "string",
+  default: none,
+  min: none,
+  max: none,
+  length: auto,
+  includes: (),
+  starts-with: none,
+  ends-with: none,
+  pattern: none,
+  pattern-error: auto,
+  transform: it=>it,
 ) = {
 
   // Program is ill-formed if length is set at the same time as min or max
@@ -103,7 +117,7 @@
           message: "String must end with " + str(self.ends-with))
       }
 
-      // regex
+      // regex, possibly extend to custom like other types?
       if ( self.pattern != none ) and (it.match(self.pattern) == none){
         let message = "String failed to match following pattern: " + repr(self.pattern)
         if ( self.pattern-error != auto ){ message = self.pattern-error }
@@ -115,6 +129,7 @@
   )
 }
 
+/// A specialization of string that is satisfied only by email addresses. *Note*: The testing is not rigourous to save on complexity.
 #let email = string.with(
   name: "email",
   pattern: regex("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]{2,3}){1,2}$"),
@@ -125,6 +140,7 @@
 // TO DO: emoji
 // TO DO: uuid
 
+/// A specialization of string that is satisfied only by valid IP addresses. *Note*: The testing *IS* strict.
 #let ip = string.with(
   name: "ip",
   pattern: regex("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"),

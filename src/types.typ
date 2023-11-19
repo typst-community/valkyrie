@@ -4,3 +4,4 @@
 #import "types/logical.typ": *
 #import "types/number.typ": *
 #import "types/string.typ": *
+#import "types/tuple.typ": *

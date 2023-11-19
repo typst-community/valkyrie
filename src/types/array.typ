@@ -2,15 +2,27 @@
 #import "../context.typ": context
 #import "any.typ": any
 
+/// Valkyrie schema generator for array types. Array entries are validated by a single schema. For arrays with positional requirements, see @@tuple.
+///
+/// - name (internal):
+/// - default (array, none): Default value to set if no value is provided. *MUST* itself pass validation.
+/// - min (integer, none): If not none, the minimum array length that satisfies the validation. *MUST* be a positive integer. The program is *ILL-FORMED* if `min` is greater than `max`.
+/// - max (integer, none): If not none, the maximum array length that satisfies the validation. *MUST* be a positive integer. The program is *ILL-FORMED* if `max` is less than `min`.
+/// - length (integer, auto): If not auto, the exact array length that satisfies validation. *MUST* be a positiive integer. The program *MAY* be *ILL-FORMED* is concurrently set with either `min` or `max`.
+/// - custom (function, none): If not none, a function that, if itself returns none, will produce the error set by `custom-error`.
+/// - custom-error (string, none): If set, the error produced upon failure of `custom`.
+/// - transform (function): a mapping function called after validation.
+/// - ..args (schema, none): Variadic positional arguments of length `0` or `1`. *SHOULD* not contain named arguments. If no arguments are given, schema defaults to array of @@any
+/// -> schema
 #let array(
   name: "array", 
   default: (),
-  min: none, // integer, none
-  max: none, // integer, none
-  length: auto, // integer, auto
-  custom: none, // regex, string
-  custom-error: auto, // string, auto
-  transform: it=>it, // function(string)=>string
+  min: none,
+  max: none,
+  length: auto,
+  custom: none,
+  custom-error: auto,
+  transform: it=>it,
   ..args
 ) = {
 
