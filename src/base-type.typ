@@ -28,7 +28,7 @@
 /// - scope (scope): Array of strings containing information for error generation.
 /// -> none
 #let assert-base-type-dictionary(arg, scope: ("arguments",)) = {
-  for (name, value) in args{ 
+  for (name, value) in arg{ 
     assert-base-type(value, scope: (..scope, name)) 
   }
 }
@@ -40,11 +40,11 @@
 /// - scope (scope): Array of strings containing information for error generation.
 /// -> none
 #let assert-base-type-arguments(arg, scope: ("arguments",)) = {
-  for (name, value) in args.named(){ 
+  for (name, value) in arg.named(){ 
     assert-base-type(value, scope: (..scope, name)) 
   }
   
-  for (pos, value) in args.pos().enumerate(){ 
+  for (pos, value) in arg.pos().enumerate(){ 
     assert-base-type(value, scope: (..scope, "[" + pos + "]")) 
   }
 }
