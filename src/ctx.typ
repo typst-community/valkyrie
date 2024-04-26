@@ -1,14 +1,13 @@
-
 #let ctx-proto = (
   strict: false,
   soft-error: false,
-  coerce: false, // TO DO
+  // TODO(james)
+  coerce: false,
 )
 
-/// Appends setting to ctx. Used for setting the ctx of child parses.
+/// Appends options to a context. Used for setting the context of child parses.
 ///
-/// - ctx (ctx, none): Current ctx (if present, or undefined if not), to which ctxual flags passed in variadic arguments are appended.
-/// - ..args (arguments): Variadic ctxual flags to set. While it accepts positional arguments, only named ctxual flags are used throughout the codebase.
-#let ctx(ctx: (:), ..args) = {
-  return (:..ctx-proto, ..ctx, ..args.named())
-}
+/// - parent (ctx, none): Current context (if present), to which contextual
+///   flags passed in variadic arguments are appended.
+/// - ..args (arguments): Variadic contextual flags to set. Positionala rguments are discarded.
+#let z-ctx(parent: (:), ..args) = ctx-proto + parent + args.named()
