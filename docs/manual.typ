@@ -5,7 +5,7 @@
 #show: project.with(
     title: "Valkyrie",
     subtitle: "Type safe type safety in typst",
-    authors: ("James R. Swift",),
+    authors: ("James R. Swift", "tinger <me@tinger.dev>"),
     url: "https://github.com/JamesxX/valkyrie",
     abstract: [This package implements type validation, and is targetted mainly at package and template developers. The desired outcome is that it becomes easier for the programmer to quickly put a package together without spending a long time on type safety, but also to make the usage of those packages by end-users less painful by generating useful error messages.]
 );
