@@ -64,6 +64,9 @@
 
   // Main body.
   set par(justify: true)
+  show list: set par(justify: false)
+  show enum: set par(justify: false)
+  show raw.where(block: true): set par(justify: false)
   //v(10em)
 
   body

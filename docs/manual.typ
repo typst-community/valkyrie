@@ -1,14 +1,15 @@
 #import "@preview/tidy:0.1.0"
+
 #import "style.typ"
 #import "template.typ": *
 
 #show: project.with(
-    title: "Valkyrie",
-    subtitle: "Type safe type safety in typst",
-    authors: ("James R. Swift", "tinger <me@tinger.dev>"),
-    url: "https://github.com/JamesxX/valkyrie",
-    abstract: [This package implements type validation, and is targetted mainly at package and template developers. The desired outcome is that it becomes easier for the programmer to quickly put a package together without spending a long time on type safety, but also to make the usage of those packages by end-users less painful by generating useful error messages.]
-);
+  title: "Valkyrie",
+  subtitle: "Type safe type safety in typst",
+  authors: ("James R. Swift", "tinger <me@tinger.dev>"),
+  url: "https://github.com/JamesxX/valkyrie",
+  abstract: [This package implements type validation, and is targetted mainly at package and template developers. The desired outcome is that it becomes easier for the programmer to quickly put a package together without spending a long time on type safety, but also to make the usage of those packages by end-users less painful by generating useful error messages.]
+)
 
 
 // --------------------------------------------
@@ -33,28 +34,29 @@
 #import "@preview/valkyrie:0.1.0" as z
 
 #let my-schema = z.dictionary(
-    should-be-string: z.string(),
-    complicated-tuple: z.tuple(
-        z.email(),
-        z.ip(),
-        z.either(
-            z.string(),
-            z.number()
-        )
+  should-be-string: z.string(),
+  complicated-tuple: z.tuple(
+    z.email(),
+    z.ip(),
+    z.either(
+      z.string(),
+      z.number(),
     )
+  )
 )
 
 #z.parse(
-    (
-        should-be-string: "This doesn't error",
-        complicated-tuple: (
-            "neither@does-this.com",
-            "NOT AN IP", // Error: Schema validation failed on argument.complicated-tuple.1: 
-                         //        String must be a valid IP address
-            1 
-        )
-    ),
-    my-schema
+  (
+    should-be-string: "This doesn't error",
+    complicated-tuple: (
+      "neither@does-this.com",
+      // Error: Schema validation failed on argument.complicated-tuple.1:
+      // String must be a valid IP address
+      "NOT AN IP",
+      1 
+    )
+  ),
+  my-schema
 )
 ```
 #v(1fr)
@@ -105,52 +107,49 @@ Generally, users of this package will only need to be aware of the #style.show-t
 == Functions
 
 #{
+  let first = true;
 
-    let first = true;
+  let modules = (
+    "../src/lib.typ",
+    "../src/ctx.typ",
+  )
 
-    let modules = (
-        "../src/lib.typ",
-        "../src/ctx.typ",
+  for module in modules {
+    if not first { pagebreak() } else { first = false }
+    tidy.show-module(
+      tidy.parse-module(read(module)),
+      style: style,
+      sort-functions: none,
     )
-
-    for module in modules {
-        if ( not first ) { pagebreak() } else {first = false}
-        tidy.show-module(
-            tidy.parse-module(read(module)), 
-            style: style, 
-            sort-functions: none,
-        )
-        line( length: 100%, stroke: 0.55pt)
-    }
+    line(length: 100%, stroke: 0.55pt)
+  }
 }
 
 #pagebreak()
 == Types
 
 #{
+  let first = true;
 
-    let first = true;
+  let modules = (
+    "../src/types/any.typ",
+    "../src/types/array.typ",
+    "../src/types/dictionary.typ",
+    "../src/types/logical.typ",
+    "../src/types/number.typ",
+    "../src/types/string.typ",
+    "../src/types/tuple.typ",
+  )
 
-    let modules = (
-        "../src/types/any.typ",
-        "../src/types/array.typ",
-        "../src/types/dictionary.typ",
-        "../src/types/logical.typ",
-        "../src/types/number.typ",
-        "../src/types/string.typ",
-        "../src/types/tuple.typ",
-
+  for module in modules {
+    if not first { pagebreak() } else { first = false }
+    tidy.show-module(
+      tidy.parse-module(read(module)),
+      style: style,
+      sort-functions: none,
     )
-
-    for module in modules {
-        if ( not first ) { pagebreak() } else {first = false}
-        tidy.show-module(
-            tidy.parse-module(read(module)), 
-            style: style, 
-            sort-functions: none,
-        )
-        line( length: 100%, stroke: 0.55pt)
-    }
+    line(length: 100%, stroke: 0.55pt)
+  }
 }
 
 #pagebreak()
@@ -162,22 +161,21 @@ This section covers topics than the novice-to-intermediate users are unlikely to
 == Internal functions
 These functions are available under `z.advanced`.
 #{
+  let first = true;
 
-    let first = true;
+  let modules = (
+    "../src/base-type.typ",
+  )
 
-    let modules = (
-        "../src/base-type.typ",
+  for module in modules {
+    if not first { pagebreak() } else { first = false }
+    tidy.show-module(
+      tidy.parse-module(read(module)),
+      style: style,
+      sort-functions: none,
     )
-
-    for module in modules {
-        if ( not first ) { pagebreak() } else {first = false}
-        tidy.show-module(
-            tidy.parse-module(read(module)), 
-            style: style, 
-            sort-functions: none,
-        )
-        line( length: 100%, stroke: 0.55pt)
-    }
+    line( length: 100%, stroke: 0.55pt)
+  }
 }
 
 #pagebreak()
@@ -192,56 +190,66 @@ It may be the case that your type is simply a narrowing of an already-defined ty
 ```
 
 === Type specialization - Intermediate
-If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable
+If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable.
 ```typ
 #let specific-number = z.number.with(
-    custom: ( it ) => { return (it > 5 and it < 10)},
-    custom-error: "Value was incorrect"
+  custom: it => 5 < it and it < 10,
+  custom-error: "Value was incorrect",
 )
 ```
 
 === Type specialization - Advanced
-If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore
+If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore.
 ```typ
-#let specific-number(..args) = {
-    let internals = z.number(..args)
-    return (:..internals,
-        // Configure values manually, perhaps override functions.
-        // Check source code of schema generator being bootstrapped.
-    )
-}
+#let specific-number(..args) = z.number(..args) + (
+  // Configure values manually, perhaps override functions.
+  // Check source code of schema generator being bootstrapped.
+)
 ```
 
 === Type specialization - Wizard
-For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simple define a function that returns a schema-like dictionary.
+For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simply define a function that returns a schema-like dictionary.
 
 ```typ
 #let tuple(my-args, ...) = {
-
-  return (:..z.advanced.base-type(), // Shorthand for the definitions shown below. If you do not modify a function, you may aswell omit it and have it set to its default by base-type()
-    valkyrie-type: true, // Magic number
-
-    name: "my-type", // Member sometimes used by other classes when they report a failed validation
-    
+  // Shorthand for the definitions shown below. If you do not modify a function,
+  // you may as well omit it and have it set to its default by base-type()
+  z.advanced.base-type() + (
+    // Magic number
+    valkyrie-type: true,
+    // Member sometimes used by other classes when they report a failed validation
+    name: "my-type",
     // Helper function, generally called by validate()
     assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
-      if ( type(it) not in types){
-        (self.fail-validation)(self, it, scope: scope, ctx: ctx,
-          message: "Expected " + joinWithAnd(types, ", ", " or ") + ". Got " + type(it))
+      if type(it) not in types {
+        (self.fail-validation)(
+          self,
+          it,
+          scope: scope,
+          ctx: ctx,
+          message: (
+            "Expected "
+            + joinWithAnd(types, ", ", " or ")
+            + ". Got "
+            + type(it)
+          ),
+        )
         return false
       }
-      return true
+
+      true
     },
-    
-    // Do your validation here. Call fail-validation() if validation failed. Generally, return none also.
+
+    // Do your validation here. Call fail-validation() if validation failed.
+    // Generally, return none also.
     validate: (self, it, scope: (), ctx: (:)) => it,
-    
+
     // Customize the mode of failure here
     fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
       let display = "Schema validation failed on " + scope.join(".")
-      if ( message.len() > 0){ display += ": " + message}
+      if message.len() > 0 { display += ": " + message}
       ctx.outcome = display
-      if ( not ctx.soft-error ) {
+      if not ctx.soft-error {
         assert(false, message: display)
       }
     }
