@@ -23,7 +23,7 @@
 ///   contain named arguments. If no arguments are given, schema defaults to array of @@any
 /// -> schema
 #let array(
-  name: "array", 
+  name: "array",
   default: (),
   min: none,
   max: none,
@@ -50,8 +50,8 @@
   )
 
   let positional-arguments = args.pos()
-  
-  let valkyrie-array-typ 
+
+  let valkyrie-array-typ
   if positional-arguments.len() < 1 {
     valkyrie-array-typ = any()
   } else {
@@ -60,7 +60,7 @@
   }
 
   let name = name + "[" + (valkyrie-array-typ.name) +"]"
-  
+
   base-type() + (
     name: name,
     default: default,
@@ -86,7 +86,7 @@
           self,
           it,
           ctx: ctx,
-          scope: scope, 
+          scope: scope,
           message: "Array length less than specified minimum of " + str(self.min),
         )
       }
@@ -101,7 +101,7 @@
           message: "Array length greater than specified maximum of " + str(self.max),
         )
       }
-      
+
       // Exact length
       if (self.length != auto) and (it.len() != self.length) {
         return (self.fail-validation)(

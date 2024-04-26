@@ -3,15 +3,15 @@
 
 /// Validation schema representing all types. *SHOULD* never produce an error.
 ///
-/// - name (internal): 
+/// - name (internal):
 /// - default (any, none): Default value to validate is none is provided.
 /// - custom (function): Function that maps an input to an output. If the function returns `none`,
-///   then an error *WILL* be generated using `custom-error`. 
+///   then an error *WILL* be generated using `custom-error`.
 /// - custom-error (string): Error to return if custom function returns none.
 /// - transform (function): Function that maps an input to an output, called after validation.
 /// -> schema
 #let any(
-  name: "any", 
+  name: "any",
   default: none,
   custom: none,
   custom-error: auto,
@@ -25,7 +25,7 @@
 
   base-type() + (
     name: name,
-    default: default,    
+    default: default,
     custom: custom,
     custom-error: custom-error,
     transform: transform,

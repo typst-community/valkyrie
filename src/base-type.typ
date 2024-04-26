@@ -33,7 +33,6 @@
   }
 }
 
-
 /// Asserts the presence of the magic number in an argument of object.
 ///
 /// - arg (any):

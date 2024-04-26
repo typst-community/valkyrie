@@ -41,8 +41,8 @@
     z.either(
       z.string(),
       z.number(),
-    )
-  )
+    ),
+  ),
 )
 
 #z.parse(
@@ -51,12 +51,12 @@
     complicated-tuple: (
       "neither@does-this.com",
       // Error: Schema validation failed on argument.complicated-tuple.1:
-      // String must be a valid IP address
+      //        String must be a valid IP address
       "NOT AN IP",
-      1 
-    )
+      1,
+    ),
   ),
-  my-schema
+  my-schema,
 )
 ```
 #v(1fr)
@@ -155,7 +155,6 @@ Generally, users of this package will only need to be aware of the #style.show-t
 #pagebreak()
 = Advanced usage
 This section covers topics than the novice-to-intermediate users are unlikely to need to know. If you are looking for information on something you want to achieve, and have not found information somewhere within this guide on how to do so, please submit an issue or pull request on GitHub so that further documentation can be added.
-
 
 #pagebreak()
 == Internal functions

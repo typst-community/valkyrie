@@ -14,7 +14,7 @@
 
   args = args.named()
   assert-base-type-dictionary(args)
-  
+
   base-type() + (
     name: "dictionary",
     dictionary-schema: args,

@@ -15,8 +15,8 @@ This package implements type validation, and is targetted mainly at package and 
     z.either(
       z.string(),
       z.number(),
-    )
-  )
+    ),
+  ),
 )
 
 #z.parse(
@@ -24,11 +24,12 @@ This package implements type validation, and is targetted mainly at package and 
     should-be-string: "This doesn't error",
     complicated-tuple: (
       "neither@does-this.com",
-      "NOT AN IP", // Error: Schema validation failed on argument.complicated-tuple.1: 
-                   //        String must be a valid IP address
-      1 
-    )
+      // Error: Schema validation failed on argument.complicated-tuple.1: 
+      //        String must be a valid IP address
+      "NOT AN IP",
+      1,
+    ),
   ),
-  my-schema
+  my-schema,
 )
 ```

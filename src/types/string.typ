@@ -38,7 +38,7 @@
   transform: it=>it,
 ) = {
   // Program is ill-formed if length is set at the same time as min or max
-  
+
   // Type safety
   assert(type(default) in (str, type(none)),
     message: "Default of string must be of type string or none",
@@ -62,7 +62,7 @@
       message: "Includes must be an array of string or regex primitives",
     )
   }
-  
+
   assert(type(starts-with) in (str, regex, type(none)),
     message: "Starts-with must be of type string or regex",
   )
@@ -149,13 +149,13 @@
           it,
           ctx: ctx,
           scope: scope,
-          
+
           message: "String must start with " + str(self.starts-with))
       }
 
       // ends with
       if self.ends-with != none and not it.ends-with(self.ends-with) {
-        return (self.fail-validation)(self, it, ctx: ctx, scope: scope, 
+        return (self.fail-validation)(self, it, ctx: ctx, scope: scope,
           message: "String must end with " + str(self.ends-with))
       }
 

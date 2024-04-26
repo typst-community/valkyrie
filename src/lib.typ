@@ -22,14 +22,14 @@
 ) = {
   // don't expose to external
   import "base-type.typ": assert-base-type
-  
+
   // Validate named arguments
   assert-base-type(schema, scope: scope)
 
   // Validate arguments per schema
   object = (schema.validate)(
-      schema, 
-      ctx: ctx, 
+      schema,
+      ctx: ctx,
       scope: scope,
       object,
   )
