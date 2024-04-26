@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 #import "any.typ": any
 
 /// Valkyrie schema generator for array types. Array entries are validated by a single schema. For arrays with positional requirements, see @@tuple.
@@ -66,7 +66,7 @@
     custom-error: custom-error,
     transform: transform,
     
-    validate: (self, it, ctx: context(), scope: ()) => {
+    validate: (self, it, ctx: ctx(), scope: ()) => {
 
       // Default value
       if (it == none){ it = self.default }

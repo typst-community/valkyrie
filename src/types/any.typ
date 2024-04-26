@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 
 /// Validation schema representing all types. *SHOULD* never produce an error.
 ///
@@ -28,7 +28,7 @@
     custom-error: custom-error,
     transform: transform,
     
-    validate: (self, it, ctx: context(), scope: ()) => {
+    validate: (self, it, ctx: ctx(), scope: ()) => {
 
       // Default value
       if (it == none){ it = self.default }

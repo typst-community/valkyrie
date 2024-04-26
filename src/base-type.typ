@@ -1,4 +1,4 @@
-#import "context.typ": context
+#import "ctx.typ": ctx
 
 /// Asserts the presence of the magic number on the given object.
 ///
@@ -54,7 +54,7 @@
   return (
     valkyrie-type: true,
     
-    assert-type: (self, it, scope:(), ctx: context(), types: ()) => {
+    assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
       if ( type(it) not in types){
         (self.fail-validation)(self, it, scope: scope, ctx: ctx,
           message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
@@ -63,9 +63,9 @@
       return true
     },
     
-    validate: (self, it, scope: (), ctx: context()) => it,
+    validate: (self, it, scope: (), ctx: ctx()) => it,
     
-    fail-validation: (self, it, scope: (), ctx: context(), message: "") => {
+    fail-validation: (self, it, scope: (), ctx: ctx(), message: "") => {
       let display = "Schema validation failed on " + scope.join(".")
       if ( message.len() > 0){ display += ": " + message}
       ctx.outcome = display

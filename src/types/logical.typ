@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 
 /// Valkyrie schema generator for objects that can be any of multiple types.
 ///
@@ -18,9 +18,9 @@
 
   return (:..base-type(),
     name: name,
-    validate: (self, it, ctx: context(), scope: ()) => {
+    validate: (self, it, ctx: ctx(), scope: ()) => {
       for option in options {
-        let ret = (option.validate)(option, it, ctx: context(ctx, soft-error: true), scope: scope)
+        let ret = (option.validate)(option, it, ctx: ctx(ctx, soft-error: true), scope: scope)
         if ( ret != none ){ return ret }
       }
       // Somehow handle error? Not sure how to retrieve from ctx

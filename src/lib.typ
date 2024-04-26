@@ -1,17 +1,17 @@
 #import "types.typ": *
-#import "context.typ": context
+#import "ctx.typ": ctx
 #import "base-type.typ" as advanced
 
 /// This is the main function for validating an object against a schema. *WILL* return the given object after validation if successful, or none and *MAY* throw a failed assertion error.
 ///
 /// - object (any): Object to validate against provided schema. Object *SHOULD* statisfy the schema requirements. An error *MAY* be produced if not.
 /// - schema (schema): Schema against which `object` is validated. *MUST* be a valid valkyrie schema type.
-/// - ctx (context): Context passed to schema validator function, containing flags that *MAY* alter behaviour.
+/// - ctx (ctx): ctx passed to schema validator function, containing flags that *MAY* alter behaviour.
 /// - scope (scope): An array of strings used to generate the string representing the location of a failed requirement within `object`. *MUST* be an array of strings of length greater than or equal to `1`.
 /// -> any, none
 #let parse(
   object, schema,
-  ctx: context(),
+  ctx: ctx(),
   scope: ("argument",),
 ) = {
   

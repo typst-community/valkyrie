@@ -31,7 +31,7 @@
 
   // custom types
   "schema": rgb("#bda8ed"),
-  "context": rgb("#afeda8"),
+  "ctx": rgb("#afeda8"),
   "internal": rgb("#ff8c8c")
 )
 
@@ -58,7 +58,7 @@
 
 #let show-parameter-list(fn, display-type-function) = {
   pad(x: 10pt, {
-    set text(font: "Cascadia Mono", size: 0.85em, weight: 340)
+    set text(size: 0.85em, weight: 340)
     text(fn.name, fill: fn-color)
     "("
     let inline-args = fn.args.len() < 2

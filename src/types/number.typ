@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 
 /// Valkyrie schema generator for integer- and floating-point numbers
 ///
@@ -43,7 +43,7 @@
     transform: transform,
     types: types,
 
-    validate: (self, it, ctx: context(), scope: ()) => {
+    validate: (self, it, ctx: ctx(), scope: ()) => {
 
       // TO DO: Coercion
 

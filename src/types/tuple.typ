@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type-array
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 
 /// Valkyrie schema generator for an array type with positional type reqruiements. If all entries have the same type, see @@array.
 /// - name (internal):
@@ -19,7 +19,7 @@
   return (:..base-type(),
     name: name,
     tuple-schema: args,
-    validate: (self, tuple, ctx: context(), scope: () ) => {
+    validate: (self, tuple, ctx: ctx(), scope: () ) => {
 
       // assert type
       if not (self.assert-type)(self, tuple, scope: scope, ctx: ctx, types: (type(()),)){

@@ -21,7 +21,7 @@
   inset: 8pt,
   radius: 5pt,
   width: 100%,
-  text(font:"Consolas", it, size: 8.5pt,),
+  text(it, size: 8.5pt,),
 )
 
 // --------------------------------------------
@@ -68,7 +68,7 @@
 This documentation is generated using the Tidy package, and therefore, while every effort is made to ensure it is representative of the API, there may still be errors due to oversight. If you come across such an error, please make an issue (or pull request) on the GitHub repository.
 
 == Terminology
-As this package introduces several type-like objects, the Tidy style has had these added for clarity. At present, these are #style.show-type("schema") (to represent type-validating objects), #style.show-type("context") (to represent the current state of the parsing heuristic), and #style.show-type("scope") (an array of strings that represents the parent object of values being parsed). #style.show-type("internal") represents arguments that, while settable by the end-user, should be reserved for internal or advanced usage.
+As this package introduces several type-like objects, the Tidy style has had these added for clarity. At present, these are #style.show-type("schema") (to represent type-validating objects), #style.show-type("ctx") (to represent the current state of the parsing heuristic), and #style.show-type("scope") (an array of strings that represents the parent object of values being parsed). #style.show-type("internal") represents arguments that, while settable by the end-user, should be reserved for internal or advanced usage.
 
 Generally, users of this package will only need to be aware of the #style.show-type("schema") type.
 
@@ -110,7 +110,7 @@ Generally, users of this package will only need to be aware of the #style.show-t
 
     let modules = (
         "../src/lib.typ",
-        "../src/context.typ",
+        "../src/ctx.typ",
     )
 
     for module in modules {
@@ -224,7 +224,7 @@ For the most advanced types, creating a schema generator from scratch may be the
     name: "my-type", // Member sometimes used by other classes when they report a failed validation
     
     // Helper function, generally called by validate()
-    assert-type: (self, it, scope:(), ctx: context(), types: ()) => {
+    assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
       if ( type(it) not in types){
         (self.fail-validation)(self, it, scope: scope, ctx: ctx,
           message: "Expected " + joinWithAnd(types, ", ", " or ") + ". Got " + type(it))

@@ -1,5 +1,5 @@
 #import "../base-type.typ": base-type, assert-base-type-dictionary
-#import "../context.typ": context
+#import "../ctx.typ": ctx
 
 /// Valkyrie schema generator for dictionary types
 ///
@@ -18,7 +18,7 @@
   return (:..base-type(),
     name: "dictionary",
     dictionary-schema: args,
-    validate: (self, dict, ctx: context(), scope: ("arguments",) ) => {
+    validate: (self, dict, ctx: ctx(), scope: ("arguments",) ) => {
 
 
       // assert type
