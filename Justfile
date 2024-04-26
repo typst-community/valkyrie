@@ -1,7 +1,6 @@
 root := justfile_directory()
 
 export TYPST_ROOT := root
-# export TYPST_FONT_PATHS := root / 'assets' / 'fonts'
 
 [private]
 default:
