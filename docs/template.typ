@@ -15,13 +15,13 @@
   set document(author: authors, title: title)
   set page(numbering: "1", number-align: center)
   set text(font: "Linux Libertine", lang: "en")
-  
+
   show heading.where(level: 1): it => block(smallcaps(it), below: 1em)
   set heading(numbering: (..args) => if args.pos().len() == 1 { numbering("I", ..args) })
 
   // show link: set text(fill: purple.darken(30%))
   show link: set text(fill: rgb("#1e8f6f"))
-  
+
   v(4em)
 
   // Title row.
@@ -29,7 +29,7 @@
     #block(text(weight: 700, 1.75em, title))
     #block(text(1.0em, subtitle))
     #v(4em, weak: true)
-    #version #h(1.2cm) #date 
+    #version #h(1.2cm) #date
     #block(link(url))
     #v(1.5em, weak: true)
   ]
@@ -46,7 +46,7 @@
   )
 
   //v(3cm, weak: true)
-  
+
   // Abstract.
   pad(
     x: 3.8em,
@@ -64,6 +64,9 @@
 
   // Main body.
   set par(justify: true)
+  show list: set par(justify: false)
+  show enum: set par(justify: false)
+  show raw.where(block: true): set par(justify: false)
   //v(10em)
 
   body

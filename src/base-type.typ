@@ -1,4 +1,4 @@
-#import "context.typ": context
+#import "ctx.typ": z-ctx
 
 /// Asserts the presence of the magic number on the given object.
 ///
@@ -17,8 +17,8 @@
 /// - scope (scope): Array of strings containing information for error generation.
 /// -> none
 #let assert-base-type-array(arg, scope: ("arguments",)) = {
-  for (name, value) in arg.enumerate(){ 
-    assert-base-type(value, scope: (..scope, str(name))) 
+  for (name, value) in arg.enumerate() {
+    assert-base-type(value, scope: (..scope, str(name)))
   }
 }
 
@@ -28,11 +28,10 @@
 /// - scope (scope): Array of strings containing information for error generation.
 /// -> none
 #let assert-base-type-dictionary(arg, scope: ("arguments",)) = {
-  for (name, value) in arg{ 
-    assert-base-type(value, scope: (..scope, name)) 
+  for (name, value) in arg {
+    assert-base-type(value, scope: (..scope, name))
   }
 }
-
 
 /// Asserts the presence of the magic number in an argument of object.
 ///
@@ -40,38 +39,34 @@
 /// - scope (scope): Array of strings containing information for error generation.
 /// -> none
 #let assert-base-type-arguments(arg, scope: ("arguments",)) = {
-  for (name, value) in arg.named(){ 
-    assert-base-type(value, scope: (..scope, name)) 
+  for (name, value) in arg.named() {
+    assert-base-type(value, scope: (..scope, name))
   }
-  
-  for (pos, value) in arg.pos().enumerate(){ 
-    assert-base-type(value, scope: (..scope, "[" + pos + "]")) 
+
+  for (pos, value) in arg.pos().enumerate() {
+    assert-base-type(value, scope: (..scope, "[" + pos + "]"))
   }
 }
 
 /// Schema generator. Provides default values for when defining custom types.
-#let base-type() = {
-  return (
-    valkyrie-type: true,
-    
-    assert-type: (self, it, scope:(), ctx: context(), types: ()) => {
-      if ( type(it) not in types){
-        (self.fail-validation)(self, it, scope: scope, ctx: ctx,
-          message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
-        return false
-      }
-      return true
-    },
-    
-    validate: (self, it, scope: (), ctx: context()) => it,
-    
-    fail-validation: (self, it, scope: (), ctx: context(), message: "") => {
-      let display = "Schema validation failed on " + scope.join(".")
-      if ( message.len() > 0){ display += ": " + message}
-      ctx.outcome = display
-      if ( not ctx.soft-error ) {
-        assert(false, message: display)
-      }
+#let base-type() = (
+  valkyrie-type: true,
+  assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
+    if type(it) not in types {
+      (self.fail-validation)(self, it, scope: scope, ctx: ctx,
+        message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
+      return false
     }
-  )
-}
+
+    true
+  },
+  validate: (self, it, scope: (), ctx: z-ctx()) => it,
+  fail-validation: (self, it, scope: (), ctx: z-ctx(), message: "") => {
+    let display = "Schema validation failed on " + scope.join(".")
+    if message.len() > 0 { display += ": " + message}
+    ctx.outcome = display
+    if not ctx.soft-error {
+      assert(false, message: display)
+    }
+  }
+)
