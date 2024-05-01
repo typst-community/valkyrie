@@ -31,7 +31,7 @@
 #v(2fr)
 = Example usage
 ```typ
-#import "@preview/valkyrie:0.1.0" as z
+#import "@preview/valkyrie:0.1.2" as z
 
 #let my-schema = z.dictionary(
   should-be-string: z.string(),
