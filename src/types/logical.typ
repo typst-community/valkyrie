@@ -33,3 +33,21 @@
     }
   )
 }
+
+
+#let optional(option) = {
+
+  assert-base-type(option, scope: ("arguments",))
+  // todo(james): Probably a better naming convention that this
+  let name = "<optional>" + option.name
+
+  base-type() + (
+    name: name,
+    validation: (self, it, ctx: z-ctx(), scope: ()) => {
+      let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
+      if ret != none { return ret }
+      return auto;
+    }
+  )
+
+}

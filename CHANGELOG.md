@@ -3,6 +3,7 @@
 - boolean validation type
 - content validation type. Also accepts strings which are coerced into content types.
 - color validation type.
+- optional validation type. If a schema yields a validation error, the error is suppressed and the returned value is 'auto'
 ## Removed
 
 ## Changed
