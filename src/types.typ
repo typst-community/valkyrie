@@ -1,5 +1,6 @@
 #import "types/any.typ": *
 #import "types/array.typ": *
+#import "types/color.typ": *
 #import "types/content.typ": *
 #import "types/dictionary.typ": *
 #import "types/logical.typ": *
