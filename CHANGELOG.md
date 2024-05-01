@@ -1,5 +1,6 @@
 # [unreleased](https://github.com/jamesxX/valakyrie/releases/tags/)
 ## Added
+- boolean validation type
 - content validation type. Also accepts strings which are coerced into content types.
 - color validation type.
 ## Removed
