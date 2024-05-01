@@ -1,7 +1,7 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
 
-/// Valkyrie schema generator for integer- and floating-point numbers
+/// Valkyrie schema generator for strings
 ///
 /// - name (internal):
 /// - default (string): Default value to set if none is provided. *MUST* respect all other
