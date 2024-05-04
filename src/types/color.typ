@@ -8,7 +8,7 @@
 ) = {
 
     // Type safety
-  assert(type(default) in (rgb, type(none)),
+  assert(type(default) in (type(rgb(0,0,0)), type(none)),
     message: "Default of color must be of type color or none",
   )
 
@@ -21,7 +21,7 @@
       if it == none { it = self.default }
 
       // Content must be content or string
-      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( rgb, )) {
+      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( type(rgb(0,0,0)), )) {
         return none
       }
 
