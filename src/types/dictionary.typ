@@ -35,7 +35,11 @@
 
       // Check elements
       for (key, schema) in self.dictionary-schema{
-        dict.at(key) = (schema.validate)(schema, dict.at(key), ctx: ctx, scope: (..scope, str(key)))
+        dict.insert(key, (schema.validate)(
+          schema, 
+          dict.at(key, default: none), 
+          ctx: ctx, 
+          scope: (..scope, str(key))))
       }
 
       dict
