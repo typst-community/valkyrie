@@ -65,8 +65,6 @@
     let display = "Schema validation failed on " + scope.join(".")
     if message.len() > 0 { display += ": " + message}
     ctx.outcome = display
-    if not ctx.soft-error {
-      assert(false, message: display)
-    }
+    assert(ctx.soft-error, message: display)
   }
 )
