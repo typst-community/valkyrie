@@ -21,7 +21,7 @@
       if it == none { it = self.default }
 
       // Content must be content or string
-      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( bool )) {
+      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( bool, )) {
         return none
       }
 
