@@ -41,6 +41,6 @@
     }
   }
 
-  object
+  return object
 }
 
