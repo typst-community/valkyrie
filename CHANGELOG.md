@@ -1,9 +1,10 @@
 # [unreleased](https://github.com/jamesxX/valakyrie/releases/tags/)
 ## Added
-- boolean validation type
-- content validation type. Also accepts strings which are coerced into content types.
-- color validation type.
-- optional validation type. If a schema yields a validation error, the error is suppressed and the returned value is 'auto'
+- `Boolean` validation type
+- `Content` validation type. Also accepts strings which are coerced into content types.
+- `Color` validation type.
+- `Optional` validation type. If a schema yields a validation error, the error is suppressed and the returned value is 'auto'
+- `Choice` validation type. Tested value must be contained within the listed choices.
 ## Removed
 
 ## Changed
