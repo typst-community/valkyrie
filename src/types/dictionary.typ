@@ -19,6 +19,9 @@
     name: "dictionary",
     dictionary-schema: args,
     validate: (self, dict, ctx: z-ctx(), scope: ("arguments",) ) => {
+      
+      if (dict == none){ dict = (:)}
+      
       // assert type
       if not (self.assert-type)(self, dict, scope: scope, ctx: ctx, types: (type((:)),)) {
         return none
