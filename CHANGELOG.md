@@ -8,6 +8,7 @@
 
 ## Changed
 - fixed error in documentation for string type (previously read that it worked on numbers)
+- Dictionaries that don't have a member that is present in the schema no longer produce an error outside of strict contexts.
 ---
 
 # [v0.1.1](https://github.com/jamesxX/valakyrie/releases/tags/v0.1.1)
