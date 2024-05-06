@@ -102,5 +102,5 @@
 /// Specialization of @@number() that is only satisfied by floating point numbers. Parameters of @@number remain available for further requirments.
 #let floating-point = number.with( name: "float", types: (float,))
 
-/// Specialization of @@integer() that is only satisfied by positive whole numbers. Parameters of @@number remain available for further requirments.
+/// Specialization of `#integer()` that is only satisfied by positive whole numbers. Parameters of @@number remain available for further requirments.
 #let natural = number.with( name: "natural number", types: (int,), min: 0)
