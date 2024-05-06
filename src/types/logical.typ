@@ -3,6 +3,17 @@
 
 /// Valkyrie schema generator for objects that can be any of multiple types.
 ///
+/// #example(`
+/// #let schema = z.either(
+///   z.string(),
+///   z.number()
+///);
+/// string: #z.parse("hello", schema) \
+/// number: #z.parse(123, schema) \
+/// // something else: #z.parse([content], schema)
+/// // -> assertion failed: Schema validation failed on argument: Type failed to match any of possible options: string or number. Got content
+///`)
+///
 /// - ..options (schema): Variadic position arguments for possible types. *MUST* have at least `1`
 ///   positional argument. Schemas *SHOULD* be given in order of "preference".
 /// -> schema
@@ -26,7 +37,7 @@
       }
 
       let message = ("Type failed to match any of possible options: "
-        + options.map(it => it.name).join(", ", last: " or "))
+        + options.map(it => it.name).join(", ", last: " or ") + ". Got " + type(it))
 
       // TODO(james): Somehow handle error? Not sure how to retrieve from ctx
       (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)

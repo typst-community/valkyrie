@@ -31,7 +31,7 @@
     type: z.content(),
     date: z.string()
   )),
-  //paper: z.papersize(default: "a4"),
+  paper: z.papersize(default: "a4"),
   authors: z.array(z.dictionary(
     name: z.string(),
     corresponding: z.boolean(default: false),

@@ -1,11 +1,20 @@
 #import "../base-type.typ": base-type, assert-base-type-dictionary
 #import "../ctx.typ": z-ctx
 
-/// Valkyrie schema generator for dictionary types
+/// Valkyrie schema generator for dictionary types. Named arguments define validation schema for entries. Dictionaries can be nested.
+///
+/// #example(`
+/// #let schema = z.dictionary(
+///   key1: z.string(),
+///   key2: z.number()
+///);
+/// #z.parse((key1: "hello", key2: 0), schema)
+///`)
 ///
 /// - ..args (schema): Variadic named arguments, the values for which are schema types. *MUST* not
-///   contain positional arguments.
+///   contain positional arguments. Argument name *MUST* match key name in dictionary type being validated. Argument value *MUST* be a schema type.
 /// -> schema
+///
 #let dictionary(
   ..args
 ) = {
