@@ -3,18 +3,18 @@
 
 /// Valkyrie schema generator for integer- and floating-point numbers
 ///
-/// - name (internal):
-/// - default (integer, float, none): Default value to set if none is provided. *MUST* respect all
+/// - name (internal): Used internally to generate error messages.
+/// - default (integer, float, none): *OPTIONAL* default value to set if none is provided. *MUST* respect all
 ///   other validation requirements.
-/// - min (integer, none): If not none, the minimum value that satisfies the validation. The program
+/// - min (integer, none): *OPTIONAL* minimum value that satisfies the validation. The program
 ///   is *ILL-FORMED* if `min` is greater than `max`.
-/// - max (integer, none): If not none, the maximum value that satisfies the validation. The program
+/// - max (integer, none): *OPTIONAL* maximum value that satisfies the validation. The program
 ///   is *ILL-FORMED* if `max` is less than `min`.
-/// - custom (function, none): If not none, a function that, if itself returns none, will produce
+/// - custom (function, none): *OPTIONAL* function that, if itself returns none, *WILL* produce
 ///   the error set by `custom-error`.
-/// - custom-error (string, none): If set, the error produced upon failure of `custom`.
-/// - transform (function): a mapping function called after validation.
-/// - types (internal):
+/// - custom-error (string, none): *OPTIONAL* error produced upon failure of `custom`.
+/// - transform (function): *OPTIONAL* mapping function called after validation.
+/// - types (internal): Used internally to correctly specialize.
 /// -> schema
 #let number(
   name: "number",

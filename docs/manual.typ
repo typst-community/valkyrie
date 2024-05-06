@@ -118,4 +118,89 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 #mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper") #pagebreak()
 
 === Tuple
-#mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")
+#mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")#pagebreak()
+
+= Advanced Documentation
+
+== Internal functions
+The following functions are made available to users under the `z.advanced` namespace.
+#mantys.tidy-module(read("/src/base-type.typ"), name: "chemicoms-paper")#pagebreak()
+
+The Typst package ecosystem is large and evergrowing. Eventually, someone, somewhere, will want to validate a type or structure that has never been seen before. If this describes your situation, the following guide may be of use. This section covers different ways complicated types can be defined.
+
+== Type specialization
+
+=== Novice
+It may be the case that your type is simply a narrowing of an already-defined type. In such cases, it may be easy to add a validator for your code. For example, to create a validator for numbers between 5 and 10, you could so as as follows:
+
+```typ
+#let specific-number = z.number.with(min: 5, max: 10)
+```
+
+=== Intermediate
+If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable.
+```typ
+#let specific-number = z.number.with(
+  custom: it => 5 < it and it < 10,
+  custom-error: "Value was incorrect",
+)
+```
+
+=== Advanced
+If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore.
+```typ
+#let specific-number(..args) = z.number(..args) + (
+  // Configure values manually, perhaps override functions.
+  // Check source code of schema generator being bootstrapped.
+)
+```
+
+=== Wizard
+For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simply define a function that returns a schema-like dictionary.
+
+```typ
+#let tuple(my-args, ...) = {
+  // Shorthand for the definitions shown below. If you do not modify a function,
+  // you may as well omit it and have it set to its default by base-type()
+  z.advanced.base-type() + (
+    // Magic number
+    valkyrie-type: true,
+    // Member sometimes used by other classes when they report a failed validation
+    name: "my-type",
+    // Helper function, generally called by validate()
+    assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
+      if type(it) not in types {
+        (self.fail-validation)(
+          self,
+          it,
+          scope: scope,
+          ctx: ctx,
+          message: (
+            "Expected "
+            + joinWithAnd(types, ", ", " or ")
+            + ". Got "
+            + type(it)
+          ),
+        )
+        return false
+      }
+
+      true
+    },
+
+    // Do your validation here. Call fail-validation() if validation failed.
+    // Generally, return none also.
+    validate: (self, it, scope: (), ctx: (:)) => it,
+
+    // Customize the mode of failure here
+    fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
+      let display = "Schema validation failed on " + scope.join(".")
+      if message.len() > 0 { display += ": " + message}
+      ctx.outcome = display
+      if not ctx.soft-error {
+        assert(false, message: display)
+      }
+    }
+  )
+}
+```

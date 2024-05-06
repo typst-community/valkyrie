@@ -11,7 +11,7 @@
 /// #z.parse((key1: "hello", key2: 0), schema)
 ///`)
 ///
-/// - ..args (schema): Variadic named arguments, the values for which are schema types. *MUST* not
+/// - ..args (schema): Variadic named arguments, the values for which are schema types. *MUST NOT* 
 ///   contain positional arguments. Argument name *MUST* match key name in dictionary type being validated. Argument value *MUST* be a schema type.
 /// -> schema
 ///

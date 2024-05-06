@@ -22,7 +22,7 @@
   }
 }
 
-/// Asserts the presence of the magic number in a dictionary of object.
+/// Asserts the presence of the magic number in all entries of a dictionary of objects.
 ///
 /// - arg (any):
 /// - scope (scope): Array of strings containing information for error generation.
