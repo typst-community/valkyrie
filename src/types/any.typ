@@ -1,7 +1,9 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
 
-/// This function yields a validation schema that should be satisfied by all inputs. It can be further specialized by providing a custom validation function and custom validation error, for the rapid implementation of novel types.
+/// This function yields a validation schema that should be satisfied by all inputs. It can be further 
+/// specialized by providing a custom validation function and custom validation error, for the rapid 
+/// implementation of novel types.
 ///
 /// - name (internal): Used internally to generate error messages.
 /// - default (any, none): *OPTIONAL* default value to validate if none is provided.

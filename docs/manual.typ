@@ -60,6 +60,7 @@
 #z.parse(
   (
     title: [],
+    paper: "a3",
     disable: (footer: true),
     authors: ( (name: "Example"),)
   ),
