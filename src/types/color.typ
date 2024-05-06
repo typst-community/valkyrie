@@ -1,8 +1,12 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
 
+/// This function yields a validation schema that is satisfied only by color types.
+/// - default (any, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
+///   validation.
+/// - transform (function): *OPTIONAL* mapping function called after validation.
+/// -> schema
 #let color(
-  name: "color",
   default: none,
   transform: it=>it,
 ) = {
@@ -13,7 +17,7 @@
   )
 
   base-type() + (
-    name: name,
+    name: "color",
     default: default,
     transform: transform,
     validate : (self, it, ctx: z-ctx(), scope: ()) => {
