@@ -7,7 +7,6 @@
 /// - transform (function): *OPTIONAL* mapping function called after validation.
 /// -> schema
 #let boolean(
-  name: "bool",
   default: none,
   transform: it=>it,
 ) = {
@@ -18,7 +17,7 @@
   )
 
   base-type() + (
-    name: name,
+    name: "bool",
     default: default,
     transform: transform,
     validate : (self, it, ctx: z-ctx(), scope: ()) => {
