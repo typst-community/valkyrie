@@ -1,14 +1,14 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
 
-/// Validation schema representing all types. *SHOULD* never produce an error.
+/// This function yields a validation schema that should be satisfied by all inputs. It can be further specialized by providing a custom validation function and custom validation error, for the rapid implementation of novel types.
 ///
-/// - name (internal):
-/// - default (any, none): Default value to validate is none is provided.
-/// - custom (function): Function that maps an input to an output. If the function returns `none`,
+/// - name (internal): Used internally to generate error messages.
+/// - default (any, none): *OPTIONAL* default value to validate if none is provided.
+/// - custom (function): *OPTIONAL* function that maps an input to an output. If the function returns `none`,
 ///   then an error *WILL* be generated using `custom-error`.
-/// - custom-error (string): Error to return if custom function returns none.
-/// - transform (function): Function that maps an input to an output, called after validation.
+/// - custom-error (string): *OPTIONAL* error to return if custom function returns none.
+/// - transform (function): *OPTIONAL* function that maps an input to an output, called after validation.
 /// -> schema
 #let any(
   name: "any",

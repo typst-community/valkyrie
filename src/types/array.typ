@@ -2,23 +2,25 @@
 #import "../ctx.typ": z-ctx
 #import "any.typ": any
 
-/// Valkyrie schema generator for array types. Array entries are validated by a single schema. For
-/// arrays with positional requirements, see @@tuple.
+/// This function yields a validation schema that is satisfied by an array of entries than themselves
+/// satisfy the schema defined in the sink argument. Array entries are validated by a single schema. 
+/// For arrays with positional requirements, see @@tuple. If no schema for child entries is provided,
+/// entries are validated against @@any.
 ///
-/// - name (internal):
-/// - default (array, none): Default value to set if no value is provided. *MUST* itself pass
+/// - name (internal): Used internally to generate error messages.
+/// - default (array, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
 ///   validation.
-/// - min (integer, none): If not none, the minimum array length that satisfies the validation.
+/// - min (integer, none): *OPTIONAL* minimum array length that satisfies the validation.
 ///   *MUST* be a positive integer. The program is *ILL-FORMED* if `min` is greater than `max`.
-/// - max (integer, none): If not none, the maximum array length that satisfies the validation.
+/// - max (integer, none): *OPTIONAL* maximum array length that satisfies the validation.
 ///   *MUST* be a positive integer. The program is *ILL-FORMED* if `max` is less than `min`.
-/// - length (integer, auto): If not auto, the exact array length that satisfies validation. *MUST*
+/// - length (integer, auto): *OPTIONAL* exact array length that satisfies validation. *MUST*
 ///   be a positiive integer. The program *MAY* be *ILL-FORMED* is concurrently set with either
 ///   `min` or `max`.
-/// - custom (function, none): If not none, a function that, if itself returns none, will produce
+/// - custom (function, none): *OPTIONAL* function that, if itself returns none, will produce
 ///   the error set by `custom-error`.
-/// - custom-error (string, none): If set, the error produced upon failure of `custom`.
-/// - transform (function): a mapping function called after validation.
+/// - custom-error (string, none): *OPTIONAL* error message produced upon failure of `custom`.
+/// - transform (function): *OPTIONAL* mapping function called after validation.
 /// - ..args (schema, none): Variadic positional arguments of length `0` or `1`. *SHOULD* not
 ///   contain named arguments. If no arguments are given, schema defaults to array of @@any
 /// -> schema

@@ -1,8 +1,13 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
 
+/// This function yields a validation schema that is satisfied only by the values `true` or `false`.
+/// - default (bool, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
+///   validation.
+/// - transform (function): *OPTIONAL* mapping function called after validation.
+/// -> schema
 #let boolean(
-  name: "color",
+  name: "bool",
   default: none,
   transform: it=>it,
 ) = {
@@ -20,7 +25,7 @@
       // Default value
       if it == none { it = self.default }
 
-      // Content must be content or string
+      // assert boolean type
       if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( bool, )) {
         return none
       }

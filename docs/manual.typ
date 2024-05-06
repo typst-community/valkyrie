@@ -74,17 +74,38 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 #mantys.tidy-module(read("/src/lib.typ"), name: "chemicoms-paper")
 #mantys.tidy-module(read("/src/ctx.typ"), name: "chemicoms-paper")
 
+#pagebreak()
 == Schema definition functions
 
+=== Any
+#mantys.tidy-module(read("/src/types/any.typ"), name: "chemicoms-paper") #pagebreak()
 
-#mantys.tidy-module(read("/src/types/any.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/array.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/boolean.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/choice.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/color.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/content.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/dictionary.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/logical.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/number.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper")
+=== Array
+#mantys.tidy-module(read("/src/types/array.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Boolean
+#mantys.tidy-module(read("/src/types/boolean.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Choice
+#mantys.tidy-module(read("/src/types/choice.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Color
+#mantys.tidy-module(read("/src/types/color.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Content
+#mantys.tidy-module(read("/src/types/content.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Dictionary
+#mantys.tidy-module(read("/src/types/dictionary.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Logical 
+#mantys.tidy-module(read("/src/types/logical.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Number
+#mantys.tidy-module(read("/src/types/number.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== String
+#mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper") #pagebreak()
+
+=== Tuple
 #mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")
