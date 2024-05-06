@@ -20,6 +20,8 @@
 
 #mantys.add-type("schema", color: rgb("#bda8ed"))
 #mantys.add-type("z-ctx", color: rgb("#afeda8"))
+// #mantys.add-type("scope", color: rgb("#afeda8"))
+#mantys.add-type("internal", color: rgb("#ff8c8c"))
 
 #mantys.example(side-by-side: true)[```typst
 #let template-schema = z.dictionary(
@@ -56,7 +58,11 @@
 
 
 #z.parse(
-  (title: [],disable: (footer: true),),
+  (
+    title: [],
+    disable: (footer: true),
+    authors: ( (name: "Example"),)
+  ),
   template-schema,
 )
 
@@ -64,11 +70,14 @@
 
 = Documentation
 == Terminology
-== Specifig language
+As this package introduces several type-like objects, the Tidy style has had these added for clarity. At present, these are #mantys.dtype("schema") (to represent type-validating objects), #mantys.dtype("z-ctx") (to represent the current state of the parsing heuristic), and #mantys.dtype("scope") (an array of strings that represents the parent object of values being parsed). #mantys.dtype("internal") represents arguments that, while settable by the end-user, should be reserved for internal or advanced usage.
 
+Generally, users of this package will only need to be aware of the #mantys.dtype("schema") type.
+
+== Specifig language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in #link("http://www.ietf.org/rfc/rfc2119.txt", [RFC 2119]).
 
-
+#pagebreak()
 == Parsing functions
 
 #mantys.tidy-module(read("/src/lib.typ"), name: "chemicoms-paper")

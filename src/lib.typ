@@ -10,7 +10,7 @@
 /// - schema (schema): Schema against which `object` is validated. *MUST* be a valid valkyrie schema
 ///   type.
 /// - ctx (z-ctx): ctx passed to schema validator function, containing flags that *MAY* alter
-///   behaviour.
+///   behaviour. See @@z-ctx.
 /// - scope (scope): An array of strings used to generate the string representing the location of a
 ///   failed requirement within `object`. *MUST* be an array of strings of length greater than or
 ///   equal to `1`.
