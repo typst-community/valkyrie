@@ -34,13 +34,6 @@
       object,
   )
 
-  // Require arguments match schema exactly in strict mode
-  if ctx.strict {
-    for (argument-name, argument-value) in object {
-      assert(argument-name in schema, message: "Unexpected argument " + argument-name)
-    }
-  }
-
   return object
 }
 

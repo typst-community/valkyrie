@@ -29,9 +29,9 @@
 
       // If strict mode, ensure dictionary exactly matches schema
       if ctx.strict {
-        for (key, value) in self.dictionary-schema {
-          if ( key not in dict ){
-            (self.fail-validation)(self, dict, ctx: ctx, scope: (..scope, key), message: "Missing expected dictionary entry")
+        for (key, value) in dict {
+          if ( key not in self.dictionary-schema ){
+            (self.fail-validation)(self, dict, ctx: ctx, scope: (..scope, key), message: "Unexpected entry with `strict` flag enabled")
           }
         }
       }

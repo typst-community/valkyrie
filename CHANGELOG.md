@@ -8,9 +8,10 @@
 ## Removed
 
 ## Changed
-- fixed error in documentation for string type (previously read that it worked on numbers)
+- fixed error in documentation for string type (previously read that it worked on numbers).
 - Dictionaries that don't have a member that is present in the schema no longer produce an error outside of strict contexts.
-- **(Potentially breaking)** Dictionaries default to empty dictionaries rather than none 
+- **(Potentially breaking)** Dictionaries default to empty dictionaries rather than none.
+- **(Potentially breaking)** `strict` contextual flag is now applied on the type level rather than directly in the parse function. It is currently only applied in the dictionary type, and will cause an assertion to fail if set to `true` when object being validated contains keys unknown to the schema.
 ---
 
 # [v0.1.1](https://github.com/jamesxX/valakyrie/releases/tags/v0.1.1)
