@@ -18,7 +18,7 @@
     transform: transform,
     validate : (self, it, ctx: z-ctx(), scope: ()) => {
       // Default value
-      if it == none { it = self.default }
+      it = if ( it == none ) {self.default} else {(self.pre-transform)(it)}
 
       // Content must be content or string
       if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: (type(""), type([]), )) {

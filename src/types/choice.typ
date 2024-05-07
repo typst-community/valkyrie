@@ -1,5 +1,7 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
+#import "./any.typ": any
 
 /// This function yields a validation schema that is satisfied only by the values given by an array in the 1st positional argument (`list`)
 /// - default (any, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
@@ -10,26 +12,30 @@
 #let choice(
   name: "enum",
   default: none,
-  transform: it => it,
+  assertions: (),
+  pre-transform: it=>it,
+  post-transform: it=>it,
   list
 ) = {
 
-  base-type() + (
+  assert-types(assertions, types: (type(()),), name: "Assertions")
+  assert-types(pre-transform, types: (function,), name: "Pre-transform")
+  assert-types(post-transform, types: (function,), name: "Post-transform")
+
+  any() + (
     name: name,
     default: default,
-    transform: transform,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
     list: list,
-    validate: (self, it, ctx: z-ctx(), scope: ()) => {
-      // Default value
-      if (it == none){ it = self.default }
-
-      // Custom
-      if (not self.list.contains(it)) {
-        return (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: "Unknown " + self.name + " `" + it + "`")
-      }
-
-      (self.transform)(it)
-    }
+    assertions: (
+      (
+        precondition: "list",
+        condition: (self, it)=>self.list.contains(it),
+        message: (self, it)=> "Unknown " + self.name + " `" + it + "`"
+      ),
+      ..assertions
+    ),
   )
 
 }

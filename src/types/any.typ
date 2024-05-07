@@ -1,5 +1,6 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
 
 /// This function yields a validation schema that should be satisfied by all inputs. It can be further 
 /// specialized by providing a custom validation function and custom validation error, for the rapid 
@@ -15,35 +16,24 @@
 #let any(
   name: "any",
   default: none,
-  custom: none,
-  custom-error: auto,
-  transform: it => it,
+  assertions: (),
+  pre-transform: it => it,
+  post-transform: it => it,
 ) = {
-  assert(type(custom) in (function, type(none)), message: "Custom must be a function")
-  assert(type(custom-error) in (str, type(auto)), message: "Custom-error must be a string")
-  assert(type(transform) == function,
-    message: "Transform must be a function that maps an input to an output",
-  )
+
+  assert-types(default, types: (type(()),), name: "Default")
+  assert-types(assertions, types: (type(()),), name: "Assertions")
+  assert-types(pre-transform, types: (function,), name: "Pre-transform")
+  assert-types(post-transform, types: (function,), name: "Post-transform")
 
   base-type() + (
     name: name,
     default: default,
-    custom: custom,
-    custom-error: custom-error,
-    transform: transform,
-
-    validate: (self, it, ctx: z-ctx(), scope: ()) => {
-      // Default value
-      if (it == none){ it = self.default }
-
-      // Custom
-      if self.custom != none and not (self.custom)(it) {
-        let message = "Failed on custom check: " + repr(self.custom)
-        if ( self.custom-error != auto ){ message = self.custom-error }
-        return (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)
-      }
-
-      (self.transform)(it)
-    }
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+    assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
+      true
+    },
   )
 }

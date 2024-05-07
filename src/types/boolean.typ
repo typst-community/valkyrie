@@ -1,5 +1,6 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
 
 /// This function yields a validation schema that is satisfied only by the values `true` or `false`.
 /// - default (bool, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
@@ -8,29 +9,21 @@
 /// -> schema
 #let boolean(
   default: none,
-  transform: it=>it,
+  pre-transform: it=>it,
+  post-transform: it=>it,
 ) = {
 
-    // Type safety
-  assert(type(default) in (bool, type(none)),
-    message: "Default of boolean must be of type boolean or none",
-  )
+  // Type safety
+  assert-types(default, types: (bool,), name: "default")
+  assert-types(pre-transform, types: (function,), name: "Pre-transform")
+  assert-types(post-transform, types: (function,), name: "Post-transform")
 
   base-type() + (
     name: "bool",
     default: default,
-    transform: transform,
-    validate : (self, it, ctx: z-ctx(), scope: ()) => {
-      // Default value
-      if it == none { it = self.default }
-
-      // assert boolean type
-      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( bool, )) {
-        return none
-      }
-
-      (self.transform)(it)
-    }
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+    types: ( bool, )
   )
 
 }
