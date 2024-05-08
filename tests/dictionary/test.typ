@@ -10,7 +10,7 @@
   )
 
   _ = z.parse(test-dictionary, z.dictionary(
-    string: z.string(min: 4),
+    string: z.string(assertions: (z.assert.length.min(5),)),
     number: z.number(),
     email: z.email(),
     ip: z.ip(),

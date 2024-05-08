@@ -1,45 +1,29 @@
-#import "../base-type.typ": base-type, assert-base-type
+#import "../base-type.typ": base-type, assert-base-type, assert-base-type-array
 #import "../ctx.typ": z-ctx
 
 /// Valkyrie schema generator for objects that can be any of multiple types.
 ///
-/// #example(`
-/// #let schema = z.either(
-///   z.string(),
-///   z.number()
-///);
-/// string: #z.parse("hello", schema) \
-/// number: #z.parse(123, schema) \
-/// // something else: #z.parse([content], schema)
-/// // -> assertion failed: Schema validation failed on argument: Type failed to match any of possible options: string or number. Got content
-///`)
-///
-/// - ..options (schema): Variadic position arguments for possible types. *MUST* have at least `1`
-///   positional argument. Schemas *SHOULD* be given in order of "preference".
 /// -> schema
 #let either(..options) = {
   let options = options.pos()
 
   assert(options.len() > 0 , message: "z.either requires 1 or more arguments.")
-
-  for option in options {
-    assert-base-type(option, scope: ("arguments",))
-  }
+  assert-base-type-array(options, scope: ("arguments",))
 
   let name = "[" + options.map(it => it.name).join( ", ", last: " or ") + "]"
 
   base-type() + (
     name: name,
+    options: options,
     validate: (self, it, ctx: z-ctx(), scope: ()) => {
-      for option in options {
+      for option in self.options {
         let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
         if ret != none { return ret }
       }
 
       let message = ("Type failed to match any of possible options: "
-        + options.map(it => it.name).join(", ", last: " or ") + ". Got " + type(it))
+        + self.options.map(it => it.name).join(", ", last: " or ") + ". Got " + type(it))
 
-      // TODO(james): Somehow handle error? Not sure how to retrieve from ctx
       (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)
     }
   )
@@ -52,12 +36,14 @@
   // todo(james): Probably a better naming convention that this
   let name = "<optional>" + option.name
 
+  // todo: Change design. Somehow detect if there was an error and discard value?
+
   base-type() + (
     name: name,
     validation: (self, it, ctx: z-ctx(), scope: ()) => {
       let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
       if ret != none { return ret }
-      return auto;
+      // return auto;
     }
   )
 

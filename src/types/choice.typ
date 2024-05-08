@@ -4,10 +4,7 @@
 #import "./any.typ": any
 
 /// This function yields a validation schema that is satisfied only by the values given by an array in the 1st positional argument (`list`)
-/// - default (any, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
-///   validation.
-/// - transform (function): *OPTIONAL* mapping function called after validation.
-/// - list (array): *REQUIRED* array of inputs that satisfy the schema validation.
+/// 
 /// -> schema
 #let choice(
   name: "enum",
@@ -18,16 +15,15 @@
   list
 ) = {
 
-  assert-types(assertions, types: (type(()),), name: "Assertions")
-  assert-types(pre-transform, types: (function,), name: "Pre-transform")
-  assert-types(post-transform, types: (function,), name: "Post-transform")
+  assert-boilerplate-params(
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+  )
 
   any() + (
     name: name,
     default: default,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-    list: list,
     assertions: (
       (
         precondition: "list",
@@ -36,6 +32,9 @@
       ),
       ..assertions
     ),
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+    list: list,
   )
 
 }

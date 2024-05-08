@@ -1,36 +1,31 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
 
-/// This function yields a validation schema that is satisfied only by color types.
-/// - default (any, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
-///   validation.
-/// - transform (function): *OPTIONAL* mapping function called after validation.
-/// -> schema
+#let type-color = type(rgb(0,0,0));
+
 #let color(
   default: none,
-  transform: it=>it,
+  assertions: (),
+  pre-transform: it=>it,
+  post-transform: it=>it,
 ) = {
 
-    // Type safety
-  assert(type(default) in (type(rgb(0,0,0)), type(none)),
-    message: "Default of color must be of type color or none",
+  assert-types(default, types: (type-color,), name: "Default")
+
+  assert-boilerplate-params(
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
   )
 
   base-type() + (
     name: "color",
     default: default,
-    transform: transform,
-    validate : (self, it, ctx: z-ctx(), scope: ()) => {
-      // Default value
-      it = if ( it == none ) {self.default} else {(self.pre-transform)(it)}
-
-      // Content must be content or string
-      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: ( type(rgb(0,0,0)), )) {
-        return none
-      }
-
-      (self.transform)(it)
-    }
+    types: (type-color,),
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
   )
 
 }

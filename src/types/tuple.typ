@@ -1,43 +1,50 @@
 #import "../base-type.typ": base-type, assert-base-type-array
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
 
 /// Valkyrie schema generator for an array type with positional type reqruiements. If all entries
 /// have the same type, see @@array.
 ///
-/// - name (internal):
-/// - ..args (schema): Type requirments. Position of argument *MUST* match position of entry in
-///   tuple being validated. *SHOULD* not contain named arguments.
 /// -> schema
 #let tuple(
   name: "tuple",
+  default: none,
+  assertions: (),
+  pre-transform: it=>it,
+  post-transform: it=>it,
   ..args
 ) = {
-  // Does not accept named arguments
-  assert(args.named().len() == 0, message: "Dictionary only accepts named arguments")
-  args = args.pos()
 
+  // Does not accept named arguments
+  args = assert-strictly-positional(args, name: "Tuple")
   assert-base-type-array(args)
+
+  assert-types(default, types: (type(()),), name: "Default")
+
+  assert-boilerplate-params(
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+  )
 
   base-type() + (
     name: name,
+    types: (type(()),),
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
     tuple-schema: args,
-    validate: (self, tuple, ctx: z-ctx(), scope: ()) => {
-      // assert type
-      if not (self.assert-type)(self, tuple, scope: scope, ctx: ctx, types: (type(()),)) {
-        return none
-      }
 
-      // Check elements
+    handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
       for (key, schema) in self.tuple-schema.enumerate() {
-        tuple.at(key) = (schema.validate)(
+        it.at(key) = (schema.validate)(
           schema,
-          tuple.at(key),
+          it.at(key),
           ctx: ctx,
           scope: (..scope, str(key))
         )
       }
-
-      tuple
-    }
+      it;
+    },
   )
 }

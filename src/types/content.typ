@@ -1,32 +1,31 @@
 #import "../base-type.typ": base-type, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
+
+#let type-content = type([]);
 
 #let content(
-  name: "content",
   default: none,
-  transform: (it)=>[#it],
+  assertions: (),
+  pre-transform: it=>it,
+  post-transform: it=>it,
 ) = {
 
-    // Type safety
-  assert(type(default) in (type(""), type([]), type(none)),
-    message: "Default of content must be of type content, string or none",
+  assert-types(default, types: (type-content,), name: "Default")
+
+  assert-boilerplate-params(
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
   )
 
   base-type() + (
-    name: name,
+    name: "content",
     default: default,
-    transform: transform,
-    validate : (self, it, ctx: z-ctx(), scope: ()) => {
-      // Default value
-      it = if ( it == none ) {self.default} else {(self.pre-transform)(it)}
-
-      // Content must be content or string
-      if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: (type(""), type([]), )) {
-        return none
-      }
-
-      (self.transform)(it)
-    }
+    types: (type-content,),
+    assertions: assertions,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
   )
 
 }

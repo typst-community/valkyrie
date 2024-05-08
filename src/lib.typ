@@ -1,6 +1,7 @@
 #import "types.typ": *
 #import "ctx.typ": z-ctx
 #import "base-type.typ" as advanced
+#import "assertions.typ" as assert
 
 /// This is the main function for validating an object against a schema. *WILL* return the given
 /// object after validation if successful, or none and *MAY* throw a failed assertion error.

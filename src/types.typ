@@ -7,5 +7,5 @@
 #import "types/choice.typ": *
 #import "types/logical.typ": *
 #import "types/number.typ": *
-#import "types/string.typ": *
+#import "types/string.typ": string, ip, email
 #import "types/tuple.typ": *

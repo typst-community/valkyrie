@@ -2,5 +2,5 @@
 #set page(height: 1cm, width: 1cm)
 
 #{
-  _ = z.parse(4, z.natural())
+  _ = z.parse(4, z.number())
 }

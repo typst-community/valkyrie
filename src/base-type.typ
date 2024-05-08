@@ -50,9 +50,18 @@
 
 /// Schema generator. Provides default values for when defining custom types.
 #let base-type() = (
+
   valkyrie-type: true,
+
   default: none,
+  types: (),
+  assertions: (),
+  pre-transform: (it)=>it,
+  post-transform: (it)=>it,
+
   assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
+    if ( types.len() == 0 ) {return true};
+
     if type(it) not in types {
       (self.fail-validation)(self, it, scope: scope, ctx: ctx,
         message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
@@ -61,12 +70,6 @@
 
     true
   },
-
-  types: (),
-  assertions: (),
-
-  pre-transform: (it)=>it,
-  post-transform: (it)=>it,
 
   handle-assertions: (self, it, scope: (), ctx: z-ctx()) => {
     for (key, value) in self.assertions.enumerate() {
@@ -78,7 +81,7 @@
       if not ( 
         it == none or
         (value.condition)(self, it) 
-        ) {
+      ) {
         (self.fail-validation)(
           self,
           it,

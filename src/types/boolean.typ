@@ -3,9 +3,7 @@
 #import "../assertions-util.typ": *
 
 /// This function yields a validation schema that is satisfied only by the values `true` or `false`.
-/// - default (bool, none): *OPTIONAL* default value to validate if none is provided. *MUST* itself pass
-///   validation.
-/// - transform (function): *OPTIONAL* mapping function called after validation.
+/// 
 /// -> schema
 #let boolean(
   default: none,
@@ -14,9 +12,11 @@
 ) = {
 
   // Type safety
-  assert-types(default, types: (bool,), name: "default")
-  assert-types(pre-transform, types: (function,), name: "Pre-transform")
-  assert-types(post-transform, types: (function,), name: "Post-transform")
+  assert-types(default, types: (bool,), name: "Default")
+  assert-boilerplate-params(
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+  )
 
   base-type() + (
     name: "bool",
