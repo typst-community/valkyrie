@@ -89,8 +89,10 @@
           scope: scope,
           message: (value.message)(self, it),
         )
+        return self.default
       }
     }
+    it
   },
 
   handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {it},
@@ -105,7 +107,7 @@
     }
 
     // Custom assertions
-    (self.handle-assertions)(self, it, scope: scope, ctx: ctx)
+    it = (self.handle-assertions)(self, it, scope: scope, ctx: ctx)
 
     it = (self.handle-descendents)(self, it, scope: scope, ctx: ctx)
 
