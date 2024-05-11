@@ -13,5 +13,5 @@
   width: 100%,
   inset: 8pt,
   radius: 4pt,
-  fill: if ( z.parse(test, schema, ctx: z.z-ctx(soft-error: true)) == truth) {rgb("B0E0A8")} else {rgb("F3C1C6")}
+  fill: if ( z.parse(test, schema, ctx: z.z-ctx(soft-error: true)) == truth) {rgb("#c4e4bd")} else {rgb("#f5d3d6")}
 )

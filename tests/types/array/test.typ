@@ -34,7 +34,7 @@
   truth: test-array
 )([Test satisfies array\<email\>])
 
-=== Assertions
+=== Assertions - Minimum length
 
 #utility-expect-eq(
   test: test-array, 
@@ -54,6 +54,8 @@
   truth: ()
 )([Test fails array\<email\> min length 3])
 
+=== Assertions - Maximum length
+
 #utility-expect-eq(
   test: test-array, 
   schema: z.array(z.email(), assertions: (z.assert.length.max(1),)), 
@@ -72,7 +74,7 @@
   truth: test-array,
 )([Test satisfies array\<email\> max length 3])
 
-==== Length
+=== Assertions - Exact length
 
 #utility-expect-eq(
   test: test-array, 

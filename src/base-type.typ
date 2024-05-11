@@ -60,9 +60,10 @@
   post-transform: (it)=>it,
 
   assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
-    if ( types.len() == 0 ) {return true};
 
-    if type(it) not in types {
+    if ( self.types.len() == 0 ) {return true};
+
+    if ( type(it) not in self.types) {
       (self.fail-validation)(self, it, scope: scope, ctx: ctx,
         message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
       return false
@@ -102,14 +103,14 @@
     it = if ( it == none ) {self.default} else {(self.pre-transform)(it)}
 
     // assert types
-    if not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: self.types) {
+    if (not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: self.types)) {
       return none
     }
 
+    it = (self.handle-descendents)(self, it, scope: scope, ctx: ctx)
+
     // Custom assertions
     it = (self.handle-assertions)(self, it, scope: scope, ctx: ctx)
-
-    it = (self.handle-descendents)(self, it, scope: scope, ctx: ctx)
 
     (self.post-transform)(it)
   },

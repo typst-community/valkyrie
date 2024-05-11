@@ -40,10 +40,12 @@
 
   base-type() + (
     name: name,
-    validation: (self, it, ctx: z-ctx(), scope: ()) => {
-      let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
+    option: option,
+    validate: (self, it, ctx: z-ctx(), scope: ()) => {
+      let ret = (self.option.validate)(self.option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
       if ret != none { return ret }
       // return auto;
+      return none;
     }
   )
 

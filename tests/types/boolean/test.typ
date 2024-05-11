@@ -1,9 +1,29 @@
 #import "/src/lib.typ" as z
-#set page(height: 1cm, width: 1cm)
+#import "/tests/utility.typ": *
+
+#show: show-rule.with();
+#let schema = z.boolean()
+
+= types/boolean
+== Input types
+#{
+  let input-types = (
+    "boolean (true)": true,
+    "boolean (false)": false,
+  )
+
+  for (name, value) in input-types{
+    utility-expect-eq(test: value, schema: schema, truth: value)([It should validate #name])
+  }
+}
 
 #{
-  _ = z.parse(true, z.boolean())
-  _ = z.parse(false, z.boolean())
-  //_ = z.parse(0, z.boolean())
-  //_ = z.parse(none, z.boolean())
+  let input-types = (
+    "none": none,
+    "number (0)": 0,
+  )
+
+  for (name, value) in input-types{
+    utility-expect-eq(test: value, schema: schema, truth: none)([It should fail #name])
+  }
 }

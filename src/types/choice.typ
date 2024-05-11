@@ -28,7 +28,7 @@
       (
         precondition: "list",
         condition: (self, it)=>self.list.contains(it),
-        message: (self, it)=> "Unknown " + self.name + " `" + it + "`"
+        message: (self, it)=> "Unknown " + self.name + " `" + repr(it) + "`"
       ),
       ..assertions
     ),

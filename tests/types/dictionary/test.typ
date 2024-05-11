@@ -9,10 +9,10 @@
     ip: "1.1.251.1",
   )
 
-  _ = z.parse(test-dictionary, z.dictionary(
+  _ = z.parse(test-dictionary, z.dictionary((
     string: z.string(assertions: (z.assert.length.min(5),)),
     number: z.number(),
     email: z.email(),
     ip: z.ip(),
-  ))
+  )))
 }
