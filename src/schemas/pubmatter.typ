@@ -57,7 +57,8 @@
     "running-title": "short-title",
     "running-head": "short-title",
     "affiliation": "affiliations",
-    "abstract": "abstracts"
+    "abstract": "abstracts",
+    "date": "dates"
   ),
   (
     title: z.optional(z.content()),
@@ -79,7 +80,16 @@
 
     doi: z.optional(z.string()),
     keywords: z.array(z.string()),
-    //date: 
+    dates: z.array(
+      z.dictionary(
+        (
+          type: z.optional(z.content()),
+          date: z.date(pre-transform: coerce.date)
+        ),
+        pre-transform: coerce.dictionary((it)=>(date: it))
+      ),
+      pre-transform: coerce.array
+    ),
     citation: z.optional(z.content()),
 
     abstracts: z.array(abstracts, pre-transform: coerce.array)
