@@ -17,6 +17,7 @@
     fax: z.optional(z.string()),
     orcid: z.optional(z.string()),
     note: z.optional(z.string()),
+    email: z.optional(z.email()),
     corresponding: z.optional(z.boolean()),
     equal-contributor: z.optional(z.boolean()),
     deceased: z.optional(z.boolean()),
@@ -29,7 +30,13 @@
       pre-transform: coerce.array
     )
   ),
-  pre-transform: coerce.dictionary((it)=>(name: it))
+  pre-transform: coerce.dictionary((it)=>(name: it)),
+  post-transform: (self, it)=>{
+    if (it.at("email") != none and it.corresponding == none){
+      it.insert("corresponding", true)
+    }
+    return it;
+  }
 )
 
 #let affiliation = z.dictionary(
@@ -49,7 +56,6 @@
   ),
   pre-transform: coerce.dictionary(it=>(content: it))
 )
-
 
 #let pubmatter = z.dictionary(
   aliases: (

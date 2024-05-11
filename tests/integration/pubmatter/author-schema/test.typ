@@ -7,7 +7,12 @@
 
 == Author schema
 
-
 #[
-  #z.parse((name:"", affiliation: "1"), z.schemas.author-schema)
+  #z.parse(
+    (
+      name: "James R Swift",
+      email: "hello@world.com"
+    ), 
+    z.schemas.author
+  )
 ]
