@@ -2,6 +2,8 @@
 #import "ctx.typ": z-ctx
 #import "base-type.typ" as advanced
 #import "assertions.typ" as assert
+#import "coercions.typ" as coerce
+#import "schemas.typ" as schemas
 
 /// This is the main function for validating an object against a schema. *WILL* return the given
 /// object after validation if successful, or none and *MAY* throw a failed assertion error.

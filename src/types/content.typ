@@ -7,11 +7,11 @@
 #let content(
   default: none,
   assertions: (),
-  pre-transform: it=>it,
-  post-transform: it=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
 ) = {
 
-  assert-types(default, types: (type-content,), name: "Default")
+  assert-types(default, types: (type-content,str), name: "Default")
 
   assert-boilerplate-params(
     assertions: assertions,
@@ -22,7 +22,7 @@
   base-type() + (
     name: "content",
     default: default,
-    types: (type-content,),
+    types: (type-content,str),
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,

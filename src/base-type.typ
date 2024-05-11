@@ -56,8 +56,8 @@
   default: none,
   types: (),
   assertions: (),
-  pre-transform: (it)=>it,
-  post-transform: (it)=>it,
+  pre-transform: (self, it)=>it,
+  post-transform: (self, it)=>it,
 
   assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
 
@@ -100,7 +100,7 @@
 
   validate: (self, it, scope: (), ctx: z-ctx()) => {
     // Default value
-    it = if ( it == none ) {self.default} else {(self.pre-transform)(it)}
+    it = if ( it == none ) {self.default} else {(self.pre-transform)(self, it)}
 
     // assert types
     if (not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: self.types)) {
@@ -112,7 +112,7 @@
     // Custom assertions
     it = (self.handle-assertions)(self, it, scope: scope, ctx: ctx)
 
-    (self.post-transform)(it)
+    (self.post-transform)(self, it)
   },
 
   fail-validation: (self, it, scope: (), ctx: z-ctx(), message: "") => {

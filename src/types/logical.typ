@@ -42,9 +42,9 @@
     name: name,
     option: option,
     validate: (self, it, ctx: z-ctx(), scope: ()) => {
-      let ret = (self.option.validate)(self.option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
-      if ret != none { return ret }
-      // return auto;
+      if (it!= none){
+        return (self.option.validate)(self.option, it, scope: scope)
+      }
       return none;
     }
   )

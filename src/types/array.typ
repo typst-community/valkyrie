@@ -5,6 +5,8 @@
 #import "any.typ": any
 #import "dictionary.typ": dictionary
 
+#let array-type = type(())
+
 /// This function yields a validation schema that is satisfied by an array of entries than themselves
 /// satisfy the schema defined in the sink argument. Array entries are validated by a single schema. 
 /// For arrays with positional requirements, see @@tuple. If no schema for child entries is provided,
@@ -15,12 +17,12 @@
   name: "array",
   default: (),
   assertions: (),
-  pre-transform: it=>it,
-  post-transform: it=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
   ..args
 ) = {
 
-  assert-types(default, types: (type(()),), name: "Default")
+  assert-types(default, types: (array-type,), name: "Default")
 
   assert-boilerplate-params(
     assertions: assertions,
@@ -44,7 +46,7 @@
   base-type() + (
     name: name,
     default: default,
-    types: (type(()),),
+    types: (array-type,),
     pre-transform: pre-transform,
     post-transform: post-transform,
 

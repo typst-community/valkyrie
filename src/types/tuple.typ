@@ -10,8 +10,8 @@
   name: "tuple",
   default: none,
   assertions: (),
-  pre-transform: it=>it,
-  post-transform: it=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
   ..args
 ) = {
 

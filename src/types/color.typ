@@ -7,8 +7,8 @@
 #let color(
   default: none,
   assertions: (),
-  pre-transform: it=>it,
-  post-transform: it=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
 ) = {
 
   assert-types(default, types: (type-color,), name: "Default")

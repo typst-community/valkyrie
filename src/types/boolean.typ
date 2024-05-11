@@ -7,8 +7,8 @@
 /// -> schema
 #let boolean(
   default: none,
-  pre-transform: it=>it,
-  post-transform: it=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
 ) = {
 
   // Type safety
