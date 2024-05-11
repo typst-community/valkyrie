@@ -57,6 +57,46 @@
   pre-transform: coerce.dictionary(it=>(content: it))
 )
 
+#let coerce-license(self, it) = {
+  if ( it in ("CC0", "CC0-1.0")){
+    return (
+      id: "CC0-1.0",
+      url: "https://creativecommons.org/licenses/zero/1.0/",
+      name: "Creative Commons Zero v1.0 Universal",
+    ) 
+  } else if ( it in ("CC-BY", "CC-BY-4.0")){
+    return (
+      id: "CC-BY-4.0",
+      url: "https://creativecommons.org/licenses/by/4.0/",
+      name: "Creative Commons Attribution 4.0 International",
+    )
+  } else if ( it in ("CC-BY-NC", "CC-BY-NC-4.0")){
+    return (
+      id: "CC-BY-NC-4.0",
+      url: "https://creativecommons.org/licenses/by-nc/4.0/",
+      name: "Creative Commons Attribution Non Commercial 4.0 International"
+    )
+  } else if ( it in ("CC-BY-NC-SA", "CC-BY-NC-SA-4.0")){
+    return (
+      id: "CC-BY-NC-SA-4.0",
+      url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      name: "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+    )
+  } else if ( it in ("CC-BY-ND", "CC-BY-ND-4.0")){
+    return (
+      id: "CC-BY-ND-4.0",
+      url: "https://creativecommons.org/licenses/by-nd/4.0/",
+      name: "Creative Commons Attribution No Derivatives 4.0 International",
+    )
+  } else if ( it in ("CC-BY-NC-ND", "CC-BY-NC-ND-4.0")){
+    return (
+      id: "CC-BY-NC-ND-4.0",
+      url: "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      name: "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+    )
+  }
+}
+
 #let pubmatter = z.dictionary(
   aliases: (
     "author": "authors",
@@ -70,22 +110,22 @@
     title: z.optional(z.content()),
     subtitle: z.optional(z.content()),
     short-title: z.optional(z.string()),
-
     authors: z.array(author, pre-transform: coerce.array),
     affiliations: z.array(affiliation, pre-transform: coerce.array),
-
+    abstracts: z.array(abstracts, pre-transform: coerce.array),
+    citation: z.optional(z.content()),
     open-access: z.optional(z.boolean()),
     venue: z.optional(z.content()),
-    license: z.optional(z.dictionary(
-      (
-        id: z.optional(z.string()),
-        url: z.optional(z.string()),
-        name: z.optional(z.string())
-      ), default: none)
-    ),
-
     doi: z.optional(z.string()),
     keywords: z.array(z.string()),
+    license: z.optional(z.dictionary(
+      (
+        id: z.string(),
+        url: z.string(),
+        name: z.string()
+      ),
+      pre-transform: coerce-license
+    )),
     dates: z.array(
       z.dictionary(
         (
@@ -96,8 +136,5 @@
       ),
       pre-transform: coerce.array
     ),
-    citation: z.optional(z.content()),
-
-    abstracts: z.array(abstracts, pre-transform: coerce.array)
   )
 )
