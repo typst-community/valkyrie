@@ -46,8 +46,6 @@
 
       for (key, schema) in self.dictionary-schema{
 
-        //if ( it == none){ panic(self)}
-
         let entry = (schema.validate)(
           schema, 
           it.at(key, default: none), // implicitly handles missing entries
@@ -55,12 +53,10 @@
           scope: (..scope, str(key))
         )
 
-        // feature?: contextual flag
-        if (entry != none ) {
+        if (entry != none and ctx.dictionary-clean-none == true ) {
           it.insert(key, entry);
         }
 
-        // Delete optional entries that fail validation?
         if ( entry == none and it.at(key, default: none) != none) {
           it.remove(key);
         }

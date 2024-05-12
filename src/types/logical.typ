@@ -4,7 +4,7 @@
 /// Valkyrie schema generator for objects that can be any of multiple types.
 ///
 /// -> schema
-#let either(..options) = {
+#let either(..options, optional: false) = {
   let options = options.pos()
 
   assert(options.len() > 0 , message: "z.either requires 1 or more arguments.")
@@ -15,6 +15,7 @@
   base-type() + (
     name: name,
     options: options,
+    optional: optional,
     validate: (self, it, ctx: z-ctx(), scope: ()) => {
       for option in self.options {
         let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)

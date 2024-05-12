@@ -6,25 +6,10 @@
 /// Valkyrie schema generator for strings
 ///
 /// -> schema
-#let string(
-  name: "string",
-  default: none,
-  optional: false,
-  assertions: (),
-  pre-transform: (self, it) => it,
-  post-transform: (self, it) => it,
-) =  base-type(   
-    name: name,
-    default: default,
-    optional: optional,
-    types: (str,),
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-)
+#let string = base-type.with(name: "string", types: (str,),)
 
 
-#let ip = string.with( 
+#let email = string.with( 
   name: "email",
   assertions: (
     matches(
@@ -47,5 +32,3 @@
     ),
   )
 );
-
-#let email = string;

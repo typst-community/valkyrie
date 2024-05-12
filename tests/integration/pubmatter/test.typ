@@ -12,9 +12,11 @@
   #z.parse( 
     (
       title: "Hello World",
-      author: "James Swift",
-      open-access: false,
-      //license: "CC-BY"
+      subtitle: [Hello],
+      author: (name: "James Swift", affiliation: "lboro"),
+      affiliation: "lboro",
+      open-access: true,
+      license: "CC-BY"
     ), 
     z.schemas.pubmatter
   )

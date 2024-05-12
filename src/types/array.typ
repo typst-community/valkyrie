@@ -2,7 +2,6 @@
 #import "../ctx.typ": z-ctx
 #import "../assertions-util.typ": *
 
-#import "any.typ": any
 #import "dictionary.typ": dictionary
 
 #let array-type = type(())
@@ -24,7 +23,7 @@
 ) = {
 
   // refactor(james): Is there a better way of doing this?
-  let descendents-schema = args.pos().at(0, default: any())
+  let descendents-schema = args.pos().at(0, default: base-type(name: "any"))
 
   // if ( not descendents-schema.at( "valkyrie-type", default: false) ){
   //   descendents-schema = dictionary(..descendents-schema)
