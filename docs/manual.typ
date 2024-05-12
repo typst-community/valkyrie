@@ -68,9 +68,9 @@ Generally, users of this package will only need to be aware of the #dtype("schem
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in #link("http://www.ietf.org/rfc/rfc2119.txt", [RFC 2119]).
 
 == Use cases
-The interface for a template that a user expects and that the developer has implemented are rearly one and the same. Instead, the user will apply common sense and the developer will put in somewhere between a token- and a whole-hearted- attempt at making their interface intuitive. Contrary to what one might expect, this makes it more difficult for the end user to correctly guess the interface as different developers will disagree on what is and isn't intuitive.
+The interface for a template that a user expects and that the developer has implemented are rearly one and the same. Instead, the user will apply common sense and the developer will put in somewhere between a token- and a whole-hearted- attempt at making their interface intuitive. Contrary to what one might expect, this makes it more difficult for the end user to correctly guess the interface as different developers will disagree on what is and isn't intuitive, and what edge cases the developer is willing to cover.
 
-By first providing a low-level set of tools for validating 
+By first providing a low-level set of tools for validating primitives upon which more complicated schemas can be defined, `Valkyrie` handles both the micro and macro of input validation. 
 
 
 #pagebreak()
@@ -83,7 +83,7 @@ By first providing a low-level set of tools for validating
     Object to validate against provided schema. Object *SHOULD* statisfy the schema requirements. An error *MAY* be produced if not.
   ]
   #argument("schemas", types:("array","schema"))[
-    Schema against which `object` is validated. *MUST* be a valid valkyrie schema type.
+    Schema against which `object` is validated. Coerced into array. *MUST* be an array of valid valkyrie schema types.
   ]
   #argument("ctx", default: auto, types: "z-ctx")[
     ctx passed to schema validator function, containing flags that *MAY* alter behaviour.
@@ -132,7 +132,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   [default],        [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
   [types],          [✔],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[],
   [assertions],     [✔],[✔],[✔],[✔],[✔],[✔],[✱],[ ],[✔],[✱],[✔],[✱],
-  [pre-transform],  [✔],[ ],[ ],[ ],[ ],[ ],[✱],[ ],[ ],[ ],[✔],[ ],
+  [pre-transform],  [✔],[✔],[✔],[✔],[✔],[✔],[✱],[ ],[✔],[✔],[✔],[✔],
   [post-transform], [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
 ))
 
@@ -179,8 +179,31 @@ argument("post-transform", default: "(self,it)=>it", types: "function")[Transfor
 ])
 
 #pagebreak()
-#command("any", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: "schema")[]
-#command("array", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: ("any","none"))[]
+#command("any", sarg[args], ret: "schema")[
+  Generates a schema that accepts any input as valid.
+]
+
+#command("array", arg[schema], sarg[args], ret: ("any","none"))[
+  #argument("schema", types: "schema")[Schema against which to validate child entries. Defaults to #tidyref(none, "any").]
+]
+
+#command("boolean", sarg[args], ret: "schema")[
+  Generates a schema that accepts only booleans as valid. 
+]
+
+#command("color", sarg[args], ret: "schema")[
+  Generates a schema that accepts only colors as valid. 
+]
+
+#command("content", sarg[args], ret: "schema")[
+  Generates a schema that accepts only content or string as valid. 
+]
+
+#command("date", sarg[args], ret: "schema")[
+  Generates a schema that accepts only datetime objects as valid. 
+]
+
+
 #pagebreak()
 == Special Generator functions
 === Array
