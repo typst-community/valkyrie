@@ -7,27 +7,17 @@
 ///
 /// -> schema
 #let tuple(
-  name: "tuple",
-  default: none,
-  assertions: (),
-  pre-transform: (self, it) => it,
-  post-transform: (self, it) => it,
   ..args
 ) = {
-
-  // Does not accept named arguments
-  args = assert-strictly-positional(args, name: "Tuple")
-  assert-base-type-array(args)
+  assert-base-type-array(args.pos())
 
   base-type(
-    name: name,
+    name: "tuple",
     types: (type(()),),
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
+    ..args.named()
   ) + (
 
-    tuple-schema: args,
+    tuple-schema: args.pos(),
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
       for (key, schema) in self.tuple-schema.enumerate() {

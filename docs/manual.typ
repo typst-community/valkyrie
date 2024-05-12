@@ -67,6 +67,12 @@ Generally, users of this package will only need to be aware of the #dtype("schem
 == Specifig language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in #link("http://www.ietf.org/rfc/rfc2119.txt", [RFC 2119]).
 
+== Use cases
+The interface for a template that a user expects and that the developer has implemented are rearly one and the same. Instead, the user will apply common sense and the developer will put in somewhere between a token- and a whole-hearted- attempt at making their interface intuitive. Contrary to what one might expect, this makes it more difficult for the end user to correctly guess the interface as different developers will disagree on what is and isn't intuitive.
+
+By first providing a low-level set of tools for validating 
+
+
 #pagebreak()
 == Parsing functions
 
@@ -91,7 +97,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 #pagebreak()
 == Schema definition functions
-For the sake of brevity and owing to their consistency, the arguments that each schema generating function accepts are listed in the table below, followed by a description of each of the arguments.
+For the sake of brevity and owing to their consistency, the arguments that each schema generating function accepts are listed in the table below, followed by a description of each of argument.
 
 #let rotatex(body,angle) = style(styles => {
   let size = measure(body,styles)
@@ -101,6 +107,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 })
 
 #align( center, table(
+  stroke: black + 0.75pt,
   columns: (1fr,) + 12*(auto,),
   inset: 9pt,
   align: (horizon, horizon+center),
@@ -121,60 +128,114 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   ),
   [body],           [ ],[✔],[ ],[ ],[ ],[ ],[✔],[✔],[ ],[ ],[✔],[✔],
   [name],           [✱],[✱],[✱],[✱],[✱],[✱],[✱], [✱],[✱],[✱],[✱],[✱],
-  [optional],       [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[ ],[✔],
-  [default],        [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[ ],[✔],
-  [types],          [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
-  [assertions],     [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
-  [pre-transform],  [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
-  [post-transform], [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
+  [optional],       [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
+  [default],        [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
+  [types],          [✔],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[],
+  [assertions],     [✔],[✔],[✔],[✔],[✔],[✔],[✱],[ ],[✔],[✱],[✔],[✱],
+  [pre-transform],  [✔],[ ],[ ],[ ],[ ],[ ],[✱],[ ],[ ],[ ],[✔],[ ],
+  [post-transform], [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
 ))
 
 ✔ Indicates that the argument is available to the user.
 ✱ Indicates that while the argument is availble to the user, it may be used internally or may hold a default value.
 
+#pagebreak()
 
-  #argument("scope", default: ("argument",), types: "scope")[
-    An array of strings used to generate the string representing the location of a failed requirement within `object`. *MUST* be an array of strings of length greater than or equal to `1`
-  ]
+#block(breakable: false,
+argument("name", default: "unknown", types: "string")[Human-friendly name of the schema for error-reporting purposes.])
   
-#command("parse", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: ("any","none"))[]
+#block(breakable: false,
+argument("optional", default: false, types: "boolean")[
+  Allows the value to have not been set at the time of parsing, without generating an error.
+  #mty.alert[If used on a dictionary, consider adding default values to child schemas instead.]
+  #mty.alert[If used on a array, consider relying on the default (an empty array) instead.]
+])
 
-#mty.alert[
-  xsdfsd
-]
+#block(breakable: false,
+argument("default", default: none, types: "any")[
+  The default value to use if object being validated is `none`.
+  #mty.alert[Setting a default value allows the end-user to omit it.]
+])
 
-// === Any
-// #mantys.tidy-module(read("/src/types/any.typ"), name: "chemicoms-paper") #pagebreak()
+#block(breakable: false,
+argument("types", default: (), types: "array")[Array of allowable types. If not set, all types are accepted])
 
-// === Array
-// #mantys.tidy-module(read("/src/types/array.typ"), name: "chemicoms-paper") #pagebreak()
+#block(breakable: false,
+argument("assertions", default: (), types: "array")[
+  Array of assertions to be tested during object validation. see (LINK TO ASSERTIONS)
 
-// === Boolean
-// #mantys.tidy-module(read("/src/types/boolean.typ"), name: "chemicoms-paper") #pagebreak()
+  #mty.alert[Assertions cannot modify values]
+])
 
-// === Choice
-// #mantys.tidy-module(read("/src/types/choice.typ"), name: "chemicoms-paper") #pagebreak()
+#block(breakable: false,
+argument("pre-transform", default: "(self,it)=>it", types: "function")[
+  Transformation to apply prior to validation. Can be used to coerce values.
+  
+])
 
-// === Color
-// #mantys.tidy-module(read("/src/types/color.typ"), name: "chemicoms-paper") #pagebreak()
+#block(breakable: false,
+argument("post-transform", default: "(self,it)=>it", types: "function")[Transformation to apply after validation. Can be used to reshape values for internal use
 
-// === Content
-// #mantys.tidy-module(read("/src/types/content.typ"), name: "chemicoms-paper") #pagebreak()
+])
 
-// === Dictionary
-// #mantys.tidy-module(read("/src/types/dictionary.typ"), name: "chemicoms-paper") #pagebreak()
+#pagebreak()
+#command("any", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: "schema")[]
+#command("array", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: ("any","none"))[]
+#pagebreak()
+== Special Generator functions
+=== Array
+=== Dictionary
+=== Either
+=== Tuple
 
-// === Logical 
-// #mantys.tidy-module(read("/src/types/logical.typ"), name: "chemicoms-paper") #pagebreak()
+== Coercions
 
-// === Number
-// #mantys.tidy-module(read("/src/types/number.typ"), name: "chemicoms-paper") #pagebreak()
+== Assertions
 
-// === String
-// #mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper") #pagebreak()
+#pagebreak()
+= Advanced Documentation
+== Validation heuristic
 
-// === Tuple
-// #mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")#pagebreak()
+#import "@preview/fletcher:0.4.4" as fletcher: diagram, node, edge, shapes
+
+#figure(
+  align(center, diagram(
+    spacing: 2em,
+    node-stroke: 0.75pt,
+    edge-stroke: 0.75pt,
+    node((-2,1), [Start], corner-radius: 2pt, shape: shapes.circle),
+    edge("-|>"),
+    node((0,1), align(center)[`value` or `self.default`]),
+    edge("-|>"),
+    node((0,2), align(center)[pre-transform value], corner-radius: 2pt),
+    edge("-|>"),
+    node((0,3), align(center)[Assert type of value], corner-radius: 2pt),
+
+    node((-1,4), align(center)[Allow #repr(none) if \ `self.optional` is #true], corner-radius: 2pt),
+    node((0,4), align(center)[Allow if `self.types` \ length is 0], corner-radius: 2pt),
+    node((1,4), align(center)[Allow `value` if type in \ `self.types` is #true], corner-radius: 2pt),
+
+    node((1,3), align(center)[`self.fail-validation`], corner-radius: 2pt),
+    edge("-|>"),
+    node((2,3), align(center)[throw], corner-radius: 2pt, shape: shapes.circle),
+
+    edge((0,3), (-1,4), "-|>", bend: -20deg) , edge( (-1,4), (0,5), "-|>", bend: -20deg),
+    edge((0,3), (0,4), "-|>"), edge( (0,4), (0,5), "-|>"),
+    edge((0,3), (1,4), "-|>", bend: 20deg), edge( (1,4), (0,5), "-|>", bend: 20deg),
+    edge((0,3), (1,3), "-|>"),
+
+    node((0,5), align(center)[Handle descendents \ transformation], corner-radius: 2pt),
+    edge("ll,uuuu", "|>--|>", align(center)[child schema \ on descendent], label-side: left, label-pos: 0.3),
+    edge("-|>"),
+    node((0,6), align(center)[Handle assertions \ transformation], corner-radius: 2pt),
+    edge("-|>"),
+    node((1,6), align(center)[post-transform `value`], corner-radius: 2pt),
+    edge("-|>"),
+    node((2,6), [end], corner-radius: 2pt, shape: shapes.circle),
+  ) + v(2em)),
+  caption: [Flow diagram representation of parsing heuristic when validating a value against a schema.]
+)
+
 
 // = Advanced Documentation
 
