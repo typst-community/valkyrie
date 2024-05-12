@@ -10,7 +10,7 @@
 ///
 /// - object (any): Object to validate against provided schema. Object *SHOULD* statisfy the schema
 ///   requirements. An error *MAY* be produced if not.
-/// - schema (schema): Schema against which `object` is validated. *MUST* be a valid valkyrie schema
+/// - schemas (schema): Schema against which `object` is validated. *MUST* be a valid valkyrie schema
 ///   type.
 /// - ctx (z-ctx): ctx passed to schema validator function, containing flags that *MAY* alter
 ///   behaviour. See @@z-ctx.

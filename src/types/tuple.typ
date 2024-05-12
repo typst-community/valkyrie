@@ -19,20 +19,14 @@
   args = assert-strictly-positional(args, name: "Tuple")
   assert-base-type-array(args)
 
-  assert-types(default, types: (type(()),), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+  base-type(
     name: name,
     types: (type(()),),
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
+  ) + (
+
     tuple-schema: args,
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {

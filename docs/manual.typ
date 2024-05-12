@@ -1,9 +1,9 @@
-#import "@local/mantys:0.1.3" as mantys
+#import "@local/mantys:0.1.3": *
 #import "/src/lib.typ" as z
 
 #let package = toml("/typst.toml").package
 
-#show: mantys.mantys.with(
+#show: mantys.with(
   ..package,
   title: [Valkyrie],
   date: datetime.today().display(),
@@ -16,14 +16,15 @@
   it
 }
 
+
 = Example usage
 
-#mantys.add-type("schema", color: rgb("#bda8ed"))
-#mantys.add-type("z-ctx", color: rgb("#afeda8"))
+#add-type("schema", color: rgb("#bda8ed"))
+#add-type("z-ctx", color: rgb("#afeda8"))
 // #mantys.add-type("scope", color: rgb("#afeda8"))
-#mantys.add-type("internal", color: rgb("#ff8c8c"))
+#add-type("internal", color: rgb("#ff8c8c"))
 
-#mantys.example(side-by-side: true)[```typst
+#example(side-by-side: true)[```typst
 #let template-schema = z.dictionary((
   title: z.content(),
   abstract: z.content(default: []),
@@ -31,11 +32,11 @@
     type: z.content(),
     date: z.string()
   ))),
-  paper: z.papersize(default: "a4"),
+  paper: z.schemas.papersize(default: "a4"),
   authors: z.array(z.dictionary((
     name: z.string(),
     corresponding: z.boolean(default: false),
-    orcid: z.optional(z.string())
+    orcid: z.string(optional: true)
   ))),
   header: z.dictionary((
     journal: z.content(default: [Journal Name]),
@@ -59,9 +60,9 @@
 
 = Documentation
 == Terminology
-As this package introduces several type-like objects, the Tidy style has had these added for clarity. At present, these are #mantys.dtype("schema") (to represent type-validating objects), #mantys.dtype("z-ctx") (to represent the current state of the parsing heuristic), and #mantys.dtype("scope") (an array of strings that represents the parent object of values being parsed). #mantys.dtype("internal") represents arguments that, while settable by the end-user, should be reserved for internal or advanced usage.
+As this package introduces several type-like objects, the Tidy style has had these added for clarity. At present, these are #dtype("schema") (to represent type-validating objects), #dtype("z-ctx") (to represent the current state of the parsing heuristic), and #dtype("scope") (an array of strings that represents the parent object of values being parsed). #dtype("internal") represents arguments that, while settable by the end-user, should be reserved for internal or advanced usage.
 
-Generally, users of this package will only need to be aware of the #mantys.dtype("schema") type.
+Generally, users of this package will only need to be aware of the #dtype("schema") type.
 
 == Specifig language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in #link("http://www.ietf.org/rfc/rfc2119.txt", [RFC 2119]).
@@ -69,44 +70,111 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 #pagebreak()
 == Parsing functions
 
-#mantys.tidy-module(read("/src/lib.typ"), name: "chemicoms-paper")
-#mantys.tidy-module(read("/src/ctx.typ"), name: "chemicoms-paper")
+#command("parse", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: ("any","none"))[
+	Validates an object against one or more schemas. *WILL* return the given object after validation if successful, or none and *MAY* throw a failed assertion error.
+
+	#argument("object", types:"any")[
+    Object to validate against provided schema. Object *SHOULD* statisfy the schema requirements. An error *MAY* be produced if not.
+  ]
+  #argument("schemas", types:("array","schema"))[
+    Schema against which `object` is validated. *MUST* be a valid valkyrie schema type.
+  ]
+  #argument("ctx", default: auto, types: "z-ctx")[
+    ctx passed to schema validator function, containing flags that *MAY* alter behaviour.
+  ]
+  #argument("scope", default: ("argument",), types: "scope")[
+    An array of strings used to generate the string representing the location of a failed requirement within `object`. *MUST* be an array of strings of length greater than or equal to `1`
+  ]
+
+]
+
 
 #pagebreak()
 == Schema definition functions
+For the sake of brevity and owing to their consistency, the arguments that each schema generating function accepts are listed in the table below, followed by a description of each of the arguments.
 
-=== Any
-#mantys.tidy-module(read("/src/types/any.typ"), name: "chemicoms-paper") #pagebreak()
+#let rotatex(body,angle) = style(styles => {
+  let size = measure(body,styles)
+  box(inset:(x: -size.width/2+(size.width*calc.abs(calc.cos(angle))+size.height*calc.abs(calc.sin(angle)))/2,
+             y: -size.height/2+(size.height*calc.abs(calc.cos(angle))+size.width*calc.abs(calc.sin(angle)))/2),
+             rotate(body,angle))
+})
 
-=== Array
-#mantys.tidy-module(read("/src/types/array.typ"), name: "chemicoms-paper") #pagebreak()
+#align( center, table(
+  columns: (1fr,) + 12*(auto,),
+  inset: 9pt,
+  align: (horizon, horizon+center),
+  table.header(
+    [], 
+    rotatex([*any*], -90deg),
+    rotatex([*array*], -90deg),
+    rotatex([*boolean*], -90deg),
+    rotatex([*color*], -90deg),
+    rotatex([*content*], -90deg),
+    rotatex([*date*], -90deg),
+    rotatex([*dictionary*], -90deg),
+    rotatex([*either*], -90deg),
+    rotatex([*number, integer, float*], -90deg),
+    rotatex([*string, ip, email*], -90deg),
+    rotatex([*tuple*], -90deg),
+    rotatex([*choice*], -90deg),
+  ),
+  [body],           [ ],[✔],[ ],[ ],[ ],[ ],[✔],[✔],[ ],[ ],[✔],[✔],
+  [name],           [✱],[✱],[✱],[✱],[✱],[✱],[✱], [✱],[✱],[✱],[✱],[✱],
+  [optional],       [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[ ],[✔],
+  [default],        [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[ ],[✔],
+  [types],          [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
+  [assertions],     [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
+  [pre-transform],  [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
+  [post-transform], [✔],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ],
+))
 
-=== Boolean
-#mantys.tidy-module(read("/src/types/boolean.typ"), name: "chemicoms-paper") #pagebreak()
+✔ Indicates that the argument is available to the user.
+✱ Indicates that while the argument is availble to the user, it may be used internally or may hold a default value.
 
-=== Choice
-#mantys.tidy-module(read("/src/types/choice.typ"), name: "chemicoms-paper") #pagebreak()
 
-=== Color
-#mantys.tidy-module(read("/src/types/color.typ"), name: "chemicoms-paper") #pagebreak()
+  #argument("scope", default: ("argument",), types: "scope")[
+    An array of strings used to generate the string representing the location of a failed requirement within `object`. *MUST* be an array of strings of length greater than or equal to `1`
+  ]
+  
+#command("parse", arg[object], arg[schemas], arg(ctx: auto), arg(scope: ("argument",)), ret: ("any","none"))[]
 
-=== Content
-#mantys.tidy-module(read("/src/types/content.typ"), name: "chemicoms-paper") #pagebreak()
+#mty.alert[
+  xsdfsd
+]
 
-=== Dictionary
-#mantys.tidy-module(read("/src/types/dictionary.typ"), name: "chemicoms-paper") #pagebreak()
+// === Any
+// #mantys.tidy-module(read("/src/types/any.typ"), name: "chemicoms-paper") #pagebreak()
 
-=== Logical 
-#mantys.tidy-module(read("/src/types/logical.typ"), name: "chemicoms-paper") #pagebreak()
+// === Array
+// #mantys.tidy-module(read("/src/types/array.typ"), name: "chemicoms-paper") #pagebreak()
 
-=== Number
-#mantys.tidy-module(read("/src/types/number.typ"), name: "chemicoms-paper") #pagebreak()
+// === Boolean
+// #mantys.tidy-module(read("/src/types/boolean.typ"), name: "chemicoms-paper") #pagebreak()
 
-=== String
-#mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper") #pagebreak()
+// === Choice
+// #mantys.tidy-module(read("/src/types/choice.typ"), name: "chemicoms-paper") #pagebreak()
 
-=== Tuple
-#mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")#pagebreak()
+// === Color
+// #mantys.tidy-module(read("/src/types/color.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === Content
+// #mantys.tidy-module(read("/src/types/content.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === Dictionary
+// #mantys.tidy-module(read("/src/types/dictionary.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === Logical 
+// #mantys.tidy-module(read("/src/types/logical.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === Number
+// #mantys.tidy-module(read("/src/types/number.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === String
+// #mantys.tidy-module(read("/src/types/string.typ"), name: "chemicoms-paper") #pagebreak()
+
+// === Tuple
+// #mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")#pagebreak()
 
 // = Advanced Documentation
 

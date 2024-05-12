@@ -8,7 +8,6 @@
 /// -> schema
 #let string = base-type.with(name: "string", types: (str,),)
 
-
 #let email = string.with( 
   name: "email",
   assertions: (
@@ -18,10 +17,6 @@
     ),
   )
 );
-
-// TODO(james): url
-// TODO(james): emoji
-// TODO(james): uuid
 
 #let ip = string.with( 
   name: "ip",

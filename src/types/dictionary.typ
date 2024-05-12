@@ -42,7 +42,7 @@
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
 
-      if (it.len() == 0 and self.optional){ return it }
+      if (it.len() == 0 and self.optional){ return none }
 
       for (key, schema) in self.dictionary-schema{
 
@@ -59,7 +59,7 @@
               and (it.at(key, default: none) != none
               or ctx.remove-optional-none == true)
         ) {
-          //it.remove(key, default: none);
+          it.remove(key, default: none);
         }
 
       }

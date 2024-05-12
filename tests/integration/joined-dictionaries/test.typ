@@ -23,4 +23,11 @@
   )
 );
 
-#z.parse((title:[123456]), (z.schemas.pubmatter, template-schema))
+#z.parse(
+  (
+    title:[123456],
+    author: "James R Swift"
+  ), 
+  (z.schemas.pubmatter, template-schema), 
+  ctx: z.z-ctx(remove-optional-none: true)
+)
