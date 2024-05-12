@@ -41,7 +41,12 @@
     dictionary-schema: dictionary-schema,
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
+
+      if (it.len() == 0){ return it }
+
       for (key, schema) in self.dictionary-schema{
+
+        //if ( it == none){ panic(self)}
 
         let entry = (schema.validate)(
           schema, 

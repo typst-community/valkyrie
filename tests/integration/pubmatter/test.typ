@@ -14,7 +14,7 @@
       title: "Hello World",
       author: "James Swift",
       open-access: false,
-      license: "CC0"
+      //license: "CC-BY"
     ), 
     z.schemas.pubmatter
   )

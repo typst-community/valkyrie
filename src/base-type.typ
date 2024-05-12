@@ -121,7 +121,7 @@
     validate: (self, it, scope: (), ctx: z-ctx()) => {
 
       //it = self.default
-      if ( it == none ){ it = self.default }
+      if ( it == none or type(it) == none ){ it = self.default }
       it = (self.pre-transform)(self, it)
 
       // assert types

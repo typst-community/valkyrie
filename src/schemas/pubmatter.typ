@@ -95,6 +95,7 @@
       name: "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
     )
   }
+  return it
 }
 
 #let pubmatter = z.dictionary(
