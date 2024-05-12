@@ -1,4 +1,5 @@
 
+///
 #let dictionary(fn) = (self, it) => {
   if (type(it) != type((:))){
     return fn(it)
@@ -6,13 +7,16 @@
   it
 } 
 
+///
 #let array(self, it) = {
   if (type(it) != type(())){return (it,)}
   it
 }
 
+///
 #let content(self, it)=[#it]
 
+///
 #let date(self, it)={
   if (type(it)==type(datetime.today())) {return it};
   if (type(it) == int) {

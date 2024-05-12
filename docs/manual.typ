@@ -203,16 +203,20 @@ argument("post-transform", default: "(self,it)=>it", types: "function")[Transfor
   Generates a schema that accepts only datetime objects as valid. 
 ]
 
+#command("dictionary", arg(aliases: (:)), arg[schema], sarg[args], ret: ("any","none"))[
+    #argument("aliases", types: "dict", default: (:))[Dictionary representation of source to destination aliasing. Has the effect of allowing the user to key something with `source` when its `destination` that is meant.]
+  #argument("schema", types: "dictionary")[Dictionary of schema elements, used to define the validation rules for each entry.]
+]
+
+#command("either",  sarg[schema], sarg[args], ret: ("any","none"))[
+  #argument("schema", types: "dictionary", is-sink: true)[Positional arguments of validation schemes in order or preference that an input value should satisfy.]
+]
+
 
 #pagebreak()
-== Special Generator functions
-=== Array
-=== Dictionary
-=== Either
-=== Tuple
-
 == Coercions
-
+#tidy-module(read("/src/coercions.typ"), name: "coerce")
+#pagebreak()
 == Assertions
 
 #pagebreak()
