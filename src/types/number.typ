@@ -7,30 +7,21 @@
 /// -> schema
 #let number(
   name: "number",
+  optional: false,
   default: none,
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
   types: (float, int),
-) = {
-  // Type safety
-  assert-types(default, types: types, name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+) = base-type( 
     name: name,
+    optional: optional,
     default: default,
     types: types,
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
-  )
-}
+)
 
 /// Specialization of @@number() that is only satisfied by whole numbers. Parameters of @@number remain available for further requirments.
 #let integer = number.with( name: "integer", types: (int,))

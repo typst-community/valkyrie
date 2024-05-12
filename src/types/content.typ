@@ -2,30 +2,18 @@
 #import "../ctx.typ": z-ctx
 #import "../assertions-util.typ": *
 
-#let type-content = type([]);
-
 #let content(
+  optional: false,
   default: none,
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
-) = {
-
-  assert-types(default, types: (type-content,str), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+) = base-type(    
     name: "content",
+    optional: optional,
     default: default,
-    types: (type-content,str),
+    types: (type([]),str),
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
-  )
-
-}
+)

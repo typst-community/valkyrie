@@ -24,44 +24,32 @@
 #mantys.add-type("internal", color: rgb("#ff8c8c"))
 
 #mantys.example(side-by-side: true)[```typst
-#let template-schema = z.dictionary(
+#let template-schema = z.dictionary((
   title: z.content(),
   abstract: z.content(default: []),
-  dates: z.array(z.dictionary(
+  dates: z.array(z.dictionary((
     type: z.content(),
     date: z.string()
-  )),
+  ))),
   paper: z.papersize(default: "a4"),
-  authors: z.array(z.dictionary(
+  authors: z.array(z.dictionary((
     name: z.string(),
     corresponding: z.boolean(default: false),
     orcid: z.optional(z.string())
-  )),
-  header: z.dictionary(
+  ))),
+  header: z.dictionary((
     journal: z.content(default: [Journal Name]),
     article-type: z.content(default: "Article"),
     article-color: z.color(default: rgb(167,195,212)),
     article-meta: z.content(default: [])
-  ),
-  keywords: z.array(z.string()),
-  doi: z.optional(z.string()),
-  citation: z.content(default: []),
-  disable: z.dictionary(
-    header-journal: z.boolean(default: false),
-    footer: z.boolean(default: false)
-  ),
-  fonts: z.dictionary(
-    header: z.string(default: "Century Gothic"),
-    body: z.string(default: "CMU Sans Serif")
-  )
-);
+  )),
+));
 
 
 #z.parse(
   (
-    title: [],
+    title: [This is a required title],
     paper: "a3",
-    disable: (footer: true),
     authors: ( (name: "Example"),)
   ),
   template-schema,
@@ -120,87 +108,87 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 === Tuple
 #mantys.tidy-module(read("/src/types/tuple.typ"), name: "chemicoms-paper")#pagebreak()
 
-= Advanced Documentation
+// = Advanced Documentation
 
-== Internal functions
-The following functions are made available to users under the `z.advanced` namespace.
-#mantys.tidy-module(read("/src/base-type.typ"), name: "chemicoms-paper")#pagebreak()
+// == Internal functions
+// The following functions are made available to users under the `z.advanced` namespace.
+// #mantys.tidy-module(read("/src/base-type.typ"), name: "chemicoms-paper")#pagebreak()
 
-The Typst package ecosystem is large and evergrowing. Eventually, someone, somewhere, will want to validate a type or structure that has never been seen before. If this describes your situation, the following guide may be of use. This section covers different ways complicated types can be defined.
+// The Typst package ecosystem is large and evergrowing. Eventually, someone, somewhere, will want to validate a type or structure that has never been seen before. If this describes your situation, the following guide may be of use. This section covers different ways complicated types can be defined.
 
-== Type specialization
+// == Type specialization
 
-=== Novice
-It may be the case that your type is simply a narrowing of an already-defined type. In such cases, it may be easy to add a validator for your code. For example, to create a validator for numbers between 5 and 10, you could so as as follows:
+// === Novice
+// It may be the case that your type is simply a narrowing of an already-defined type. In such cases, it may be easy to add a validator for your code. For example, to create a validator for numbers between 5 and 10, you could so as as follows:
 
-```typ
-#let specific-number = z.number.with(min: 5, max: 10)
-```
+// ```typ
+// #let specific-number = z.number.with(min: 5, max: 10)
+// ```
 
-=== Intermediate
-If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable.
-```typ
-#let specific-number = z.number.with(
-  custom: it => 5 < it and it < 10,
-  custom-error: "Value was incorrect",
-)
-```
+// === Intermediate
+// If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable.
+// ```typ
+// #let specific-number = z.number.with(
+//   custom: it => 5 < it and it < 10,
+//   custom-error: "Value was incorrect",
+// )
+// ```
 
-=== Advanced
-If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore.
-```typ
-#let specific-number(..args) = z.number(..args) + (
-  // Configure values manually, perhaps override functions.
-  // Check source code of schema generator being bootstrapped.
-)
-```
+// === Advanced
+// If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore.
+// ```typ
+// #let specific-number(..args) = z.number(..args) + (
+//   // Configure values manually, perhaps override functions.
+//   // Check source code of schema generator being bootstrapped.
+// )
+// ```
 
-=== Wizard
-For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simply define a function that returns a schema-like dictionary.
+// === Wizard
+// For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simply define a function that returns a schema-like dictionary.
 
-```typ
-#let tuple(my-args, ...) = {
-  // Shorthand for the definitions shown below. If you do not modify a function,
-  // you may as well omit it and have it set to its default by base-type()
-  z.advanced.base-type() + (
-    // Magic number
-    valkyrie-type: true,
-    // Member sometimes used by other classes when they report a failed validation
-    name: "my-type",
-    // Helper function, generally called by validate()
-    assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
-      if type(it) not in types {
-        (self.fail-validation)(
-          self,
-          it,
-          scope: scope,
-          ctx: ctx,
-          message: (
-            "Expected "
-            + joinWithAnd(types, ", ", " or ")
-            + ". Got "
-            + type(it)
-          ),
-        )
-        return false
-      }
+// ```typ
+// #let tuple(my-args, ...) = {
+//   // Shorthand for the definitions shown below. If you do not modify a function,
+//   // you may as well omit it and have it set to its default by base-type()
+//   z.advanced.base-type() + (
+//     // Magic number
+//     valkyrie-type: true,
+//     // Member sometimes used by other classes when they report a failed validation
+//     name: "my-type",
+//     // Helper function, generally called by validate()
+//     assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
+//       if type(it) not in types {
+//         (self.fail-validation)(
+//           self,
+//           it,
+//           scope: scope,
+//           ctx: ctx,
+//           message: (
+//             "Expected "
+//             + joinWithAnd(types, ", ", " or ")
+//             + ". Got "
+//             + type(it)
+//           ),
+//         )
+//         return false
+//       }
 
-      true
-    },
+//       true
+//     },
 
-    // Do your validation here. Call fail-validation() if validation failed.
-    // Generally, return none also.
-    validate: (self, it, scope: (), ctx: (:)) => it,
+//     // Do your validation here. Call fail-validation() if validation failed.
+//     // Generally, return none also.
+//     validate: (self, it, scope: (), ctx: (:)) => it,
 
-    // Customize the mode of failure here
-    fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
-      let display = "Schema validation failed on " + scope.join(".")
-      if message.len() > 0 { display += ": " + message}
-      ctx.outcome = display
-      if not ctx.soft-error {
-        assert(false, message: display)
-      }
-    }
-  )
-}
-```
+//     // Customize the mode of failure here
+//     fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
+//       let display = "Schema validation failed on " + scope.join(".")
+//       if message.len() > 0 { display += ": " + message}
+//       ctx.outcome = display
+//       if not ctx.soft-error {
+//         assert(false, message: display)
+//       }
+//     }
+//   )
+// }
+// ```

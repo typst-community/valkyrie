@@ -12,15 +12,15 @@
   ),
   (
     name: z.string(),
-    url: z.optional(z.string()),
-    phone: z.optional(z.string()),
-    fax: z.optional(z.string()),
-    orcid: z.optional(z.string()),
-    note: z.optional(z.string()),
-    email: z.optional(z.email()),
-    corresponding: z.optional(z.boolean()),
-    equal-contributor: z.optional(z.boolean()),
-    deceased: z.optional(z.boolean()),
+    url: z.string(optional: true),
+    phone: z.string(optional: true),
+    fax: z.string(optional: true),
+    orcid: z.string(optional: true),
+    note: z.string(optional: true),
+    email: z.email(optional: true),
+    corresponding: z.boolean(optional: true),
+    equal-contributor: z.boolean(optional: true),
+    deceased: z.boolean(optional: true),
     roles: z.array(z.string(), pre-transform: coerce.array),
     affiliations: z.array(
       z.either(
@@ -32,7 +32,7 @@
   ),
   pre-transform: coerce.dictionary((it)=>(name: it)),
   post-transform: (self, it)=>{
-    if (it.at("email") != none and it.corresponding == none){
+    if (it.at("email", default: none) != none and it.corresponding == none){
       it.insert("corresponding", true)
     }
     return it;
@@ -41,10 +41,10 @@
 
 #let affiliation = z.dictionary(
   (
-    id: z.optional(z.string()),
-    index: z.optional(z.number()),
-    name: z.optional(z.string()),
-    institution: z.optional(z.string())
+    id: z.string(optional: true),
+    index: z.number(optional: true),
+    name: z.string(optional: true),
+    institution: z.string(optional: true)
   ),
   pre-transform: coerce.dictionary((it)=>(name: it))
 )
@@ -107,29 +107,30 @@
     "date": "dates"
   ),
   (
-    title: z.optional(z.content()),
-    subtitle: z.optional(z.content()),
-    short-title: z.optional(z.string()),
+    title: z.content(optional: true),
+    subtitle: z.content(optional: true),
+    short-title: z.string(optional: true),
     authors: z.array(author, pre-transform: coerce.array),
     affiliations: z.array(affiliation, pre-transform: coerce.array),
     abstracts: z.array(abstracts, pre-transform: coerce.array),
-    citation: z.optional(z.content()),
-    open-access: z.optional(z.boolean()),
-    venue: z.optional(z.content()),
-    doi: z.optional(z.string()),
+    citation: z.content(optional: true),
+    open-access: z.boolean(optional: true),
+    venue: z.content(optional: true),
+    doi: z.string(optional: true),
     keywords: z.array(z.string()),
-    license: z.optional(z.dictionary(
+    license: z.dictionary(
+      optional: true,
       (
         id: z.string(),
         url: z.string(),
         name: z.string()
       ),
       pre-transform: coerce-license
-    )),
+    ),
     dates: z.array(
       z.dictionary(
         (
-          type: z.optional(z.content()),
+          type: z.content(optional: true),
           date: z.date(pre-transform: coerce.date)
         ),
         pre-transform: coerce.dictionary((it)=>(date: it))

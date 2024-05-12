@@ -23,3 +23,5 @@
     utility-expect-eq(test: value, schema: schema, truth: value)([It should validate #name])
   }
 }
+
+#z.parse(none, z.any(optional: true))

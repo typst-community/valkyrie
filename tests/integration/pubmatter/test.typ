@@ -9,8 +9,13 @@
 == Pubmatter schema
 
 #[
-  #z.parse( (
-    open-access: false,
-    license: "CC0"
-  ), z.schemas.pubmatter)
+  #z.parse( 
+    (
+      title: "Hello World",
+      author: "James Swift",
+      open-access: false,
+      license: "CC0"
+    ), 
+    z.schemas.pubmatter
+  )
 ]

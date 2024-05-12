@@ -6,24 +6,15 @@
 /// 
 /// -> schema
 #let boolean(
+  optional: false,
   default: none,
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
-) = {
-
-  // Type safety
-  assert-types(default, types: (bool,), name: "Default")
-  assert-boilerplate-params(
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
-    name: "bool",
-    default: default,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-    types: ( bool, )
-  )
-
-}
+) = base-type(    
+  name: "bool",
+  default: default,
+  optional: optional,
+  pre-transform: pre-transform,
+  post-transform: post-transform,
+  types: (bool,)
+)

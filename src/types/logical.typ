@@ -28,25 +28,3 @@
     }
   )
 }
-
-
-#let optional(option) = {
-
-  assert-base-type(option, scope: ("arguments",))
-  // todo(james): Probably a better naming convention that this
-  let name = "<optional>" + option.name
-
-  // todo: Change design. Somehow detect if there was an error and discard value?
-
-  base-type() + (
-    name: name,
-    option: option,
-    validate: (self, it, ctx: z-ctx(), scope: ()) => {
-      if (it!= none){
-        return (self.option.validate)(self.option, it, scope: scope)
-      }
-      return none;
-    }
-  )
-
-}

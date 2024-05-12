@@ -9,28 +9,19 @@
 #let string(
   name: "string",
   default: none,
+  optional: false,
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
-) = {
-  
-  assert-types(default, types: (str,), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+) =  base-type(   
     name: name,
     default: default,
+    optional: optional,
     types: (str,),
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
-  )
-}
+)
 
 
 #let ip = string.with( 

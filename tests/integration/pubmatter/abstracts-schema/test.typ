@@ -10,6 +10,6 @@
 == Abstracts schema
 
 #[
-  #z.parse([123654], z.schemas.abstracts-schema)
+  #z.parse([123654], z.schemas.abstracts)
 ]
 

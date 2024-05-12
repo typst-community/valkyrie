@@ -10,26 +10,18 @@
 #let dictionary(
   dictionary-schema,
   default: (:),
+  optional: false,
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
   aliases: (:)
 ) = {
 
-  // Does not accept positional arguments
-  //args = assert-strictly-named(args, name: "Dictionary")
   assert-base-type-dictionary(dictionary-schema)
 
-  assert-types(default, types: (dictionary-type,), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+  base-type(
     name: "dictionary",
+    optional: optional,
     default: default,
     types: (dictionary-type,),
     assertions: assertions,
@@ -45,7 +37,7 @@
       return ret
     },
     post-transform: post-transform,
-
+  ) + (
     dictionary-schema: dictionary-schema,
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
@@ -59,9 +51,9 @@
         )
 
         // feature?: contextual flag
-        //if (entry != none ) {
+        if (entry != none ) {
           it.insert(key, entry);
-        //}
+        }
 
         // Delete optional entries that fail validation?
         if ( entry == none and it.at(key, default: none) != none) {
@@ -72,52 +64,4 @@
       return it;
     },
   )
-}
-
-#let dictionary-join(
-  ..dictionary-schemas,
-  name: "joined-dictionary",
-  default: (:),
-  assertions: (),
-  pre-transform: (self, it) => it,
-  post-transform: (self, it) => it,
-  aliases: (:)
-) = {
-
-  assert-base-type-array(dictionary-schemas.pos())
-
-  assert-types(default, types: (dictionary-type,), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
-    name: name,
-    default: default,
-    types: (dictionary-type,),
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-
-    dictionary-schemas: dictionary-schemas.pos(),
-
-    assertions: assertions,
-
-    handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
-      // bug: sometimes includes 'none' for missing entries
-      for (schema) in self.dictionary-schemas{
-        it = (schema.validate)(
-          schema,
-          it,
-          ctx: ctx,
-          scope: scope,
-        )
-      }
-      it;
-    },
-
-  )
-
 }

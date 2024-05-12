@@ -5,27 +5,17 @@
 #let type-color = type(rgb(0,0,0));
 
 #let color(
+  optional: false,
   default: none,
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
-) = {
-
-  assert-types(default, types: (type-color,), name: "Default")
-
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  base-type() + (
+) = base-type(    
     name: "color",
     default: default,
+    optional: optional,
     types: (type-color,),
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
-  )
-
-}
+) 

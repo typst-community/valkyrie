@@ -9,5 +9,5 @@
 
 
 #[
-  #z.parse((institution: "sdf"), z.schemas.affiliation-schema)
+  #z.parse((institution: "sdf"), z.schemas.affiliation)
 ]

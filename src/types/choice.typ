@@ -8,6 +8,7 @@
 /// -> schema
 #let choice(
   name: "enum",
+  optional: false,
   default: none,
   assertions: (),
   pre-transform: (self, it) => it,
@@ -15,15 +16,13 @@
   list
 ) = {
 
-  assert-boilerplate-params(
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
-  )
-
-  any() + (
+  any(
     name: name,
     default: default,
+    optional: optional,
+    pre-transform: pre-transform,
+    post-transform: post-transform,
+  ) + (
     assertions: (
       (
         precondition: "list",
@@ -32,8 +31,6 @@
       ),
       ..assertions
     ),
-    pre-transform: pre-transform,
-    post-transform: post-transform,
     list: list,
   )
 
