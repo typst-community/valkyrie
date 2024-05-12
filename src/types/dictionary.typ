@@ -1,4 +1,5 @@
-#import "../base-type.typ": base-type, assert-base-type-dictionary, assert-base-type
+#import "../base-type.typ": base-type
+#import "../assertions-util.typ": assert-base-type-dictionary, assert-base-type
 #import "../ctx.typ": z-ctx
 #import "../assertions-util.typ": *
 

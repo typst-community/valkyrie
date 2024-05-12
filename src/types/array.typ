@@ -1,48 +1,21 @@
-#import "../base-type.typ": base-type, assert-base-type
+#import "../base-type.typ": base-type
+#import "../assertions-util.typ": assert-base-type
 #import "../ctx.typ": z-ctx
-#import "../assertions-util.typ": *
-
-#import "dictionary.typ": dictionary
 
 #let array-type = type(())
 
-/// This function yields a validation schema that is satisfied by an array of entries than themselves
-/// satisfy the schema defined in the sink argument. Array entries are validated by a single schema. 
-/// For arrays with positional requirements, see @@tuple. If no schema for child entries is provided,
-/// entries are validated against @@any.
-///
-/// -> schema
 #let array(
   name: "array",
-  optional: false,
-  default: (),
-  assertions: (),
-  pre-transform: (self, it) => it,
-  post-transform: (self, it) => it,
   ..args
 ) = {
-
-  // refactor(james): Is there a better way of doing this?
   let descendents-schema = args.pos().at(0, default: base-type(name: "any"))
-
-  // if ( not descendents-schema.at( "valkyrie-type", default: false) ){
-  //   descendents-schema = dictionary(..descendents-schema)
-  // }
-
-  // todo(james): This is a good opportunity to check if its a dictionary of schemas
-  //        and it could just be converted to a @@dictionary schema
   assert-base-type(descendents-schema, scope: ("arguments",))
 
-  let name = name + "[" + (descendents-schema.name) +"]";
-
   base-type(
-    name: name,
-    optional: optional,
-    default: default,
+    name: "array[" + (descendents-schema.name) +"]",
+    default: (),
     types: (array-type,),
-    assertions: assertions,
-    pre-transform: pre-transform,
-    post-transform: post-transform,
+    ..args.named(),
   ) + (
 
     descendents-schema: descendents-schema,

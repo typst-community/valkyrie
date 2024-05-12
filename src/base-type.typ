@@ -1,53 +1,7 @@
 #import "ctx.typ": z-ctx
 #import "assertions-util.typ": assert-boilerplate-params
 
-/// Asserts the presence of the magic number on the given object.
-///
-/// - arg (any):
-/// - scope (scope): Array of strings containing information for error generation.
-/// -> none
-#let assert-base-type(arg, scope: ("arguments",)) = {
-  assert("valkyrie-type" in arg,
-    message: "Invalid valkyrie type in " + scope.join(".")
-  )
-}
 
-/// Asserts the presence of the magic number on an array of object.
-///
-/// - arg (any):
-/// - scope (scope): Array of strings containing information for error generation.
-/// -> none
-#let assert-base-type-array(arg, scope: ("arguments",)) = {
-  for (name, value) in arg.enumerate() {
-    assert-base-type(value, scope: (..scope, str(name)))
-  }
-}
-
-/// Asserts the presence of the magic number in all entries of a dictionary of objects.
-///
-/// - arg (any):
-/// - scope (scope): Array of strings containing information for error generation.
-/// -> none
-#let assert-base-type-dictionary(arg, scope: ("arguments",)) = {
-  for (name, value) in arg {
-    assert-base-type(value, scope: (..scope, name))
-  }
-}
-
-/// Asserts the presence of the magic number in an argument of object.
-///
-/// - arg (any):
-/// - scope (scope): Array of strings containing information for error generation.
-/// -> none
-#let assert-base-type-arguments(arg, scope: ("arguments",)) = {
-  for (name, value) in arg.named() {
-    assert-base-type(value, scope: (..scope, name))
-  }
-
-  for (pos, value) in arg.pos().enumerate() {
-    assert-base-type(value, scope: (..scope, "[" + pos + "]"))
-  }
-}
 
 /// Schema generator. Provides default values for when defining custom types.
 #let base-type( 

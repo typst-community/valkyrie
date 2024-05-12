@@ -1,4 +1,32 @@
 
+#let assert-base-type(arg, scope: ("arguments",)) = {
+  assert("valkyrie-type" in arg,
+    message: "Invalid valkyrie type in " + scope.join(".")
+  )
+}
+
+#let assert-base-type-array(arg, scope: ("arguments",)) = {
+  for (name, value) in arg.enumerate() {
+    assert-base-type(value, scope: (..scope, str(name)))
+  }
+}
+
+#let assert-base-type-dictionary(arg, scope: ("arguments",)) = {
+  for (name, value) in arg {
+    assert-base-type(value, scope: (..scope, name))
+  }
+}
+
+#let assert-base-type-arguments(arg, scope: ("arguments",)) = {
+  for (name, value) in arg.named() {
+    assert-base-type(value, scope: (..scope, name))
+  }
+
+  for (pos, value) in arg.pos().enumerate() {
+    assert-base-type(value, scope: (..scope, "[" + pos + "]"))
+  }
+}
+
 #let assert-types(var, types: (), default: none, name: "") = {
   assert(
     type(var) in (type(default), ..types),
@@ -19,16 +47,6 @@
 #let assert-positive-type(var, name: "", types: (), default: none) = {
   assert-types(var, types: types, default: default, name: name);
   assert-positive(var, name: name);
-}
-
-#let assert-strictly-named(args, name: "") = {
-  assert(args.pos().len() == 0, message: name + " only accepts named arguments")
-  return args.named()
-}
-
-#let assert-strictly-positional(args, name: "") = {
-  assert(args.named().len() == 0, message: name + " only accepts positional arguments")
-  return args.pos()
 }
 
 #let assert-boilerplate-params(

@@ -1,4 +1,5 @@
-#import "../base-type.typ": base-type, assert-base-type-array
+#import "../base-type.typ": base-type
+#import "../assertions-util.typ": assert-base-type-array
 #import "../ctx.typ": z-ctx
 
 /// Valkyrie schema generator for objects that can be any of multiple types.

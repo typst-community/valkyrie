@@ -1,5 +1,5 @@
 #import "/src/lib.typ" as z
-//#set page(height: 1cm, width: 1cm)
+#set page(height: auto, width: auto)
 
 #let test-schema = z.dictionary((
     id: z.string(optional: true),
