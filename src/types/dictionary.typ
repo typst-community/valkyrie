@@ -1,4 +1,4 @@
-#import "../base-type.typ": base-type, assert-base-type-dictionary, assert-base-type-array
+#import "../base-type.typ": base-type, assert-base-type-dictionary, assert-base-type
 #import "../ctx.typ": z-ctx
 #import "../assertions-util.typ": *
 
@@ -26,15 +26,15 @@
     types: (dictionary-type,),
     assertions: assertions,
     pre-transform: (self, it)=>{
-      let ret = pre-transform(self, it)
+      it = pre-transform(self, it)
       for (src, dst) in aliases {
-        let value = ret.at(src, default: none)
+        let value = it.at(src, default: none)
         if ( value != none ){
-          ret.insert(dst, value)
-          let _ = ret.remove(src)
+          it.insert(dst, value)
+          let _ = it.remove(src)
         }
       }
-      return ret
+      return it
     },
     post-transform: post-transform,
   ) + (
@@ -42,7 +42,7 @@
 
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
 
-      if (it.len() == 0){ return it }
+      if (it.len() == 0 and self.optional){ return it }
 
       for (key, schema) in self.dictionary-schema{
 
@@ -53,12 +53,13 @@
           scope: (..scope, str(key))
         )
 
-        if (entry != none and ctx.dictionary-clean-none == true ) {
-          it.insert(key, entry);
-        }
+        it.insert(key, entry);
 
-        if ( entry == none and it.at(key, default: none) != none) {
-          it.remove(key);
+        if (  entry == none 
+              and (it.at(key, default: none) != none
+              or ctx.remove-optional-none == true)
+        ) {
+          //it.remove(key, default: none);
         }
 
       }

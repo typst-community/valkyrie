@@ -19,7 +19,7 @@
 ///   equal to `1`.
 /// -> any, none
 #let parse(
-  object, schema,
+  object, schemas,
   ctx: z-ctx(),
   scope: ("argument",),
 ) = {
@@ -27,15 +27,18 @@
   import "base-type.typ": assert-base-type
 
   // Validate named arguments
-  assert-base-type(schema, scope: scope)
+  
+  if (type(schemas) != type(())){schemas = (schemas,)}
+  advanced.assert-base-type-array(schemas, scope: scope)
 
-  // Validate arguments per schema
-  object = (schema.validate)(
-      schema,
-      ctx: ctx,
-      scope: scope,
-      object,
-  )
+  for schema in schemas{
+    object = (schema.validate)(
+        schema,
+        ctx: ctx,
+        scope: scope,
+        object,
+    )
+  }
 
   return object
 }

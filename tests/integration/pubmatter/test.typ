@@ -16,7 +16,7 @@
       author: (name: "James Swift", affiliation: "lboro"),
       affiliation: "lboro",
       open-access: true,
-      license: "CC-BY"
+      license: "CC-BY-NC-SA-4.0"
     ), 
     z.schemas.pubmatter
   )

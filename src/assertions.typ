@@ -3,7 +3,6 @@
 #import "./assertions/string.typ": *
 
 #let one-of(list) = (
-  //precondition: "list",
   condition: (self, it)=>{
     list.contains(it)
   },

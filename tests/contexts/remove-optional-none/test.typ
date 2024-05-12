@@ -2,16 +2,16 @@
 //#set page(height: 1cm, width: 1cm)
 
 #let test-schema = z.dictionary((
-    id: z.optional(z.string()),
-    index: z.optional(z.number()),
+    id: z.string(optional: true),
+    index: z.string(optional: true),
     name: z.string(),
-    institution: z.optional(z.string()),
+    institution: z.string(optional: true),
 ))
 
 #let test-dictionary = (
-    name: "Helsdflo",
-    id: none,
-  )
+  name: "Helsdflo",
+  id: none,
+)
 
 #z.parse(test-dictionary, test-schema , ctx: z.z-ctx(remove-optional-none: false))
 

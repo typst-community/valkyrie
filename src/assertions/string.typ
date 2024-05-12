@@ -1,7 +1,3 @@
-// includes
-
-#import "../assertions-util.typ": *
-
 #let contains(value) = {
   return (
     condition: (self, it) => it.contains(value), 

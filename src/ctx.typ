@@ -1,7 +1,7 @@
 #let ctx-proto = (
   strict: false,
   soft-error: false,
-  dictionary-clean-none: true,
+  remove-optional-none: false,
 )
 
 /// This is a utility function for setting contextual flags that are used during validation of objects against schemas.
