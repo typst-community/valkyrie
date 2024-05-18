@@ -7,7 +7,6 @@
 
 == Affiliation schema
 
-
 #[
   #z.parse((institution: "sdf"), z.schemas.affiliation)
 ]

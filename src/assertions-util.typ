@@ -31,7 +31,10 @@
 #let assert-types(var, types: (), default: none, name: "") = {
   assert(
     type(var) in (type(default), ..types),
-    message: "" + name + " must be of type " + types.join(", ", last: " or ") + ". Got " + type(var),
+    message: "" + name + " must be of type " + types.join(
+      ", ",
+      last: " or ",
+    ) + ". Got " + type(var),
   )
 }
 
@@ -42,7 +45,11 @@
 }
 
 #let assert-positive(var, name: "") = {
-  assert-soft(var, condition: var => var >= 0, message: name + " must be positive")
+  assert-soft(
+    var,
+    condition: var => var >= 0,
+    message: name + " must be positive",
+  )
 }
 
 #let assert-positive-type(var, name: "", types: (), default: none) = {

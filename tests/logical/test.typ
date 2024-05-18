@@ -13,7 +13,11 @@
     "email": "test@hello.wor.ld",
   )
 
-  for (name, value) in input-types{
-    utility-expect-eq(test: value, schema: schema, truth: value)([It should validate #name])
+  for (name, value) in input-types {
+    utility-expect-eq(
+      test: value,
+      schema: schema,
+      truth: value,
+    )([It should validate #name])
   }
 }

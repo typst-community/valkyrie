@@ -12,8 +12,12 @@
     "boolean (false)": false,
   )
 
-  for (name, value) in input-types{
-    utility-expect-eq(test: value, schema: schema, truth: value)([It should validate #name])
+  for (name, value) in input-types {
+    utility-expect-eq(
+      test: value,
+      schema: schema,
+      truth: value,
+    )([It should validate #name])
   }
 }
 
@@ -23,7 +27,11 @@
     "number (0)": 0,
   )
 
-  for (name, value) in input-types{
-    utility-expect-eq(test: value, schema: schema, truth: none)([It should fail #name])
+  for (name, value) in input-types {
+    utility-expect-eq(
+      test: value,
+      schema: schema,
+      truth: none,
+    )([It should fail #name])
   }
 }

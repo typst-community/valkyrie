@@ -25,7 +25,10 @@
   }
   if (type(it) == int) {
     // assume this is the year
-    assert(it > 1000 and it < 3000, message: "The date is assumed to be a year between 1000 and 3000")
+    assert(
+      it > 1000 and it < 3000,
+      message: "The date is assumed to be a year between 1000 and 3000",
+    )
     return datetime(year: it, month: 1, day: 1)
   }
 
@@ -35,7 +38,9 @@
       // This isn't awesome, but probably fine
       return datetime(year: int(it), month: 1, day: 1)
     }
-    let dateMatch = it.find(regex(`^([1|2])([0-9]{3})([-\/])([0-9]{1,2})([-\/])([0-9]{1,2})$`.text))
+    let dateMatch = it.find(
+      regex(`^([1|2])([0-9]{3})([-\/])([0-9]{1,2})([-\/])([0-9]{1,2})$`.text),
+    )
     if (dateMatch != none) {
       let parts = it.split(regex("[-\/]"))
       return datetime(

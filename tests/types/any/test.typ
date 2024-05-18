@@ -16,11 +16,15 @@
     "string (empty)": "",
     "string (lorem)": str(lorem(20)),
     "dictionary (empty)": (:),
-    "dictionary": (foo:"bar"),
+    "dictionary": (foo: "bar"),
   )
 
-  for (name, value) in input-types{
-    utility-expect-eq(test: value, schema: schema, truth: value)([It should validate #name])
+  for (name, value) in input-types {
+    utility-expect-eq(
+      test: value,
+      schema: schema,
+      truth: value,
+    )([It should validate #name])
   }
 }
 

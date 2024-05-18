@@ -2,10 +2,10 @@
 #set page(height: auto, width: auto)
 
 #let test-schema = z.dictionary((
-    id: z.string(optional: true),
-    index: z.string(optional: true),
-    name: z.string(),
-    institution: z.string(optional: true),
+  id: z.string(optional: true),
+  index: z.string(optional: true),
+  name: z.string(),
+  institution: z.string(optional: true),
 ))
 
 #let test-dictionary = (
@@ -13,8 +13,10 @@
   id: none,
 )
 
-#z.parse(test-dictionary, test-schema , ctx: z.z-ctx(remove-optional-none: false))
+#z.parse(
+  test-dictionary,
+  test-schema,
+  ctx: z.z-ctx(remove-optional-none: false),
+)
 
-  
-
-#z.parse(test-dictionary, test-schema , ctx: z.z-ctx(remove-optional-none: true))
+#z.parse(test-dictionary, test-schema, ctx: z.z-ctx(remove-optional-none: true))

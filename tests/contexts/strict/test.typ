@@ -12,8 +12,12 @@
     ip: "1.1.251.1",
   )
 
-  _ = z.parse(test-dictionary, z.dictionary((
-    email: z.email(),
-    ip: z.ip(),
-  )), ctx: strict-context)
+  _ = z.parse(
+    test-dictionary,
+    z.dictionary((
+      email: z.email(),
+      ip: z.ip(),
+    )),
+    ctx: strict-context,
+  )
 }

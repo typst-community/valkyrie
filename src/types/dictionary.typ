@@ -59,7 +59,14 @@
 
         it.insert(key, entry)
 
-        if (entry == none and (it.at(key, default: none) != none or ctx.remove-optional-none == true)) {
+        if (
+          entry == none and (
+            it.at(
+              key,
+              default: none,
+            ) != none or ctx.remove-optional-none == true
+          )
+        ) {
           it.remove(key, default: none)
         }
 

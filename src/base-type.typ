@@ -43,7 +43,10 @@
           it,
           scope: scope,
           ctx: ctx,
-          message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it),
+          message: "Expected " + types.join(
+            ", ",
+            last: " or ",
+          ) + ". Got " + type(it),
         )
         return false
       }
@@ -82,7 +85,15 @@
       it = (self.pre-transform)(self, it)
 
       // assert types
-      if (not (self.assert-type)(self, it, scope: scope, ctx: ctx, types: self.types)) {
+      if (
+        not (self.assert-type)(
+          self,
+          it,
+          scope: scope,
+          ctx: ctx,
+          types: self.types,
+        )
+      ) {
         return none
       }
 

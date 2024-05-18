@@ -7,7 +7,10 @@
 /// -> schema
 #let either(..args) = {
 
-  assert(args.pos().len() > 0, message: "z.either requires 1 or more arguments.")
+  assert(
+    args.pos().len() > 0,
+    message: "z.either requires 1 or more arguments.",
+  )
   assert-base-type-array(args.pos(), scope: ("arguments",))
 
   base-type() + (
@@ -16,7 +19,12 @@
     options: args.pos(),
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
       for option in self.options {
-        let ret = (option.validate)(option, it, ctx: z-ctx(ctx, soft-error: true), scope: scope)
+        let ret = (option.validate)(
+          option,
+          it,
+          ctx: z-ctx(ctx, soft-error: true),
+          scope: scope,
+        )
         if ret != none {
           return ret
         }

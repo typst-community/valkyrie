@@ -20,3 +20,7 @@ update *args:
 
 # run ci suite
 ci: test doc
+
+# Typstyle
+style:
+	typstyle -i format-all 

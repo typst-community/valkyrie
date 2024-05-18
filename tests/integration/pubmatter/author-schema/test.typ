@@ -11,8 +11,8 @@
   #z.parse(
     (
       name: "James R Swift",
-      email: "hello@world.com"
-    ), 
-    z.schemas.author
+      email: "hello@world.com",
+    ),
+    z.schemas.author,
   )
 ]
