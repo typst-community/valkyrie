@@ -3,21 +3,20 @@
 
 #show: show-rule.with();
 
-
 = Integration
 
 == Pubmatter schema
 
 #[
-  #z.parse( 
+  #z.parse(
     (
       title: "Hello World",
       subtitle: [Hello],
       author: (name: "James Swift", affiliation: "lboro"),
       affiliation: "lboro",
       open-access: true,
-      license: "CC-BY-NC-SA-4.0"
-    ), 
-    z.schemas.pubmatter
+      //license: "CC-BY-NC-SA-4.0",
+    ),
+    z.schemas.pubmatter,
   )
 ]
