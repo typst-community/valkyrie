@@ -1,5 +1,5 @@
-#import "/src/types.typ" as z;
-#import "/src/coercions.typ" as coerce;
+#import "../types.typ" as z;
+#import "../coercions.typ" as coerce;
 
 #let author = z.dictionary(
   aliases: (
