@@ -18,7 +18,6 @@
   )
 }
 
-
 #let eq(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Equality")
 

@@ -130,9 +130,9 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   [name],           [✱],[✱],[✱],[✱],[✱],[✱],[✱], [✱],[✱],[✱],[✱],[✱],
   [optional],       [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
   [default],        [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
-  [types],          [✔],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[],
-  [assertions],     [✔],[✔],[✔],[✔],[✔],[✔],[✱],[ ],[✔],[✱],[✔],[✱],
-  [pre-transform],  [✔],[✔],[✔],[✔],[✔],[✔],[✱],[ ],[✔],[✔],[✔],[✔],
+  [types],          [✔],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],[✱],
+  [assertions],     [✔],[✔],[✔],[✔],[✔],[✔],[✱],[✱],[✔],[✱],[✔],[✱],
+  [pre-transform],  [✔],[✔],[✔],[✔],[✔],[✔],[✱],[✱],[✔],[✔],[✔],[✔],
   [post-transform], [✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],[✔],
 ))
 
@@ -183,7 +183,7 @@ argument("post-transform", default: "(self,it)=>it", types: "function")[Transfor
   Generates a schema that accepts any input as valid.
 ]
 
-#command("array", arg[schema], sarg[args], ret: ("any","none"))[
+#command("array", arg[schema], sarg[args], ret: "schema")[
   #argument("schema", types: "schema")[Schema against which to validate child entries. Defaults to #tidyref(none, "any").]
 ]
 
@@ -203,14 +203,31 @@ argument("post-transform", default: "(self,it)=>it", types: "function")[Transfor
   Generates a schema that accepts only datetime objects as valid. 
 ]
 
-#command("dictionary", arg(aliases: (:)), arg[schema], sarg[args], ret: ("any","none"))[
+#command("dictionary", arg(aliases: (:)), arg[schema], sarg[args], ret: "schema")[
     #argument("aliases", types: "dict", default: (:))[Dictionary representation of source to destination aliasing. Has the effect of allowing the user to key something with `source` when its `destination` that is meant.]
   #argument("schema", types: "dictionary")[Dictionary of schema elements, used to define the validation rules for each entry.]
 ]
 
-#command("either",  sarg[schema], sarg[args], ret: ("any","none"))[
+#command("either",  sarg[schema], sarg[args], ret: "schema")[
   #argument("schema", types: "dictionary", is-sink: true)[Positional arguments of validation schemes in order or preference that an input value should satisfy.]
 ]
+
+#command("number", sarg[args], ret: "schema")[
+  Generates a schema that accepts only numbers as valid. 
+]
+
+#command("string", sarg[args], ret: "schema")[
+  Generates a schema that accepts only strings as valid. 
+]
+
+#command("tuple",  sarg[schema], sarg[args], ret: "schema")[
+  #argument("schema", types: "schema", is-sink: true)[Positional arguments of validation schemes representing a tuple.]
+]
+
+#command("choice",  arg[choices], sarg[args], ret: "schema")[
+  #argument("choices", types: "array")[Array of valid inputs]
+]
+
 
 
 #pagebreak()
@@ -240,7 +257,7 @@ argument("post-transform", default: "(self,it)=>it", types: "function")[Transfor
 
     node((-1,4), align(center)[Allow #repr(none) if \ `self.optional` is #true], corner-radius: 2pt),
     node((0,4), align(center)[Allow if `self.types` \ length is 0], corner-radius: 2pt),
-    node((1,4), align(center)[Allow `value` if type in \ `self.types` is #true], corner-radius: 2pt),
+    node((1,4), align(center)[Allow `value` if type\ in  `self.types`], corner-radius: 2pt),
 
     node((1,3), align(center)[`self.fail-validation`], corner-radius: 2pt),
     edge("-|>"),

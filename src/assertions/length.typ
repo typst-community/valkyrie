@@ -19,7 +19,7 @@
 }
 
 #let equals(rhs) = {
-  assert-positive-type(rhs, types: (int,), name: "Maximum length")
+  assert-positive-type(rhs, types: (int,), name: "Exact length")
 
   return (
     condition: (self, it)=>it.len()==rhs, 
