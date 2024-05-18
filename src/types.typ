@@ -8,8 +8,8 @@
 
 #let any = base-type.with(name: "any")
 #let boolean = base-type.with(name: "bool", types: (bool,))
-#let color = base-type.with(name: "color", types: (type(rgb(0, 0, 0)),))
-#let content = base-type.with(name: "content", types: (type([]), str))
+#let color = base-type.with(name: "color", types: (color,))
+#let content = base-type.with(name: "content", types: (content, str))
 #let date = base-type.with(name: "date", types: (datetime,))
 #let number = base-type.with(name: "number", types: (float, int))
 #let integer = number.with(name: "integer", types: (int,))
