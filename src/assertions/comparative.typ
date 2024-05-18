@@ -17,3 +17,13 @@
     message: (self, it) => "Must be at most " + str(rhs),
   )
 }
+
+
+#let eq(rhs) = {
+  assert-positive-type(rhs, types: (int,), name: "Equality")
+
+  return (
+    condition: (self, it)=>it==rhs, 
+    message: (self, it) => "Must be exactly " + str(rhs),
+  )
+}

@@ -15,7 +15,7 @@
 #let integer = number.with( name: "integer", types: (int,))
 #let floating-point = number.with( name: "float", types: (float,))
 
-#let choice(list, assertions: (), ..args) = any(
+#let choice(list, assertions: (), ..args) = base-type(
   name: "enum",
   ..args,
   assertions: (one-of(list),..assertions),
