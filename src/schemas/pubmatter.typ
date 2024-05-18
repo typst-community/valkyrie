@@ -3,7 +3,7 @@
 
 #let author = z.dictionary(
   aliases: (
-    "affiliation":"affiliations",
+    "affiliation": "affiliations",
     "website": "url",
     "homepage": "url",
     "ORCID": "orcid",
@@ -25,18 +25,18 @@
     affiliations: z.array(
       z.either(
         z.string(),
-        z.number()
+        z.number(),
       ),
-      pre-transform: coerce.array
-    )
+      pre-transform: coerce.array,
+    ),
   ),
-  pre-transform: coerce.dictionary((it)=>(name: it)),
-  post-transform: (self, it)=>{
-    if (it.at("email", default: none) != none and it.corresponding == none){
+  pre-transform: coerce.dictionary(it => (name: it)),
+  post-transform: (self, it) => {
+    if (it.at("email", default: none) != none and it.corresponding == none) {
       it.insert("corresponding", true)
     }
-    return it;
-  }
+    return it
+  },
 )
 
 #let affiliation = z.dictionary(
@@ -44,9 +44,9 @@
     id: z.string(optional: true),
     index: z.number(optional: true),
     name: z.string(optional: true),
-    institution: z.string(optional: true)
+    institution: z.string(optional: true),
   ),
-  pre-transform: coerce.dictionary((it)=>(name: it))
+  pre-transform: coerce.dictionary(it => (name: it)),
 )
 
 #let abstracts = z.dictionary(
@@ -54,41 +54,41 @@
     title: z.string(default: "Abstract"),
     content: z.content(),
   ),
-  pre-transform: coerce.dictionary(it=>(content: it))
+  pre-transform: coerce.dictionary(it => (content: it)),
 )
 
 #let coerce-license(self, it) = {
-  if ( it in ("CC0", "CC0-1.0")){
+  if (it in ("CC0", "CC0-1.0")) {
     return (
       id: "CC0-1.0",
       url: "https://creativecommons.org/licenses/zero/1.0/",
       name: "Creative Commons Zero v1.0 Universal",
-    ) 
-  } else if ( it in ("CC-BY", "CC-BY-4.0")){
+    )
+  } else if (it in ("CC-BY", "CC-BY-4.0")) {
     return (
       id: "CC-BY-4.0",
       url: "https://creativecommons.org/licenses/by/4.0/",
       name: "Creative Commons Attribution 4.0 International",
     )
-  } else if ( it in ("CC-BY-NC", "CC-BY-NC-4.0")){
+  } else if (it in ("CC-BY-NC", "CC-BY-NC-4.0")) {
     return (
       id: "CC-BY-NC-4.0",
       url: "https://creativecommons.org/licenses/by-nc/4.0/",
-      name: "Creative Commons Attribution Non Commercial 4.0 International"
+      name: "Creative Commons Attribution Non Commercial 4.0 International",
     )
-  } else if ( it in ("CC-BY-NC-SA", "CC-BY-NC-SA-4.0")){
+  } else if (it in ("CC-BY-NC-SA", "CC-BY-NC-SA-4.0")) {
     return (
       id: "CC-BY-NC-SA-4.0",
       url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       name: "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
     )
-  } else if ( it in ("CC-BY-ND", "CC-BY-ND-4.0")){
+  } else if (it in ("CC-BY-ND", "CC-BY-ND-4.0")) {
     return (
       id: "CC-BY-ND-4.0",
       url: "https://creativecommons.org/licenses/by-nd/4.0/",
       name: "Creative Commons Attribution No Derivatives 4.0 International",
     )
-  } else if ( it in ("CC-BY-NC-ND", "CC-BY-NC-ND-4.0")){
+  } else if (it in ("CC-BY-NC-ND", "CC-BY-NC-ND-4.0")) {
     return (
       id: "CC-BY-NC-ND-4.0",
       url: "https://creativecommons.org/licenses/by-nc-nd/4.0/",
@@ -105,7 +105,7 @@
     "running-head": "short-title",
     "affiliation": "affiliations",
     "abstract": "abstracts",
-    "date": "dates"
+    "date": "dates",
   ),
   (
     title: z.content(optional: true),
@@ -124,19 +124,19 @@
       (
         id: z.string(),
         url: z.string(),
-        name: z.string()
+        name: z.string(),
       ),
-      pre-transform: coerce-license
+      pre-transform: coerce-license,
     ),
     dates: z.array(
       z.dictionary(
         (
           type: z.content(optional: true),
-          date: z.date(pre-transform: coerce.date)
+          date: z.date(pre-transform: coerce.date),
         ),
-        pre-transform: coerce.dictionary((it)=>(date: it))
+        pre-transform: coerce.dictionary(it => (date: it)),
       ),
-      pre-transform: coerce.array
+      pre-transform: coerce.array,
     ),
-  )
+  ),
 )

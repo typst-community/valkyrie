@@ -4,7 +4,7 @@
   assert-positive-type(rhs, types: (int,), name: "Minimum length")
 
   return (
-    condition: (self, it)=>it.len()>=rhs, 
+    condition: (self, it) => it.len() >= rhs,
     message: (self, it) => "Length must be at least " + str(rhs),
   )
 }
@@ -13,7 +13,7 @@
   assert-positive-type(rhs, types: (int,), name: "Maximum length")
 
   return (
-    condition: (self, it)=>it.len()<=rhs, 
+    condition: (self, it) => it.len() <= rhs,
     message: (self, it) => "Length must be at most " + str(rhs),
   )
 }
@@ -22,7 +22,7 @@
   assert-positive-type(rhs, types: (int,), name: "Exact length")
 
   return (
-    condition: (self, it)=>it.len()==rhs, 
+    condition: (self, it) => it.len() == rhs,
     message: (self, it) => "Length must equal " + str(rhs),
   )
 }

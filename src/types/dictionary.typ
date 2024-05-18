@@ -15,7 +15,7 @@
   assertions: (),
   pre-transform: (self, it) => it,
   post-transform: (self, it) => it,
-  aliases: (:)
+  aliases: (:),
 ) = {
 
   assert-base-type-dictionary(dictionary-schema)
@@ -26,11 +26,11 @@
     default: default,
     types: (dictionary-type,),
     assertions: assertions,
-    pre-transform: (self, it)=>{
+    pre-transform: (self, it) => {
       it = pre-transform(self, it)
       for (src, dst) in aliases {
         let value = it.at(src, default: none)
-        if ( value != none ){
+        if (value != none) {
           it.insert(dst, value)
           let _ = it.remove(src)
         }
@@ -40,31 +40,31 @@
     post-transform: post-transform,
   ) + (
     dictionary-schema: dictionary-schema,
-
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
 
-      if (it.len() == 0 and self.optional){ return none }
+      if (it.len() == 0 and self.optional) {
+        return none
+      }
 
-      for (key, schema) in self.dictionary-schema{
+      for (key, schema) in self.dictionary-schema {
 
-        let entry = (schema.validate)(
-          schema, 
+        let entry = (
+          schema.validate
+        )(
+          schema,
           it.at(key, default: none), // implicitly handles missing entries
-          ctx: ctx, 
+          ctx: ctx,
           scope: (..scope, str(key))
         )
 
-        it.insert(key, entry);
+        it.insert(key, entry)
 
-        if (  entry == none 
-              and (it.at(key, default: none) != none
-              or ctx.remove-optional-none == true)
-        ) {
-          it.remove(key, default: none);
+        if (entry == none and (it.at(key, default: none) != none or ctx.remove-optional-none == true)) {
+          it.remove(key, default: none)
         }
 
       }
-      return it;
+      return it
     },
   )
 }

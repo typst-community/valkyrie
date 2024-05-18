@@ -6,22 +6,20 @@
 
 #let array(
   name: "array",
-  ..args
+  ..args,
 ) = {
   let descendents-schema = args.pos().at(0, default: base-type(name: "any"))
   assert-base-type(descendents-schema, scope: ("arguments",))
 
   base-type(
-    name: "array[" + (descendents-schema.name) +"]",
+    name: "array[" + (descendents-schema.name) + "]",
     default: (),
     types: (array-type,),
     ..args.named(),
   ) + (
-
     descendents-schema: descendents-schema,
-
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
-      for (key, value) in it.enumerate(){
+      for (key, value) in it.enumerate() {
         it.at(key) = (descendents-schema.validate)(
           descendents-schema,
           value,
@@ -29,8 +27,7 @@
           scope: (..scope, str(key)),
         )
       }
-      it;
+      it
     },
-
   )
 }

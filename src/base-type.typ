@@ -1,28 +1,25 @@
 #import "ctx.typ": z-ctx
 #import "assertions-util.typ": assert-boilerplate-params
 
-
-
 /// Schema generator. Provides default values for when defining custom types.
-#let base-type( 
+#let base-type(
   name: "unknown",
   optional: false,
   default: none,
   types: (),
   assertions: (),
-  pre-transform: (self, it)=>it,
-  post-transform: (self, it)=>it,
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
 ) = {
-    
+
   assert-boilerplate-params(
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
   )
-    
+
   return (
     valkyrie-type: true,
-
     name: name,
     optional: optional,
     default: default,
@@ -30,33 +27,37 @@
     assertions: assertions,
     pre-transform: pre-transform,
     post-transform: post-transform,
+    assert-type: (self, it, scope: (), ctx: z-ctx(), types: ()) => {
 
-    assert-type: (self, it, scope:(), ctx: z-ctx(), types: ()) => {
+      if ((self.optional) and (it == none)) {
+        return true
+      }
 
-      if ( (self.optional) and (it == none)){return true}
+      if (self.types.len() == 0) {
+        return true
+      }
 
-      if ( self.types.len() == 0 ) {return true};
-
-      if ( type(it) not in self.types) {
-        (self.fail-validation)(self, it, scope: scope, ctx: ctx,
-          message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it))
+      if (type(it) not in self.types) {
+        (self.fail-validation)(
+          self,
+          it,
+          scope: scope,
+          ctx: ctx,
+          message: "Expected " + types.join(", ", last: " or ") + ". Got " + type(it),
+        )
         return false
       }
 
       true
     },
-
     handle-assertions: (self, it, scope: (), ctx: z-ctx()) => {
       for (key, value) in self.assertions.enumerate() {
-        if ( value.at("precondition", default: none) != none ){
-          if (self.at(value.precondition, default: none) == none){
-            continue;
+        if (value.at("precondition", default: none) != none) {
+          if (self.at(value.precondition, default: none) == none) {
+            continue
           }
         }
-        if not ( 
-          it == none or
-          (value.condition)(self, it) 
-        ) {
+        if not (it == none or (value.condition)(self, it)) {
           (self.fail-validation)(
             self,
             it,
@@ -69,13 +70,15 @@
       }
       it
     },
-
-    handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {it},
-
+    handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
+      it
+    },
     validate: (self, it, scope: (), ctx: z-ctx()) => {
 
       //it = self.default
-      if ( it == none or type(it) == none ){ it = self.default }
+      if (it == none or type(it) == none) {
+        it = self.default
+      }
       it = (self.pre-transform)(self, it)
 
       // assert types
@@ -90,12 +93,13 @@
 
       (self.post-transform)(self, it)
     },
-
     fail-validation: (self, it, scope: (), ctx: z-ctx(), message: "") => {
       let display = "Schema validation failed on " + scope.join(".")
-      if message.len() > 0 { display += ": " + message}
+      if message.len() > 0 {
+        display += ": " + message
+      }
       ctx.outcome = display
       assert(ctx.soft-error, message: display)
-    }
+    },
   )
 }

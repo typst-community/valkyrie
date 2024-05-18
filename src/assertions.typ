@@ -3,8 +3,8 @@
 #import "./assertions/string.typ": *
 
 #let one-of(list) = (
-  condition: (self, it)=>{
+  condition: (self, it) => {
     list.contains(it)
   },
-  message: (self, it)=> "Unknown " + self.name + " `" + repr(it) + "`"
+  message: (self, it) => "Unknown " + self.name + " `" + repr(it) + "`",
 )

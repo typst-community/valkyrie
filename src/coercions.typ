@@ -1,24 +1,28 @@
 
 ///
 #let dictionary(fn) = (self, it) => {
-  if (type(it) != type((:))){
+  if (type(it) != type((:))) {
     return fn(it)
   }
-  it
-} 
-
-///
-#let array(self, it) = {
-  if (type(it) != type(())){return (it,)}
   it
 }
 
 ///
-#let content(self, it)=[#it]
+#let array(self, it) = {
+  if (type(it) != type(())) {
+    return (it,)
+  }
+  it
+}
 
 ///
-#let date(self, it)={
-  if (type(it)==type(datetime.today())) {return it};
+#let content(self, it) = [#it]
+
+///
+#let date(self, it) = {
+  if (type(it) == type(datetime.today())) {
+    return it
+  }
   if (type(it) == int) {
     // assume this is the year
     assert(it > 1000 and it < 3000, message: "The date is assumed to be a year between 1000 and 3000")
@@ -53,6 +57,6 @@
     }
     panic("Unknown datetime object from dictionary, try: `(year: 2022, month: 2, day: 3)`")
   }
-  panic("Unknown date of type '" + type(it)+ "' accepts: datetime, str, int, and object")
+  panic("Unknown date of type '" + type(it) + "' accepts: datetime, str, int, and object")
 
 }

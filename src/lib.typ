@@ -6,27 +6,29 @@
 #import "coercions.typ" as coerce
 #import "schemas.typ" as schemas
 
-
 #let parse(
-  object, schemas,
+  object,
+  schemas,
   ctx: z-ctx(),
   scope: ("argument",),
 ) = {
   // don't expose to external
   import "assertions-util.typ": assert-base-type
-  
+
 
   // Validate named arguments
-  
-  if (type(schemas) != type(())){schemas = (schemas,)}
+
+  if (type(schemas) != type(())) {
+    schemas = (schemas,)
+  }
   advanced.assert-base-type-array(schemas, scope: scope)
 
-  for schema in schemas{
+  for schema in schemas {
     object = (schema.validate)(
-        schema,
-        ctx: ctx,
-        scope: scope,
-        object,
+      schema,
+      ctx: ctx,
+      scope: scope,
+      object,
     )
   }
 
