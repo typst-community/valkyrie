@@ -17,8 +17,8 @@
 - **(Breaking)** `transform` argument has been replaced with `pre-transform` (applied prior to validation), and `post-transform` (applied after validation).
 - **(Breaking)** Dictionaries now take the schema definition of members as a dictionary in the first positional argument rather than a sink of named arguments.
 - **(Breaking)** `strict` contextual flag is now applied on the type level rather than directly in the parse function. It is currently only applied in the dictionary type, and will cause an assertion to fail if s
-- **(Potentially breaking)** Dictionaries default to empty dictionaries rather than none.
-- **(Potentially breaking)** Dictionaries that don't have a member that is present in the schema no longer produce an error outside of strict contexts.
+- **(Breaking)** Dictionaries default to empty dictionaries rather than none.
+- **(Potentially breaking)** Dictionaries that don't have a member that is present in the schema no longer produce an error outside of `strict` contexts.
 - **(Potentially breaking)** `strict` contextual flag is now applied on the type level rather than directly in the parse function. It is currently only applied in the dictionary type, and will cause an assertion to fail if set to `true` when object being validated contains keys unknown to the schema.
 - **(Breaking)** Assertions on values have been moved from named arguments to assertion generator functions. 
 
