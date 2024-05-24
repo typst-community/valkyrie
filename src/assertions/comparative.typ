@@ -1,6 +1,6 @@
 #import "../assertions-util.typ": assert-positive-type
 
-/// 
+/// Asserts that tested value is greater than or equal to argument
 #let min(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Minimum")
 
@@ -10,7 +10,7 @@
   )
 }
 
-/// 
+/// Asserts that tested value is less than or equal to argument
 #let max(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Maximum")
 
@@ -20,7 +20,7 @@
   )
 }
 
-/// 
+/// Asserts that tested value is exactly equal to argument
 #let eq(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Equality")
 

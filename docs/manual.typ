@@ -394,17 +394,91 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 ]
 
 #pagebreak()
-== Coercions
+
+#import("@preview/tidy:0.2.0")
+
+#let module-doc = tidy.parse-module(
+  read("/src/coercions.typ"),
+  name: "z.coerce",
+  label-prefix: "z.coerce",
+  scope: (:)
+)
+
+#tidy.show-module(
+  module-doc,
+  style: (
+    get-type-color: mty-tidy.get-type-color,
+    show-outline: mty-tidy.show-outline,
+    show-parameter-list: mty-tidy.show-parameter-list,
+    show-parameter-block: mty-tidy.show-parameter-block,
+    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-variable: mty-tidy.show-variable.with(tidy: tidy),
+    show-example: mty-tidy.show-example,
+    show-reference: mty-tidy.show-reference
+  ),
+  first-heading-level: 2,
+  show-module-name: true,
+  sort-functions: false,
+  show-outline: true
+)
+
 #tidy-module(read("/src/coercions.typ"), name: "coerce")
 #pagebreak()
 
-== Assertions
-Assertions are additional requirements that can be placed upon a validation schema to help narrow the space of valid inputs. For example, a valid input for an argument that takes a password, we could assert that it has a minimum length.
 
-#tidy-module(read("/src/assertions.typ"), name: "assertions")
-#tidy-module(read("/src/assertions/length.typ"), name: "assertions.length")
-#tidy-module(read("/src/assertions/comparative.typ"), name: "assertions")
-#tidy-module(read("/src/assertions/string.typ"), name: "assertions")
+
+#let module-doc = tidy.parse-module(
+  read("/src/assertions.typ")
+  + read("/src/assertions/comparative.typ")
+  + read("/src/assertions/string.typ"),
+  name: "z.assert",
+  label-prefix: "z.assert",
+  scope: (:)
+)
+
+#tidy.show-module(
+  module-doc,
+  style: (
+    get-type-color: mty-tidy.get-type-color,
+    show-outline: mty-tidy.show-outline,
+    show-parameter-list: mty-tidy.show-parameter-list,
+    show-parameter-block: mty-tidy.show-parameter-block,
+    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-variable: mty-tidy.show-variable.with(tidy: tidy),
+    show-example: mty-tidy.show-example,
+    show-reference: mty-tidy.show-reference
+  ),
+  first-heading-level: 2,
+  show-module-name: true,
+  sort-functions: false,
+  show-outline: true
+)
+
+#let module-doc = tidy.parse-module(
+  read("/src/assertions/length.typ"),
+  name: "z.assert.length",
+  label-prefix: "z.assert.string.",
+  scope: (:)
+)
+
+#tidy.show-module(
+  module-doc,
+  style: (
+    get-type-color: mty-tidy.get-type-color,
+    show-outline: mty-tidy.show-outline,
+    show-parameter-list: mty-tidy.show-parameter-list,
+    show-parameter-block: mty-tidy.show-parameter-block,
+    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-variable: mty-tidy.show-variable.with(tidy: tidy),
+    show-example: mty-tidy.show-example,
+    show-reference: mty-tidy.show-reference
+  ),
+  first-heading-level: 2,
+  show-module-name: true,
+  sort-functions: false,
+  show-outline: true
+)
+
 #pagebreak()
 = Advanced Documentation
 == Validation heuristic
@@ -481,88 +555,3 @@ Assertions are additional requirements that can be placed upon a validation sche
   ),
   caption: [Flow diagram representation of parsing heuristic when validating a value against a schema.],
 )
-
-// = Advanced Documentation
-
-// == Internal functions
-// The following functions are made available to users under the `z.advanced` namespace.
-// #mantys.tidy-module(read("/src/base-type.typ"), name: "chemicoms-paper")#pagebreak()
-
-// The Typst package ecosystem is large and evergrowing. Eventually, someone, somewhere, will want to validate a type or structure that has never been seen before. If this describes your situation, the following guide may be of use. This section covers different ways complicated types can be defined.
-
-// == Type specialization
-
-// === Novice
-// It may be the case that your type is simply a narrowing of an already-defined type. In such cases, it may be easy to add a validator for your code. For example, to create a validator for numbers between 5 and 10, you could so as as follows:
-
-// ```typ
-// #let specific-number = z.number.with(min: 5, max: 10)
-// ```
-
-// === Intermediate
-// If the above method is not sufficient to accurately describe your type, then the custom argument (described above) may be suitable.
-// ```typ
-// #let specific-number = z.number.with(
-//   custom: it => 5 < it and it < 10,
-//   custom-error: "Value was incorrect",
-// )
-// ```
-
-// === Advanced
-// If the above doesn't work, but would if you had access to information that would otherwise be hidden inside the schema type-like object, then bootstrapping it may be an avenue to explore.
-// ```typ
-// #let specific-number(..args) = z.number(..args) + (
-//   // Configure values manually, perhaps override functions.
-//   // Check source code of schema generator being bootstrapped.
-// )
-// ```
-
-// === Wizard
-// For the most advanced types, creating a schema generator from scratch may be the only way (though this definitely is the last stop, this method should cover all cases). To do so, simply define a function that returns a schema-like dictionary.
-
-// ```typ
-// #let tuple(my-args, ...) = {
-//   // Shorthand for the definitions shown below. If you do not modify a function,
-//   // you may as well omit it and have it set to its default by base-type()
-//   z.advanced.base-type() + (
-//     // Magic number
-//     valkyrie-type: true,
-//     // Member sometimes used by other classes when they report a failed validation
-//     name: "my-type",
-//     // Helper function, generally called by validate()
-//     assert-type: (self, it, scope:(), ctx: ctx(), types: ()) => {
-//       if type(it) not in types {
-//         (self.fail-validation)(
-//           self,
-//           it,
-//           scope: scope,
-//           ctx: ctx,
-//           message: (
-//             "Expected "
-//             + joinWithAnd(types, ", ", " or ")
-//             + ". Got "
-//             + type(it)
-//           ),
-//         )
-//         return false
-//       }
-
-//       true
-//     },
-
-//     // Do your validation here. Call fail-validation() if validation failed.
-//     // Generally, return none also.
-//     validate: (self, it, scope: (), ctx: (:)) => it,
-
-//     // Customize the mode of failure here
-//     fail-validation: (self, it, scope: (), ctx: (:), message: "") => {
-//       let display = "Schema validation failed on " + scope.join(".")
-//       if message.len() > 0 { display += ": " + message}
-//       ctx.outcome = display
-//       if not ctx.soft-error {
-//         assert(false, message: display)
-//       }
-//     }
-//   )
-// }
-// ```
