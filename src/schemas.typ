@@ -1,2 +1,2 @@
-#import "schemas/pubmatter.typ": author, affiliation, pubmatter, abstracts
+#import "schemas/author.typ": author
 #import "schemas/enumerations.typ": papersize
