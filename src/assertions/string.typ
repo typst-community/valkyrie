@@ -1,3 +1,4 @@
+/// 
 #let contains(value) = {
   return (
     condition: (self, it) => it.contains(value),
@@ -5,6 +6,7 @@
   )
 }
 
+/// 
 #let starts-with(value) = {
   return (
     condition: (self, it) => it.starts-with(value),
@@ -12,6 +14,7 @@
   )
 }
 
+/// 
 #let ends-with(value) = {
   return (
     condition: (self, it) => it.ends-with(value),
@@ -19,6 +22,7 @@
   )
 }
 
+/// 
 #let matches(needle, message: (self, it) => { }) = {
   return (
     condition: (self, it) => it.match(needle) != none,

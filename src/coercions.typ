@@ -1,5 +1,17 @@
 
+/// If the tested value is not already of dictionary type, the function provided as argument is expected to return a dictionary type with a shape that passes validation.
 ///
+/// #example[```
+/// #let schema = z.dictionary(
+///   pre-transform: z.coerce.dictionary((it)=>(name: it)),
+///   (name: z.string())
+/// )
+///
+/// #z.parse("Hello", schema) \
+/// #z.parse((name: "Hello"), schema)
+/// ```]
+///
+/// - fn (function): Transformation function that the tested value and returns a dictionary that has a shape that passes validation.
 #let dictionary(fn) = (self, it) => {
   if (type(it) != type((:))) {
     return fn(it)
@@ -7,7 +19,17 @@
   it
 }
 
+/// If the tested value is not already of array type, it is transformed into an array of size 1
 ///
+/// #example[```
+/// #let schema = z.array(
+///   pre-transform: z.coerce.array,
+///   z.string()
+/// )
+///
+/// #z.parse("Hello", schema) \
+/// #z.parse(("Hello", "world"), schema)
+/// ```]
 #let array(self, it) = {
   if (type(it) != type(())) {
     return (it,)
@@ -15,10 +37,30 @@
   it
 }
 
+/// Tested value is forceably converted to content type
 ///
+/// #example[```
+/// #let schema = z.content(
+///   pre-transform: z.coerce.content
+/// )
+///
+/// #type(z.parse("Hello", schema)) \
+/// #type(z.parse(123456, schema))
+/// ```]
 #let content(self, it) = [#it]
 
+/// An attempt is made to convert string, numeric, or dictionary inputs into datetime objects
 ///
+/// #example[```
+/// #let schema = z.date(
+///   pre-transform: z.coerce.date
+/// )
+///
+/// #z.parse(2020, schema) \
+/// #z.parse("2020-03-15", schema) \
+/// #z.parse("2020/03/15", schema) \
+/// #z.parse((year: 2020, month: 3, day: 15), schema) \
+/// ```]
 #let date(self, it) = {
   if (type(it) == type(datetime.today())) {
     return it
@@ -52,7 +94,7 @@
     panic("Unknown datetime object from string, try: `2020/03/15` as YYYY/MM/DD, also accepts `2020-03-15`")
   }
 
-  if (type(it) == dictionary) {
+  if (type(it) == type((:))) {
     if ("year" in it) {
       return return datetime(
         year: it.at("year"),

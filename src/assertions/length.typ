@@ -1,5 +1,6 @@
 #import "../assertions-util.typ": assert-positive-type
 
+/// 
 #let min(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Minimum length")
 
@@ -9,6 +10,7 @@
   )
 }
 
+/// 
 #let max(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Maximum length")
 
@@ -18,6 +20,7 @@
   )
 }
 
+/// 
 #let equals(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Exact length")
 

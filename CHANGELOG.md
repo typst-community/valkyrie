@@ -1,4 +1,7 @@
 # [unreleased](https://github.com/jamesxX/valakyrie/releases/tags/)
+
+`Valkyrie` is now a community-lead project and is now homed on the typst-community organisation.
+
 ## Added
 - `Boolean` validation type
 - `Content` validation type. Also accepts strings which are coerced into content types.

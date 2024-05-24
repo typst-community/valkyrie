@@ -397,8 +397,14 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 == Coercions
 #tidy-module(read("/src/coercions.typ"), name: "coerce")
 #pagebreak()
-== Assertions
 
+== Assertions
+Assertions are additional requirements that can be placed upon a validation schema to help narrow the space of valid inputs. For example, a valid input for an argument that takes a password, we could assert that it has a minimum length.
+
+#tidy-module(read("/src/assertions.typ"), name: "assertions")
+#tidy-module(read("/src/assertions/length.typ"), name: "assertions.length")
+#tidy-module(read("/src/assertions/comparative.typ"), name: "assertions")
+#tidy-module(read("/src/assertions/string.typ"), name: "assertions")
 #pagebreak()
 = Advanced Documentation
 == Validation heuristic

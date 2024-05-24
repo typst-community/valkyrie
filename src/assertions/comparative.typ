@@ -1,5 +1,6 @@
 #import "../assertions-util.typ": assert-positive-type
 
+/// 
 #let min(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Minimum")
 
@@ -9,6 +10,7 @@
   )
 }
 
+/// 
 #let max(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Maximum")
 
@@ -18,6 +20,7 @@
   )
 }
 
+/// 
 #let eq(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Equality")
 
