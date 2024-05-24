@@ -7,5 +7,5 @@ keywords = ["type", "validation", "zod"]
 license = "GPL-3.0-only"
 repository = "https://github.com/typst-community/valkyrie"
 description = "Type safe type validation"
-exclude = ["README.md", "CHANGELOG.md", "Justfile", "docs"]
+exclude = ["README.md", "CHANGELOG.md", "Justfile", "docs", "tests"]
 categories = ["scripting", "utility"]
