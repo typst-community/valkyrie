@@ -1,5 +1,5 @@
+set windows-powershell := true
 root := justfile_directory()
-
 export TYPST_ROOT := root
 
 [private]
@@ -16,7 +16,11 @@ test *args:
 
 # update test cases
 update *args:
-	typst-test run {{ args }}
+	typst-test update {{ args }}
 
 # run ci suite
 ci: test doc
+
+# Typstyle
+style:
+	typstyle -i format-all 

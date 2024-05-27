@@ -1,44 +1,77 @@
-#import "../base-type.typ": base-type, assert-base-type-dictionary
+#import "../base-type.typ": base-type
+#import "../assertions-util.typ": assert-base-type-dictionary, assert-base-type
 #import "../ctx.typ": z-ctx
+#import "../assertions-util.typ": *
 
-/// Valkyrie schema generator for dictionary types
+#let dictionary-type = type((:))
+
+/// Valkyrie schema generator for dictionary types. Named arguments define validation schema for entries. Dictionaries can be nested.
 ///
-/// - ..args (schema): Variadic named arguments, the values for which are schema types. *MUST* not
-///   contain positional arguments.
 /// -> schema
 #let dictionary(
-  ..args
+  dictionary-schema,
+  default: (:),
+  optional: false,
+  assertions: (),
+  pre-transform: (self, it) => it,
+  post-transform: (self, it) => it,
+  aliases: (:),
 ) = {
-  // Does not accept positional arguments
-  assert(args.pos().len() == 0, message: "Dictionary only accepts named arguments")
 
-  args = args.named()
-  assert-base-type-dictionary(args)
+  assert-base-type-dictionary(dictionary-schema)
 
-  base-type() + (
+  base-type(
     name: "dictionary",
-    dictionary-schema: args,
-    validate: (self, dict, ctx: z-ctx(), scope: ("arguments",) ) => {
-      // assert type
-      if not (self.assert-type)(self, dict, scope: scope, ctx: ctx, types: (type((:)),)) {
+    optional: optional,
+    default: default,
+    types: (dictionary-type,),
+    assertions: assertions,
+    pre-transform: (self, it) => {
+      it = pre-transform(self, it)
+      for (src, dst) in aliases {
+        let value = it.at(src, default: none)
+        if (value != none) {
+          it.insert(dst, value)
+          let _ = it.remove(src)
+        }
+      }
+      return it
+    },
+    post-transform: post-transform,
+  ) + (
+    dictionary-schema: dictionary-schema,
+    handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
+
+      if (it.len() == 0 and self.optional) {
         return none
       }
 
-      // If strict mode, ensure dictionary exactly matches schema
-      if ctx.strict {
-        for (key, value) in self.dictionary-schema {
-          if ( key not in dict ){
-            (self.fail-validation)(self, dict, ctx: ctx, scope: (..scope, key), message: "Missing expected dictionary entry")
-          }
+      for (key, schema) in self.dictionary-schema {
+
+        let entry = (
+          schema.validate
+        )(
+          schema,
+          it.at(key, default: none), // implicitly handles missing entries
+          ctx: ctx,
+          scope: (..scope, str(key))
+        )
+
+        it.insert(key, entry)
+
+        if (
+          entry == none and (
+            it.at(
+              key,
+              default: none,
+            ) != none or ctx.remove-optional-none == true
+          )
+        ) {
+          it.remove(key, default: none)
         }
-      }
 
-      // Check elements
-      for (key, schema) in self.dictionary-schema{
-        dict.at(key) = (schema.validate)(schema, dict.at(key), ctx: ctx, scope: (..scope, str(key)))
       }
-
-      dict
-    }
+      return it
+    },
   )
 }
