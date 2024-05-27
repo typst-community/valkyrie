@@ -1,4 +1,4 @@
-# [unreleased](https://github.com/jamesxX/valakyrie/releases/tags/)
+# [v0.2.0](https://github.com/typst-community/valakyrie/releases/tags/v0.2.0)
 
 `Valkyrie` is now a community-lead project and is now homed on the typst-community organisation.
 
@@ -32,11 +32,11 @@
 
 ---
 
-# [v0.1.1](https://github.com/jamesxX/valakyrie/releases/tags/v0.1.1)
+# [v0.1.1](https://github.com/typst-community/valakyrie/releases/tags/v0.1.1)
 ## Changed
 - fixed syntax error in Typst 0.11+ because of internal context type
 
 ---
 
-# [v0.1.0](https://github.com/jamesxX/valakyrie/releases/tags/v0.1.0)
+# [v0.1.0](https://github.com/typst-community/valakyrie/releases/tags/v0.1.0)
 Initial Release
