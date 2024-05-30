@@ -1,3 +1,10 @@
+# [unreleased](https://github.com/typst-community/valakyrie/)
+
+## Changed
+- Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
+
+---
+
 # [v0.2.0](https://github.com/typst-community/valakyrie/releases/tags/v0.2.0)
 
 `Valkyrie` is now a community-lead project and is now homed on the typst-community organisation.
