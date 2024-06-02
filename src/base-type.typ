@@ -43,7 +43,7 @@
           it,
           scope: scope,
           ctx: ctx,
-          message: "Expected " + types.join(
+          message: "Expected " + self.types.map(repr).join(
             ", ",
             last: " or ",
           ) + ". Got " + type(it),
