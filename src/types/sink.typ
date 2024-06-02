@@ -27,8 +27,8 @@
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
 
       let positional = it.pos()
-      if (self.positional-schema == none) {
-        if (positional.len() > 0) {
+      if self.positional-schema == none {
+        if positional.len() > 0 {
           (self.fail-validation)(
             self,
             it,
@@ -47,8 +47,8 @@
       }
 
       let named = it.named()
-      if (self.named-schema == none) {
-        if (named.len() > 0) {
+      if self.named-schema == none {
+        if named.len() > 0 {
           (self.fail-validation)(
             self,
             it,
@@ -66,7 +66,7 @@
         )
       }
 
-      return to-args-type(..positional, ..named)
+      to-args-type(..positional, ..named)
     },
   )
 
