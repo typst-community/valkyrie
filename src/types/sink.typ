@@ -13,7 +13,7 @@
   if positional != none {
     assert-base-type(positional)
   }
-  if (named != none) {
+  if named != none {
     assert-base-type(named)
   }
 
