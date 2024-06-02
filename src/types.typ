@@ -3,6 +3,7 @@
 #import "types/array.typ": array
 #import "types/dictionary.typ": dictionary
 #import "types/logical.typ": either
+#import "types/sink.typ": sink
 #import "types/string.typ": string, ip, email
 #import "types/tuple.typ": tuple
 
