@@ -2,6 +2,7 @@
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
+- Added schema generator for argument sinks. Takes `positional` and `named` as optional parameters that take schema types. Absence of one of these parameters indicate that these must also be absent from the argument type being validated.
 
 ---
 
