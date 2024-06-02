@@ -10,7 +10,7 @@
   ..args,
 ) = {
 
-  if (positional != none) {
+  if positional != none {
     assert-base-type(positional)
   }
   if (named != none) {
