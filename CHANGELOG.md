@@ -2,6 +2,11 @@
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
+- Number schema generator now takes additional optional parameters `min` and `max` which a sugar for value assertions. These changes also apply to number specializations such as `float` and `integer`
+- String schema generator now takes additional optional parameters `min` and `max` which a sugar for value length assertions. These changes also apply to number specializations such as `email` and `ip`
+- Array schema generator now takes additional optional parameters `min` and `max` which a sugar for value length assertions. 
+- Added schema generator for argument sinks. Takes `positional` and `named` as optional parameters that take schema types. Absence of one of these parameters indicate that these must also be absent from the argument type being validated.
+
 
 ---
 
