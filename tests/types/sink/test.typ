@@ -4,12 +4,10 @@
 #show: show-rule.with();
 
 #let positional-schema = z.any()
-#let named-schema = z.dictionary(
-  (named: z.string())
-)
+#let named-schema = z.dictionary((named: z.string()))
 #let sink-schema = z.sink(
   positional: positional-schema,
-  named: named-schema
+  named: named-schema,
 )
 
 #let to-args-type(..args) = args

@@ -7,30 +7,34 @@
 #let sink(
   positional: none,
   named: none,
-  ..args
+  ..args,
 ) = {
 
-  if ( positional != none ) {assert-base-type(positional);}
-  if ( named != none ) {assert-base-type(named);}
+  if (positional != none) {
+    assert-base-type(positional)
+  }
+  if (named != none) {
+    assert-base-type(named)
+  }
 
   base-type(
-    name: "argument-sink", 
+    name: "argument-sink",
     types: (arguments,),
-    ..args
+    ..args,
   ) + (
     positional-schema: positional,
     named-schema: named,
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
 
       let positional = it.pos()
-      if (self.positional-schema == none){
-        if ( positional.len() > 0){
+      if (self.positional-schema == none) {
+        if (positional.len() > 0) {
           (self.fail-validation)(
-            self, 
-            it, 
-            scope: scope, 
-            ctx: ctx, 
-            message: "Unexpected positional arguments."
+            self,
+            it,
+            scope: scope,
+            ctx: ctx,
+            message: "Unexpected positional arguments.",
           )
         }
       } else {
@@ -38,19 +42,19 @@
           self.positional-schema,
           it.pos(),
           ctx: ctx,
-          scope: (..scope, "positional")  
+          scope: (..scope, "positional"),
         )
       }
 
       let named = it.named()
-      if (self.named-schema == none){
-        if ( named.len() > 0){
+      if (self.named-schema == none) {
+        if (named.len() > 0) {
           (self.fail-validation)(
-            self, 
-            it, 
-            scope: scope, 
-            ctx: ctx, 
-            message: "Unexpected named arguments."
+            self,
+            it,
+            scope: scope,
+            ctx: ctx,
+            message: "Unexpected named arguments.",
           )
         }
       } else {
@@ -58,12 +62,12 @@
           self.named-schema,
           it.named(),
           ctx: ctx,
-          scope: (..scope, "named")  
+          scope: (..scope, "named"),
         )
       }
 
       return to-args-type(..positional, ..named)
-    }
+    },
   )
 
 }
