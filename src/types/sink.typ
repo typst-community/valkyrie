@@ -11,6 +11,7 @@
 ) = {
 
   if ( positional != none ) {assert-base-type(positional);}
+  if ( named != none ) {assert-base-type(named);}
 
   base-type(
     name: "argument-sink", 
