@@ -395,13 +395,13 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 
 #pagebreak()
 
-#import("@preview/tidy:0.2.0")
+#import ("@preview/tidy:0.2.0")
 
 #let module-doc = tidy.parse-module(
   read("/src/coercions.typ"),
   name: "z.coerce",
   label-prefix: "z.coerce",
-  scope: (:)
+  scope: (:),
 )
 
 #tidy.show-module(
@@ -411,29 +411,28 @@ For the sake of brevity and owing to their consistency, the arguments that each 
     show-outline: mty-tidy.show-outline,
     show-parameter-list: mty-tidy.show-parameter-list,
     show-parameter-block: mty-tidy.show-parameter-block,
-    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-function: mty-tidy.show-function.with(
+      tidy: tidy,
+      extract-headings: true,
+    ),
     show-variable: mty-tidy.show-variable.with(tidy: tidy),
     show-example: mty-tidy.show-example,
-    show-reference: mty-tidy.show-reference
+    show-reference: mty-tidy.show-reference,
   ),
   first-heading-level: 2,
   show-module-name: true,
   sort-functions: false,
-  show-outline: true
+  show-outline: true,
 )
 
 #tidy-module(read("/src/coercions.typ"), name: "coerce")
 #pagebreak()
 
-
-
 #let module-doc = tidy.parse-module(
-  read("/src/assertions.typ")
-  + read("/src/assertions/comparative.typ")
-  + read("/src/assertions/string.typ"),
+  read("/src/assertions.typ") + read("/src/assertions/comparative.typ") + read("/src/assertions/string.typ"),
   name: "z.assert",
   label-prefix: "z.assert",
-  scope: (:)
+  scope: (:),
 )
 
 #tidy.show-module(
@@ -443,22 +442,25 @@ For the sake of brevity and owing to their consistency, the arguments that each 
     show-outline: mty-tidy.show-outline,
     show-parameter-list: mty-tidy.show-parameter-list,
     show-parameter-block: mty-tidy.show-parameter-block,
-    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-function: mty-tidy.show-function.with(
+      tidy: tidy,
+      extract-headings: true,
+    ),
     show-variable: mty-tidy.show-variable.with(tidy: tidy),
     show-example: mty-tidy.show-example,
-    show-reference: mty-tidy.show-reference
+    show-reference: mty-tidy.show-reference,
   ),
   first-heading-level: 2,
   show-module-name: true,
   sort-functions: false,
-  show-outline: true
+  show-outline: true,
 )
 
 #let module-doc = tidy.parse-module(
   read("/src/assertions/length.typ"),
   name: "z.assert.length",
   label-prefix: "z.assert.string.",
-  scope: (:)
+  scope: (:),
 )
 
 #tidy.show-module(
@@ -468,15 +470,18 @@ For the sake of brevity and owing to their consistency, the arguments that each 
     show-outline: mty-tidy.show-outline,
     show-parameter-list: mty-tidy.show-parameter-list,
     show-parameter-block: mty-tidy.show-parameter-block,
-    show-function: mty-tidy.show-function.with(tidy: tidy, extract-headings: true),
+    show-function: mty-tidy.show-function.with(
+      tidy: tidy,
+      extract-headings: true,
+    ),
     show-variable: mty-tidy.show-variable.with(tidy: tidy),
     show-example: mty-tidy.show-example,
-    show-reference: mty-tidy.show-reference
+    show-reference: mty-tidy.show-reference,
   ),
   first-heading-level: 2,
   show-module-name: true,
   sort-functions: false,
-  show-outline: true
+  show-outline: true,
 )
 
 #pagebreak()

@@ -13,7 +13,6 @@
 #let content = base-type.with(name: "content", types: (content, str))
 #let date = base-type.with(name: "date", types: (datetime,))
 
-
 #let choice(list, assertions: (), ..args) = base-type(
   name: "enum",
   ..args,

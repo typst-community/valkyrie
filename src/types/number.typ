@@ -2,10 +2,10 @@
 #import "../assertions-util.typ": *
 
 #let number(
-  assertions: (), 
+  assertions: (),
   min: none,
   max: none,
-  ..args
+  ..args,
 ) = {
 
   assert-positive-type(min, types: (int,), name: "Minimum length")
@@ -17,16 +17,16 @@
     assertions: (
       (
         precondition: "min",
-        condition: (self, it)=>it>=self.min, 
+        condition: (self, it) => it >= self.min,
         message: (self, it) => "Value must be at least " + str(self.min),
-      ),      
+      ),
       (
         precondition: "max",
-        condition: (self, it)=>it<=self.max, 
+        condition: (self, it) => it <= self.max,
         message: (self, it) => "Value must be at most " + str(self.max),
       ),
-      ..assertions
-    )
+      ..assertions,
+    ),
   )
 }
 

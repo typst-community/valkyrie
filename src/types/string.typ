@@ -10,10 +10,10 @@
 #let string = base-type.with(name: "string", types: (str,))
 
 #let string(
-  assertions: (), 
+  assertions: (),
   min: none,
   max: none,
-  ..args
+  ..args,
 ) = {
 
   assert-positive-type(min, types: (int,), name: "Minimum length")
@@ -25,19 +25,18 @@
     assertions: (
       (
         precondition: "min",
-        condition: (self, it)=>it.len()>=self.min, 
+        condition: (self, it) => it.len() >= self.min,
         message: (self, it) => "Length must be at least " + str(self.min),
-      ),      
+      ),
       (
         precondition: "max",
-        condition: (self, it)=>it.len()<=self.max, 
+        condition: (self, it) => it.len() <= self.max,
         message: (self, it) => "Length must be at most " + str(self.max),
       ),
-      ..assertions
-    )
+      ..assertions,
+    ),
   )
 }
-
 
 #let email = string.with(
   name: "email",
