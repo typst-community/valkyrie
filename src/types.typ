@@ -7,6 +7,7 @@
 #import "types/tuple.typ": tuple
 
 #let std-gradient = gradient;
+#let std-stroke = stroke;
 
 #let any = base-type.with(name: "any")
 #let boolean = base-type.with(name: "bool", types: (bool,))
@@ -17,6 +18,7 @@
 #let number = base-type.with(name: "number", types: (float, int))
 #let integer = number.with(name: "integer", types: (int,))
 #let floating-point = number.with(name: "float", types: (float,))
+#let stroke = base-type.with(name: "gradient", types: (std-stroke,))
 
 #let choice(list, assertions: (), ..args) = base-type(
   name: "enum",

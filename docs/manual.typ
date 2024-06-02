@@ -385,6 +385,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   Generates a schema that accepts only strings as valid.
 ]
 
+#command("stroke", sarg[args], ret: "schema")[
+  Generates a schema that accepts only stroke objects as valid.
+]
+
 #command("tuple", sarg[schema], sarg[args], ret: "schema")[
   #argument(
     "schema",
