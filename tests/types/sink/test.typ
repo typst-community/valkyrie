@@ -13,4 +13,4 @@
 #let to-args-type(..args) = args
 = types/sink
 
-#z.parse(to-args-type("hello", named: "0"), sink-schema)
+#{let _ = z.parse(to-args-type("hello", named: "0"), sink-schema)}
