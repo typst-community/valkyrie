@@ -397,6 +397,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Positional arguments of validation schemes representing a tuple.]
 ]
 
+#command("version", sarg[args], ret: "schema")[
+  Generates a schema that accepts only version objects as valid.
+]
+
 #command("choice", arg[choices], sarg[args], ret: "schema")[
   #argument("choices", types: "array")[Array of valid inputs]
 ]

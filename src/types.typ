@@ -6,19 +6,17 @@
 #import "types/string.typ": string, ip, email
 #import "types/tuple.typ": tuple
 
-#let std-gradient = gradient;
-#let std-stroke = stroke;
-
 #let any = base-type.with(name: "any")
 #let boolean = base-type.with(name: "bool", types: (bool,))
 #let color = base-type.with(name: "color", types: (color,))
 #let content = base-type.with(name: "content", types: (content, str))
 #let date = base-type.with(name: "date", types: (datetime,))
-#let gradient = base-type.with(name: "gradient", types: (std-gradient,))
+#let gradient = base-type.with(name: "gradient", types: (gradient,))
 #let number = base-type.with(name: "number", types: (float, int))
 #let integer = number.with(name: "integer", types: (int,))
 #let floating-point = number.with(name: "float", types: (float,))
-#let stroke = base-type.with(name: "gradient", types: (std-stroke,))
+#let stroke = base-type.with(name: "stroke", types: (stroke,))
+#let version = base-type.with(name: "version", types: (version,))
 
 #let choice(list, assertions: (), ..args) = base-type(
   name: "enum",

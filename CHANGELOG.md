@@ -3,6 +3,7 @@
 ## Added
 - Add gradient schema generator.
 - Add stroke schema generator.
+- Add version schema generator.
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
