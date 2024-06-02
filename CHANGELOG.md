@@ -2,6 +2,7 @@
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
+- Add gradient schema generator
 
 ---
 
