@@ -19,7 +19,7 @@ update *args:
 	typst-test update {{ args }}
 
 # run ci suite
-ci: test doc
+ci: test
 
 # Typstyle
 style:

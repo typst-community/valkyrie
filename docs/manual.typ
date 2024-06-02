@@ -389,13 +389,30 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Positional arguments of validation schemes representing a tuple.]
 ]
 
+#command(
+  "sink",
+  arg(positional: none),
+  arg(named: none),
+  sarg[args],
+  ret: "schema",
+)[
+  #argument(
+    "positional",
+    types: ("schema", none),
+  )[Schema that `args.pos()` must satisfy. If `none`, no positional arguments may be present]
+  #argument(
+    "named",
+    types: ("schema", none),
+  )[Schema that `args.named()` must satisfy. If `none`, no named arguments may be present]
+]
+
 #command("choice", arg[choices], sarg[args], ret: "schema")[
   #argument("choices", types: "array")[Array of valid inputs]
 ]
 
 #pagebreak()
 
-#import ("@preview/tidy:0.2.0")
+#import "@preview/tidy:0.2.0"
 
 #let module-doc = tidy.parse-module(
   read("/src/coercions.typ"),
