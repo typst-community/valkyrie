@@ -6,6 +6,7 @@
 #import "types/string.typ": string, ip, email
 #import "types/tuple.typ": tuple
 
+#let alignment = base-type.with(name: "bool", types: (alignment,))
 #let any = base-type.with(name: "any")
 #let boolean = base-type.with(name: "bool", types: (bool,))
 #let bytes = base-type.with(name: "bytes", types: (bytes,))

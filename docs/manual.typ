@@ -320,6 +320,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 )
 
 #pagebreak()
+#command("alignment", sarg[args], ret: "schema")[
+  Generates a schema that accepts only aligment objects as valid.
+]
+
 #command("any", sarg[args], ret: "schema")[
   Generates a schema that accepts any input as valid.
 ]
