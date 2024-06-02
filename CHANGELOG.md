@@ -2,6 +2,7 @@
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
+- Number schema generator now takes additional optional parameters `min` and `max` which a sugar for value assertions.
 
 ---
 

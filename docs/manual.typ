@@ -373,7 +373,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Positional arguments of validation schemes in order or preference that an input value should satisfy.]
 ]
 
-#command("number", sarg[args], ret: "schema")[
+#command("number", arg(min: none), arg(max: none), sarg[args], ret: "schema")[
   Generates a schema that accepts only numbers as valid.
 ]
 
