@@ -412,7 +412,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 
 #pagebreak()
 
-#import ("@preview/tidy:0.2.0")
+#import "@preview/tidy:0.2.0"
 
 #let module-doc = tidy.parse-module(
   read("/src/coercions.typ"),
