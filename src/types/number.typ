@@ -1,13 +1,10 @@
 #import "../base-type.typ": base-type
 #import "../assertions-util.typ": *
 
-#let number = base-type.with(name: "number", types: (float, int))
-
 #let number(
   assertions: (), 
   min: none,
   max: none,
-  exactly: none,
   ..args
 ) = {
 

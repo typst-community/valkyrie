@@ -377,7 +377,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   Generates a schema that accepts only numbers as valid.
 ]
 
-#command("string", sarg[args], ret: "schema")[
+#command("string", arg(min: none), arg(max: none), sarg[args], ret: "schema")[
   Generates a schema that accepts only strings as valid.
 ]
 

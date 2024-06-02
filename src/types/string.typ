@@ -9,6 +9,36 @@
 /// -> schema
 #let string = base-type.with(name: "string", types: (str,))
 
+#let string(
+  assertions: (), 
+  min: none,
+  max: none,
+  ..args
+) = {
+
+  assert-positive-type(min, types: (int,), name: "Minimum length")
+  assert-positive-type(max, types: (int,), name: "Maximum length")
+
+  base-type(name: "string", types: (str,), ..args) + (
+    min: min,
+    max: max,
+    assertions: (
+      (
+        precondition: "min",
+        condition: (self, it)=>it.len()>=self.min, 
+        message: (self, it) => "Length must be at least " + str(self.min),
+      ),      
+      (
+        precondition: "max",
+        condition: (self, it)=>it.len()<=self.max, 
+        message: (self, it) => "Length must be at most " + str(self.max),
+      ),
+      ..assertions
+    )
+  )
+}
+
+
 #let email = string.with(
   name: "email",
   assertions: (
