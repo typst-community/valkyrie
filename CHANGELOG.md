@@ -1,7 +1,7 @@
 # [unreleased](https://github.com/typst-community/valakyrie/)
 
 ## Added
-- Added schema generators for: bytes, function, label, location, regex, selector, stroke, symbol, and version
+- Added schema generators for: bytes, function, label, location, plugin, regex, selector, stroke, symbol, and version
 
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.

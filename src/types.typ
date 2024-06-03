@@ -19,6 +19,7 @@
 #let gradient = base-type.with(name: "gradient", types: (gradient,))
 #let label = base-type.with(name: "label", types: (label,))
 #let location = base-type.with(name: "location", types: (location,))
+#let plugin = base-type.with(name: "location", types: (plugin,))
 #let regex = base-type.with(name: "regex", types: (regex,))
 #let selector = base-type.with(name: "selector", types: (selector,))
 #let stroke = base-type.with(name: "stroke", types: (stroke,))
