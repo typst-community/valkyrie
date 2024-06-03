@@ -7,4 +7,4 @@
 
 = types/gradient
 == Input types
-#z.parse(gradient.linear(..color.map.rainbow), schema)
+#let _ = z.parse(gradient.linear(..color.map.rainbow), schema)

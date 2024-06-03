@@ -7,4 +7,4 @@
 
 = types/stroke
 == Input types
-#z.parse(stroke(), schema)
+#let _ = z.parse(stroke(), schema)

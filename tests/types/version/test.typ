@@ -7,4 +7,4 @@
 
 = types/version
 == Input types
-#z.parse(version(0, 1, 0), schema)
+#let _ = z.parse(version(0, 1, 0), schema)
