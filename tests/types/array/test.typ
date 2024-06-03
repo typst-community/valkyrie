@@ -42,19 +42,19 @@
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.min(1),)),
+  schema: z.array(z.email(), min: 1),
   truth: test-array,
 )([Test satisfies array\<email\> min length 1])
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.min(2),)),
+  schema: z.array(z.email(), min: 2),
   truth: test-array,
 )([Test satisfies array\<email\> min length 2])
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.min(3),)),
+  schema: z.array(z.email(), min: 3),
   truth: (),
 )([Test fails array\<email\> min length 3])
 
@@ -62,19 +62,19 @@
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.max(1),)),
+  schema: z.array(z.email(), max: 1),
   truth: (),
 )([Test fails array\<email\> max length 1])
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.max(2),)),
+  schema: z.array(z.email(), max: 2),
   truth: test-array,
 )([Test satisfies array\<email\> max length 2])
 
 #utility-expect-eq(
   test: test-array,
-  schema: z.array(z.email(), assertions: (z.assert.length.max(3),)),
+  schema: z.array(z.email(), max: 3),
   truth: test-array,
 )([Test satisfies array\<email\> max length 3])
 

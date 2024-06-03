@@ -52,7 +52,7 @@
   )
 }
 
-#let assert-positive-type(var, name: "", types: (), default: none) = {
+#let assert-positive-type(var, name: "", types: (float, int), default: none) = {
   assert-types(var, types: types, default: default, name: name)
   assert-positive(var, name: name)
 }
