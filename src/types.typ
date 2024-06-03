@@ -23,7 +23,7 @@
 #let label = base-type.with(name: "label", types: (label,))
 #let length = base-type.with(name: "length", types: (length,))
 #let location = base-type.with(name: "location", types: (location,))
-#let plugin = base-type.with(name: "location", types: (plugin,))
+#let plugin = base-type.with(name: "plugin", types: (plugin,))
 #let ratio = base-type.with(name: "ratio", types: (ratio,))
 #let regex = base-type.with(name: "regex", types: (regex,))
 #let relative = base-type.with(
