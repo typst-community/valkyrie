@@ -8,14 +8,17 @@
 #import "types/string.typ": string, ip, email
 #import "types/tuple.typ": tuple
 
-#let alignment = base-type.with(name: "bool", types: (alignment,))
+#let alignment = base-type.with(name: "alignment", types: (alignment,))
+#let angle = base-type.with(name: "angle", types: (angle,))
 #let any = base-type.with(name: "any")
 #let boolean = base-type.with(name: "bool", types: (bool,))
 #let bytes = base-type.with(name: "bytes", types: (bytes,))
 #let color = base-type.with(name: "color", types: (color,))
 #let content = base-type.with(name: "content", types: (content, str))
 #let date = base-type.with(name: "date", types: (datetime,))
+#let direction = base-type.with(name: "direction", types: (direction,))
 #let function = base-type.with(name: "function", types: (function,))
+#let fraction = base-type.with(name: "fraction", types: (fraction,))
 #let gradient = base-type.with(name: "gradient", types: (gradient,))
 #let label = base-type.with(name: "label", types: (label,))
 #let location = base-type.with(name: "location", types: (location,))
