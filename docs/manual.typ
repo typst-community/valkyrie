@@ -401,10 +401,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Positional arguments of validation schemes representing a tuple.]
 ]
 
-<<<<<<< HEAD
 #command("version", sarg[args], ret: "schema")[
   Generates a schema that accepts only version objects as valid.
-=======
+]
+
 #command(
   "sink",
   arg(positional: none),
@@ -420,7 +420,6 @@ For the sake of brevity and owing to their consistency, the arguments that each 
     "named",
     types: ("schema", none),
   )[Schema that `args.named()` must satisfy. If `none`, no named arguments may be present]
->>>>>>> origin/main
 ]
 
 #command("choice", arg[choices], sarg[args], ret: "schema")[
