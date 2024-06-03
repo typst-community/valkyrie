@@ -79,7 +79,7 @@
     validate: (self, it, scope: (), ctx: z-ctx()) => {
 
       //it = self.default
-      if (it == none or type(it) == none) {
+      if (it == none or it == auto) {
         it = self.default
       }
       it = (self.pre-transform)(self, it)
