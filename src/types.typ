@@ -26,12 +26,14 @@
 #let plugin = base-type.with(name: "location", types: (plugin,))
 #let ratio = base-type.with(name: "ratio", types: (ratio,))
 #let regex = base-type.with(name: "regex", types: (regex,))
-#let relative = base-type.with(name: "relative", types: (relative, ratio, length))
+#let relative = base-type.with(
+  name: "relative",
+  types: (relative, ratio, length),
+)
 #let selector = base-type.with(name: "selector", types: (selector,))
 #let stroke = base-type.with(name: "stroke", types: (stroke,))
 #let symbol = base-type.with(name: "symbol", types: (symbol,))
 #let version = base-type.with(name: "version", types: (version,))
-
 
 #let choice(list, assertions: (), ..args) = base-type(
   name: "enum",
