@@ -42,7 +42,7 @@
         ) + ". Got " + type(it)
       )
 
-      (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)
+      return (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)
     },
   )
 }
