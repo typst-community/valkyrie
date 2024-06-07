@@ -1,5 +1,8 @@
 # [unreleased](https://github.com/typst-community/valakyrie/)
 
+## Added
+- Added schema generators for: angle, bytes, direction, fraction, function, label, length, location, plugin, ratio, relative, regex, selector, stroke, symbol, and version
+
 ## Changed
 - Valkyrie is now distributed under the MIT license rather than GPL-3.0-only.
 - Number schema generator now takes additional optional parameters `min` and `max` which a sugar for value assertions. These changes also apply to number specializations such as `float` and `integer`

@@ -320,6 +320,14 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 )
 
 #pagebreak()
+#command("alignment", sarg[args], ret: "schema")[
+  Generates a schema that accepts only aligment objects as valid.
+]
+
+#command("angle", sarg[args], ret: "schema")[
+  Generates a schema that accepts only angles as valid.
+]
+
 #command("any", sarg[args], ret: "schema")[
   Generates a schema that accepts any input as valid.
 ]
@@ -333,6 +341,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 
 #command("boolean", sarg[args], ret: "schema")[
   Generates a schema that accepts only booleans as valid.
+]
+
+#command("bytes", sarg[args], ret: "schema")[
+  Generates a schema that accepts only bytes as valid.
 ]
 
 #command("color", sarg[args], ret: "schema")[
@@ -365,6 +377,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Dictionary of schema elements, used to define the validation rules for each entry.]
 ]
 
+#command("direction", sarg[args], ret: "schema")[
+  Generates a schema that accepts only directions as valid.
+]
+
 #command("either", sarg[schema], sarg[args], ret: "schema")[
   #argument(
     "schema",
@@ -373,12 +389,64 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   )[Positional arguments of validation schemes in order or preference that an input value should satisfy.]
 ]
 
+#command("function", sarg[args], ret: "schema")[
+  Generates a schema that accepts only functions as valid.
+]
+
+#command("fraction", sarg[args], ret: "schema")[
+  Generates a schema that accepts only fractions as valid.
+]
+
+#command("gradient", sarg[args], ret: "schema")[
+  Generates a schema that accepts only gradient objects as valid.
+]
+
+#command("label", sarg[args], ret: "schema")[
+  Generates a schema that accepts only labels as valid.
+]
+
+#command("length", sarg[args], ret: "schema")[
+  Generates a schema that accepts only lengths as valid.
+]
+
+#command("location", sarg[args], ret: "schema")[
+  Generates a schema that accepts only locations as valid.
+]
+
 #command("number", arg(min: none), arg(max: none), sarg[args], ret: "schema")[
   Generates a schema that accepts only numbers as valid.
 ]
 
+#command("plugin", sarg[args], ret: "schema")[
+  Generates a schema that accepts only plugins as valid.
+]
+
+#command("ratio", sarg[args], ret: "schema")[
+  Generates a schema that accepts only ratios as valid.
+]
+
+#command("relative", sarg[args], ret: "schema")[
+  Generates a schema that accepts only relative types, lengths, or ratios as valid.
+]
+
+#command("regex", sarg[args], ret: "schema")[
+  Generates a schema that accepts only regex expressions as valid.
+]
+
+#command("selector", sarg[args], ret: "schema")[
+  Generates a schema that accepts only selectors as valid.
+]
+
 #command("string", arg(min: none), arg(max: none), sarg[args], ret: "schema")[
   Generates a schema that accepts only strings as valid.
+]
+
+#command("stroke", sarg[args], ret: "schema")[
+  Generates a schema that accepts only stroke objects as valid.
+]
+
+#command("symbol", sarg[args], ret: "schema")[
+  Generates a schema that accepts only symbol types as valid.
 ]
 
 #command("tuple", sarg[schema], sarg[args], ret: "schema")[
@@ -387,6 +455,10 @@ For the sake of brevity and owing to their consistency, the arguments that each 
     types: "schema",
     is-sink: true,
   )[Positional arguments of validation schemes representing a tuple.]
+]
+
+#command("version", sarg[args], ret: "schema")[
+  Generates a schema that accepts only version objects as valid.
 ]
 
 #command(
