@@ -12,7 +12,9 @@
     (
       name: "James R Swift",
       email: "hello@world.com",
+      // test: true,
     ),
     z.schemas.author,
+    ctx: z.z-ctx(strict: true)
   )
 ]

@@ -3,11 +3,10 @@
 
 #show: show-rule.with();
 
-#let schema = z.either(z.email(), z.ip())
-
 = logical/either
 == Input types
 #{
+  let schema = z.either(z.email(), z.ip())
   let input-types = (
     "ip (1.1.1.1)": "1.1.1.1",
     "email": "test@hello.wor.ld",
@@ -20,4 +19,21 @@
       truth: value,
     )([It should validate #name])
   }
+}
+
+#{
+  let schema = z.either(
+    strict: true,
+    z.dictionary((
+      seed: z.integer()
+    )),
+    z.dictionary((
+      dynamic: z.boolean()
+    )),
+  )
+
+  z.parse(
+    (dynamic: false),
+    schema
+  )
 }

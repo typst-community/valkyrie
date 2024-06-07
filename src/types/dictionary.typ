@@ -68,7 +68,7 @@
           scope: (..scope, str(key))
         )
 
-        it.insert(key, entry)
+        if ( entry != none ) { it.insert(key, entry) }
 
         if (
           entry == none and (
