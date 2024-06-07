@@ -5,7 +5,10 @@
 /// Valkyrie schema generator for objects that can be any of multiple types.
 ///
 /// -> schema
-#let either(..args) = {
+#let either(
+  strict: false,
+  ..args
+) = {
 
   assert(
     args.pos().len() > 0,
@@ -13,16 +16,18 @@
   )
   assert-base-type-array(args.pos(), scope: ("arguments",))
 
-  base-type() + (
+  base-type(
     name: "[" + args.pos().map(it => it.name).join(", ", last: " or ") + "]",
     ..args.named(),
+  ) + (
+    strict: strict,
     options: args.pos(),
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
       for option in self.options {
         let ret = (option.validate)(
           option,
           it,
-          ctx: z-ctx(ctx, soft-error: true),
+          ctx: z-ctx(ctx, strict: self.strict, soft-error: true),
           scope: scope,
         )
         if ret != none {

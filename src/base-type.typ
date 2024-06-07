@@ -111,6 +111,7 @@
       }
       ctx.outcome = display
       assert(ctx.soft-error, message: display)
+      return none
     },
   )
 }
