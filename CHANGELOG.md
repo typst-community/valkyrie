@@ -11,6 +11,7 @@
 - Added schema generator for argument sinks. Takes `positional` and `named` as optional parameters that take schema types. Absence of one of these parameters indicate that these must also be absent from the argument type being validated.
 - **(Potentially Breaking)** Content now accepts `symbol` as a valid input type by default (see #20)
 - **(Potentially Breaking)** If the tested value is `auto`, parsing no longer fails. If `default` is set, it takes the default value. If `optional` is set but not `default`, value is parsed as `none`.
+- **(Potentially Breaking)** `tuple` has a new parameter `exact` which defaults to true, whereby the length of a tuple must match exactly to be valid.
 
 ---
 
