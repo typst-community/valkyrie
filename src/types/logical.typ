@@ -7,7 +7,7 @@
 /// -> schema
 #let either(
   strict: false,
-  ..args
+  ..args,
 ) = {
 
   assert(
@@ -42,7 +42,13 @@
         ) + ". Got " + type(it)
       )
 
-      return (self.fail-validation)(self, it, ctx: ctx, scope: scope, message: message)
+      return (self.fail-validation)(
+        self,
+        it,
+        ctx: ctx,
+        scope: scope,
+        message: message,
+      )
     },
   )
 }

@@ -15,6 +15,6 @@
       // test: true,
     ),
     z.schemas.author,
-    ctx: z.z-ctx(strict: true)
+    ctx: z.z-ctx(strict: true),
   )
 ]

@@ -25,15 +25,15 @@
   let schema = z.either(
     strict: true,
     z.dictionary((
-      seed: z.integer()
+      seed: z.integer(),
     )),
     z.dictionary((
-      dynamic: z.boolean()
+      dynamic: z.boolean(),
     )),
   )
 
   z.parse(
     (dynamic: false),
-    schema
+    schema,
   )
 }

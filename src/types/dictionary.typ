@@ -47,15 +47,20 @@
       }
 
       // Check `it` if strict
-      if ( ctx.strict == true ){
-        for (key, value) in it{
-          if (key not in self.dictionary-schema){
+      if (ctx.strict == true) {
+        for (key, value) in it {
+          if (key not in self.dictionary-schema) {
             return (self.fail-validation)(
-              self, it, ctx: ctx, scope: scope, message: "Unknown key `" + key + "` in dictionary")
+              self,
+              it,
+              ctx: ctx,
+              scope: scope,
+              message: "Unknown key `" + key + "` in dictionary",
+            )
           }
         }
       }
-      
+
 
       for (key, schema) in self.dictionary-schema {
 
@@ -68,7 +73,9 @@
           scope: (..scope, str(key))
         )
 
-        if ( entry != none ) { it.insert(key, entry) }
+        if (entry != none) {
+          it.insert(key, entry)
+        }
 
       }
       return it
