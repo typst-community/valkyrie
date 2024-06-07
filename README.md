@@ -7,16 +7,17 @@ This package implements type validation, and is targeted mainly at package and t
 ```typ
 #import "@preview/valkyrie:0.2.0" as z
 
-#let my-schema = z.dictionary(
-  should-be-string: z.string(),
-  complicated-tuple: z.tuple(
-    z.email(),
-    z.ip(),
-    z.either(
-      z.string(),
-      z.number(),
+#let my-schema = z.dictionary((
+    should-be-string: z.string(),
+    complicated-tuple: z.tuple(
+      z.email(),
+      z.ip(),
+      z.either(
+        z.string(),
+        z.number(),
+      ),
     ),
-  ),
+  )
 )
 
 #z.parse(
