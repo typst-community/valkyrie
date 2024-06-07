@@ -70,17 +70,6 @@
 
         if ( entry != none ) { it.insert(key, entry) }
 
-        if (
-          entry == none and (
-            it.at(
-              key,
-              default: none,
-            ) != none or ctx.remove-optional-none == true
-          )
-        ) {
-          it.remove(key, default: none)
-        }
-
       }
       return it
     },
