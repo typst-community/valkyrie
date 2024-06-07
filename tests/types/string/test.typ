@@ -47,4 +47,9 @@
 #z.parse("192.168.0.1", z.ip())
 
 == default
-#z.parse(none, z.string(default: "Hello"))
+#let _ = z.parse(none, z.string(default: "Hello")) 
+#let _ = z.parse(auto, z.string(default: "Hello"))
+#let _ = z.parse(auto, z.string(default: "Hello", optional: true))
+#let _ = repr(z.parse(auto, z.string(optional: true)))
+// #z.parse(auto, z.string()) \ 
+#let _ = z.parse("none", z.string(default: "Hello"))

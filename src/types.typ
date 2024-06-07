@@ -14,7 +14,7 @@
 #let boolean = base-type.with(name: "bool", types: (bool,))
 #let bytes = base-type.with(name: "bytes", types: (bytes,))
 #let color = base-type.with(name: "color", types: (color,))
-#let content = base-type.with(name: "content", types: (content, str))
+#let content = base-type.with(name: "content", types: (content, str, symbol))
 #let date = base-type.with(name: "date", types: (datetime,))
 #let direction = base-type.with(name: "direction", types: (direction,))
 #let function = base-type.with(name: "function", types: (function,))
