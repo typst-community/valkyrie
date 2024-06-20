@@ -46,6 +46,22 @@
         return none
       }
 
+      // Check `it` if strict
+      if (ctx.strict == true) {
+        for (key, value) in it {
+          if (key not in self.dictionary-schema) {
+            return (self.fail-validation)(
+              self,
+              it,
+              ctx: ctx,
+              scope: scope,
+              message: "Unknown key `" + key + "` in dictionary",
+            )
+          }
+        }
+      }
+
+
       for (key, schema) in self.dictionary-schema {
 
         let entry = (
@@ -57,17 +73,8 @@
           scope: (..scope, str(key))
         )
 
-        it.insert(key, entry)
-
-        if (
-          entry == none and (
-            it.at(
-              key,
-              default: none,
-            ) != none or ctx.remove-optional-none == true
-          )
-        ) {
-          it.remove(key, default: none)
+        if (entry != none) {
+          it.insert(key, entry)
         }
 
       }
