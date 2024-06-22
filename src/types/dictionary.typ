@@ -73,7 +73,7 @@
           scope: (..scope, str(key))
         )
 
-        if (entry != none) {
+        if (entry != none or ctx.remove-optional-none == false) {
           it.insert(key, entry)
         }
 
