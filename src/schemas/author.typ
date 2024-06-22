@@ -32,7 +32,7 @@
   ),
   pre-transform: coerce.dictionary(it => (name: it)),
   post-transform: (self, it) => {
-    if (it.at("email", default: none) != none and it.corresponding == none) {
+    if (it.at("email", default: none) != none and "corresponding" not in it) {
       it.insert("corresponding", true)
     }
     return it
