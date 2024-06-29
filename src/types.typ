@@ -39,4 +39,6 @@
   name: "enum",
   ..args,
   assertions: (one-of(list), ..assertions),
+) + (
+  choices: list,
 )
