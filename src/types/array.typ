@@ -18,7 +18,8 @@
   assert-positive-type(max, types: (int,), name: "Maximum length")
 
   base-type(
-    name: "array[" + (descendents-schema.name) + "]",
+    name: name,
+    description: name + "[" + (descendents-schema.description) + "]",
     default: (),
     types: (array-type,),
     ..args.named(),

@@ -39,7 +39,7 @@
 }
 
 #let email = string.with(
-  name: "email",
+  description: "email",
   assertions: (
     matches(
       regex("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]{2,3}){1,2}$"),
@@ -49,7 +49,7 @@
 );
 
 #let ip = string.with(
-  name: "ip",
+  description: "ip",
   assertions: (
     matches(
       regex("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"),

@@ -10,22 +10,19 @@
 /// -> schema
 #let dictionary(
   dictionary-schema,
+  name: "dictionary",
   default: (:),
-  optional: false,
-  assertions: (),
   pre-transform: (self, it) => it,
-  post-transform: (self, it) => it,
   aliases: (:),
+  ..args,
 ) = {
 
   assert-base-type-dictionary(dictionary-schema)
 
   base-type(
-    name: "dictionary",
-    optional: optional,
+    name: name,
     default: default,
     types: (dictionary-type,),
-    assertions: assertions,
     pre-transform: (self, it) => {
       it = pre-transform(self, it)
       for (src, dst) in aliases {
@@ -37,7 +34,7 @@
       }
       return it
     },
-    post-transform: post-transform,
+    ..args.named()
   ) + (
     dictionary-schema: dictionary-schema,
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {

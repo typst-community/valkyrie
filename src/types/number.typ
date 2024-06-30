@@ -30,5 +30,5 @@
   )
 }
 
-#let integer = number.with(name: "integer", types: (int,))
-#let floating-point = number.with(name: "float", types: (float,))
+#let integer = number.with(description: "integer", types: (int,))
+#let floating-point = number.with(description: "float", types: (float,))
