@@ -7,8 +7,6 @@
 /// Valkyrie schema generator for strings
 ///
 /// -> schema
-#let string = base-type.with(name: "string", types: (str,))
-
 #let string(
   assertions: (),
   min: none,
