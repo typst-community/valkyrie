@@ -17,7 +17,8 @@
   assert-base-type-array(args.pos(), scope: ("arguments",))
 
   base-type(
-    name: "[" + args.pos().map(it => it.name).join(", ", last: " or ") + "]",
+    name: "either",
+    description: "[" + args.pos().map(it => it.name).join(", ", last: " or ") + "]",
     ..args.named(),
   ) + (
     strict: strict,
@@ -36,7 +37,7 @@
       }
 
       let message = (
-        "Type failed to match any of possible options: " + self.options.map(it => it.name).join(
+        "Type failed to match any of possible options: " + self.options.map(it => it.description).join(
           ", ",
           last: " or ",
         ) + ". Got " + type(it)

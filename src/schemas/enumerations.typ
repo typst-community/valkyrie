@@ -1,7 +1,7 @@
 #import "../types.typ" as z;
 
 #let papersize = z.choice.with(
-  name: "paper size",
+  description: "paper size",
   (
     "a0",
     "a1",

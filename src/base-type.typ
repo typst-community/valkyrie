@@ -4,6 +4,7 @@
 /// Schema generator. Provides default values for when defining custom types.
 #let base-type(
   name: "unknown",
+  description: none,
   optional: false,
   default: none,
   types: (),
@@ -21,6 +22,7 @@
   return (
     valkyrie-type: true,
     name: name,
+    description: if (description != none){ description } else { name },
     optional: optional,
     default: default,
     types: types,
