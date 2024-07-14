@@ -72,6 +72,8 @@ jobs:
           git config user.name "${GIT_USER_NAME}"
           git config user.email "${GIT_USER_EMAIL}"
           git checkout -b "${PKG_NAME}-${PKG_VERSION}"
+          git remote remove origin
+          git remote add origin https://${{ secrets.REGISTRY_TOKEN }}]@github.com/${{ env.REGISTRY_REPO }}
           git add .
           git commit -m "${PKG_NAME}:${PKG_VERSION}"
           git push --set-upstream origin "${PKG_NAME}-${PKG_VERSION}"
