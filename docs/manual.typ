@@ -1,4 +1,4 @@
-#import "@local/mantys:0.1.3": *
+#import "@preview/mantys:0.1.4": *
 #import "/src/lib.typ" as z
 
 #let package = toml("/typst.toml").package
