@@ -1,3 +1,10 @@
+# [v0.2.2](https://github.com/typst-community/valakyrie/releases/tags/v0.2.1)
+
+## Added
+
+## Changed
+
+
 # [v0.2.1](https://github.com/typst-community/valakyrie/releases/tags/v0.2.1)
 
 
