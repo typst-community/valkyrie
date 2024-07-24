@@ -2,6 +2,8 @@
 
 ## Added
 
+- Added negated equality assertions for comparative and length. (#40)
+
 ## Changed
 
 

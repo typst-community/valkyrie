@@ -21,11 +21,21 @@
 }
 
 /// Asserts that tested value is exactly equal to argument
-#let eq(rhs) = {
-  assert-positive-type(rhs, types: (int,), name: "Equality")
+#let eq(arg) = {
+  assert-positive-type(arg, types: (int,), name: "Equality")
 
   return (
-    condition: (self, it) => it == rhs,
-    message: (self, it) => "Must be exactly " + str(rhs),
+    condition: (self, it) => it == arg,
+    message: (self, it) => "Must be exactly " + str(arg),
+  )
+}
+
+/// Asserts that tested value is not exactly equal to argument
+#let neq(arg) = {
+  assert-positive-type(arg, types: (int,), name: "Equality")
+
+  return (
+    condition: (self, it) => it != arg,
+    message: (self, it) => "Must not equal " + str(arg),
   )
 }
