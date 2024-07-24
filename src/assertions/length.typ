@@ -29,3 +29,13 @@
     message: (self, it) => "Length must equal " + str(rhs),
   )
 }
+
+/// Asserts that tested value's length is not equal to argument
+#let equals(rhs) = {
+  assert-positive-type(rhs, types: (int,), name: "Exact length")
+
+  return (
+    condition: (self, it) => it.len() != rhs,
+    message: (self, it) => "Length must not equal " + str(rhs),
+  )
+}

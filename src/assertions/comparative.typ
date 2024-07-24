@@ -29,3 +29,13 @@
     message: (self, it) => "Must be exactly " + str(rhs),
   )
 }
+
+/// Asserts that tested value is not exactly equal to argument
+#let eq(rhs) = {
+  assert-positive-type(rhs, types: (int,), name: "Equality")
+
+  return (
+    condition: (self, it) => it != rhs,
+    message: (self, it) => "Must not equal " + str(rhs),
+  )
+}
