@@ -21,18 +21,18 @@
 }
 
 /// Asserts that tested value's length is exactly equal to argument
-#let equals(rhs) = {
-  assert-positive-type(rhs, types: (int,), name: "Exact length")
+#let equals(arg) = {
+  assert-positive-type(arg, types: (int,), name: "Exact length")
 
   return (
-    condition: (self, it) => it.len() == rhs,
-    message: (self, it) => "Length must equal " + str(rhs),
+    condition: (self, it) => it.len() == arg,
+    message: (self, it) => "Length must equal " + str(arg),
   )
 }
 
 /// Asserts that tested value's length is not equal to argument
-#let neq(rhs) = {
-  assert-positive-type(rhs, types: (int,), name: "Exact length")
+#let neq(arg) = {
+  assert-positive-type(arg, types: (int,), name: "Exact length")
 
   return (
     condition: (self, it) => it.len() != rhs,
