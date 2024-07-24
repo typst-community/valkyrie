@@ -3,6 +3,7 @@
 ## Added
 
 ## Changed
+- Tuple type now attempts to calculate the number of "expected" values in a way that respects optional or defaultable schema. (#34)
 
 
 # [v0.2.1](https://github.com/typst-community/valakyrie/releases/tags/v0.2.1)
