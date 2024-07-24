@@ -31,7 +31,7 @@
 }
 
 /// Asserts that tested value is not exactly equal to argument
-#let eq(rhs) = {
+#let neq(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Equality")
 
   return (

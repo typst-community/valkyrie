@@ -1,5 +1,5 @@
 #import "./assertions/length.typ" as length
-#import "./assertions/comparative.typ": min, max, eq
+#import "./assertions/comparative.typ": min, max, eq, neq
 #import "./assertions/string.typ": *
 
 /// Asserts that the given value is contained within the provided list. Useful for complicated enumeration types.

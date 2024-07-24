@@ -31,7 +31,7 @@
 }
 
 /// Asserts that tested value's length is not equal to argument
-#let equals(rhs) = {
+#let neq(rhs) = {
   assert-positive-type(rhs, types: (int,), name: "Exact length")
 
   return (
