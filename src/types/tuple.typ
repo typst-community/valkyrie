@@ -22,9 +22,15 @@
     tuple-exact: exact,
     tuple-schema: args.pos(),
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
-      if (self.tuple-exact and self.tuple-schema.len() != it.len()){
-        (self.fail-validation)(self, it, ctx: ctx, scope: scope, 
-          message: "Expected " + str(self.tuple-schema.len())  + " values, but got " + str(it.len())
+      if (self.tuple-exact and self.tuple-schema.len() != it.len()) {
+        (self.fail-validation)(
+          self,
+          it,
+          ctx: ctx,
+          scope: scope,
+          message: "Expected " + str(
+            self.tuple-schema.len(),
+          ) + " values, but got " + str(it.len()),
         )
       }
       for (key, schema) in self.tuple-schema.enumerate() {

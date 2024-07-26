@@ -14,14 +14,12 @@
 #let version(self, it) = {
   if type(it) == str {
     return stdversion(
-      it.split(".")
-        .filter(it=>it!="")
-        .map(int)
+      it.split(".").filter(it => it != "").map(int),
     )
   } else if type(it) == int {
     return stdversion(it)
   } else if type(it) == array {
     return stdversion(it.map(int))
-  } 
+  }
   it
 }

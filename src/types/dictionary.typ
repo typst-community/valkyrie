@@ -34,7 +34,7 @@
       }
       return it
     },
-    ..args.named()
+    ..args.named(),
   ) + (
     dictionary-schema: dictionary-schema,
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {

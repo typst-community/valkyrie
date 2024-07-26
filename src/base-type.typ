@@ -22,7 +22,11 @@
   return (
     valkyrie-type: true,
     name: name,
-    description: if (description != none){ description } else { name },
+    description: if (description != none) {
+      description
+    } else {
+      name
+    },
     optional: optional,
     default: default,
     types: types,

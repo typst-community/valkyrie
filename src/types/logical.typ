@@ -18,7 +18,10 @@
 
   base-type(
     name: "either",
-    description: "[" + args.pos().map(it => it.name).join(", ", last: " or ") + "]",
+    description: "[" + args.pos().map(it => it.name).join(
+      ", ",
+      last: " or ",
+    ) + "]",
     ..args.named(),
   ) + (
     strict: strict,

@@ -5,8 +5,8 @@
   let test-tuple = (
     "123",
     "email@address.co.uk",
-    1.1
-    )
+    1.1,
+  )
 
   z.parse(
     test-tuple,
