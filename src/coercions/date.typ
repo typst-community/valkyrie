@@ -11,7 +11,7 @@
 /// #z.parse((year: 2020, month: 3, day: 15), schema) \
 /// ```]
 #let date(self, it) = {
-  if (type(it) == type(datetime.today())) {
+  if (type(it) == datetime) {
     return it
   }
   if (type(it) == int) {
