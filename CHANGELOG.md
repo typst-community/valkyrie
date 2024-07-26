@@ -3,6 +3,7 @@
 ## Added
 
 - Added negated equality assertions for comparative and length. (#40)
+- Added coercion for versions, which takes a number or array or string and turns it into a version (niave approach, may need some further work) (#11)
 
 ## Changed
 
