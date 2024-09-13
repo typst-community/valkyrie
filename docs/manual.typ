@@ -7,7 +7,7 @@
   ..package,
   title: [Valkyrie],
   date: datetime.today().display(),
-  abstract: [This package implements type validation, and is targetted mainly at package and template developers. The desired outcome is that it becomes easier for the programmer to quickly put a package together without spending a long time on type safety, but also to make the usage of those packages by end-users less painful by generating useful error messages.],
+  abstract: [This package implements type validation, and is targeted mainly at package and template developers. The desired outcome is that it becomes easier for the programmer to quickly put a package together without spending a long time on type safety, but also to make the usage of those packages by end-users less painful by generating useful error messages.],
   examples-scope: (z: z),
 )
 
@@ -63,7 +63,7 @@ As this package introduces several type-like objects, the Tidy style has had the
 
 Generally, users of this package will only need to be aware of the #dtype("schema") type.
 
-== Specifig language
+== Specific language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in #link("http://www.ietf.org/rfc/rfc2119.txt", [RFC 2119]).
 
 == Use cases
@@ -85,7 +85,7 @@ By first providing a low-level set of tools for validating primitives upon which
   Validates an object against one or more schemas. *WILL* return the given object after validation if successful, or none and *MAY* throw a failed assertion error.
 
   #argument("object", types: "any")[
-    Object to validate against provided schema. Object *SHOULD* statisfy the schema requirements. An error *MAY* be produced if not.
+    Object to validate against provided schema. Object *SHOULD* satisfy the schema requirements. An error *MAY* be produced if not.
   ]
   #argument("schemas", types: ("array", "schema"))[
     Schema against which `object` is validated. Coerced into array. *MUST* be an array of valid valkyrie schema types.
@@ -252,7 +252,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 )
 
 ✔ Indicates that the argument is available to the user.
-✱ Indicates that while the argument is availble to the user, it may be used internally or may hold a default value.
+✱ Indicates that while the argument is available to the user, it may be used internally or may hold a default value.
 
 #pagebreak()
 
@@ -321,7 +321,7 @@ For the sake of brevity and owing to their consistency, the arguments that each 
 
 #pagebreak()
 #command("alignment", sarg[args], ret: "schema")[
-  Generates a schema that accepts only aligment objects as valid.
+  Generates a schema that accepts only alignment objects as valid.
 ]
 
 #command("angle", sarg[args], ret: "schema")[
