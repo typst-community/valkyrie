@@ -37,7 +37,7 @@
   it
 }
 
-/// Tested value is forceably converted to content type
+/// Tested value is forcibly converted to content type
 ///
 /// #example[```
 /// #let schema = z.content(
