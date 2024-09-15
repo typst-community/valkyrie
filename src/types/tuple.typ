@@ -22,20 +22,48 @@
     tuple-exact: exact,
     tuple-schema: args.pos(),
     handle-descendents: (self, it, ctx: z-ctx(), scope: ()) => {
-      if (self.tuple-exact and self.tuple-schema.len() != it.len()){
+
+      // Issue 34: Handle differing numbers of optional elements
+
+      // Calculate number of expected arguments
+      let min-args = self.tuple-schema.filter(
+        x=>{
+          // I'm thinking this might cause issues with table and auto?
+          // But can't think of a pleasant solution
+          x.optional==false and x.default==none
+        }
+      ).len()
+      let max-args = self.tuple-schema.len()
+      let num-args = it.len()
+
+      // Panic if the number of arguments does not match expected
+      if (self.tuple-exact and (num-args > max-args or num-args < min-args)){
         (self.fail-validation)(self, it, ctx: ctx, scope: scope, 
-          message: "Expected " + str(self.tuple-schema.len())  + " values, but got " + str(it.len())
+          message: "Expected "
+            + 
+            if (min-args == max-args){
+              str(max-args)
+            } else {
+              str(min-args) + "-" + str(max-args)
+            }
+            +
+            " values, but got " + 
+            str(it.len()
+          )
         )
       }
+
+      let parsed = ()
+
       for (key, schema) in self.tuple-schema.enumerate() {
-        it.at(key) = (schema.validate)(
+        parsed.insert(key, (schema.validate)(
           schema,
-          it.at(key),
+          it.at(key, default: none),
           ctx: ctx,
           scope: (..scope, str(key)),
-        )
+        ))
       }
-      it
+      return parsed
     },
   )
 }
