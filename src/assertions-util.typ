@@ -31,10 +31,10 @@
 #let assert-types(var, types: (), default: none, name: "") = {
   assert(
     type(var) in (type(default), ..types),
-    message: "" + name + " must be of type " + types.join(
+    message: "" + name + " must be of type " + types.map(str).join(
       ", ",
       last: " or ",
-    ) + ". Got " + type(var),
+    ) + ". Got " + str(type(var)),
   )
 }
 
