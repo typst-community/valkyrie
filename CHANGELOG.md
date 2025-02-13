@@ -6,6 +6,8 @@
 
 ## Changed
 
+## Fixed
+- Panic related to deprecated type check behavior in 0.13.0
 
 # [v0.2.1](https://github.com/typst-community/valakyrie/releases/tags/v0.2.1)
 
