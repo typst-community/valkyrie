@@ -1,4 +1,4 @@
-#import "./assertions/length.typ" as length
+#import "./assertions/length.typ"
 #import "./assertions/comparative.typ": min, max, eq, neq
 #import "./assertions/string.typ": *
 

@@ -4,7 +4,7 @@
 #import "assertions-util.typ" as advanced
 #import "assertions.typ" as assert
 #import "coercions.typ" as coerce
-#import "schemas.typ" as schemas
+#import "schemas.typ"
 
 #let parse(
   object,

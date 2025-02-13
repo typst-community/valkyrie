@@ -48,7 +48,7 @@
           message: "Expected " + self.types.map(repr).join(
             ", ",
             last: " or ",
-          ) + ". Got " + type(it),
+          ) + ". Got " + str(type(it)),
         )
         return false
       }
