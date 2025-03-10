@@ -5,6 +5,7 @@
 - Added negated equality assertions for comparative and length. (#40)
 
 ## Changed
+- Tuple type now attempts to calculate the number of "expected" values in a way that respects optional or defaultable schema. (#34)
 
 ## Fixed
 - Panic related to deprecated type check behavior in 0.13.0
