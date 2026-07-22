@@ -19,6 +19,12 @@
       truth: value,
     )([It should validate #name])
   }
+
+  utility-expect-eq(
+    test: "neither",
+    schema: schema,
+    truth: none
+  )([It should not validate `"neither"`])
 }
 
 #{
