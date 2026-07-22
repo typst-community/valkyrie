@@ -514,7 +514,6 @@ For the sake of brevity and owing to their consistency, the arguments that each 
   show-outline: true,
 )
 
-#tidy-module(read("/src/coercions.typ"), name: "coerce")
 #pagebreak()
 
 #let module-doc = tidy.parse-module(
