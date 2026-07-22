@@ -40,7 +40,7 @@
         "Type failed to match any of possible options: " + self.options.map(it => it.description).join(
           ", ",
           last: " or ",
-        ) + ". Got " + type(it)
+        ) + ". Got " + str(type(it))
       )
 
       return (self.fail-validation)(
