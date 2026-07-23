@@ -35,7 +35,7 @@
   assert-positive-type(arg, types: (int,), name: "Exact length")
 
   return (
-    condition: (self, it) => it.len() != rhs,
-    message: (self, it) => "Length must not equal " + str(rhs),
+    condition: (self, it) => it.len() != arg,
+    message: (self, it) => "Length must not equal " + str(arg),
   )
 }

@@ -1,6 +1,6 @@
 [package]
 name = "valkyrie"
-version = "1.0.0-rc1"
+version = "1.0.0"
 entrypoint = "src/lib.typ"
 authors = [
 	"James R. Swift", 
