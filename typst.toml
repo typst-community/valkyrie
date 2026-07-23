@@ -9,8 +9,8 @@ authors = [
 	"tinger <tinger@tinger.dev>",
 	"jneug",
 	"TimeTravelPenguin",
-	"NanamiNakano"
-
+	"NanamiNakano",
+	"RafDevX"
 ]
 license = "MIT"
 description = "Type safe type validation"
