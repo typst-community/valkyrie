@@ -1,8 +1,17 @@
 [package]
 name = "valkyrie"
-version = "0.2.2"
+version = "0.3.0"
 entrypoint = "src/lib.typ"
-authors = ["James R. Swift", "tinger <tinger@tinger.dev>"]
+authors = [
+	"James R. Swift", 
+	"lordkekz",
+	"eltos",
+	"tinger <tinger@tinger.dev>",
+	"jneug",
+	"TimeTravelPenguin",
+	"NanamiNakano"
+
+]
 license = "MIT"
 description = "Type safe type validation"
 repository = "https://github.com/typst-community/valkyrie"

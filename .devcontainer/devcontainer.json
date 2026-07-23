@@ -3,7 +3,17 @@
 {
 	"name": "Valkyrie Development",
 	
-	"build": { "dockerfile": "Dockerfile" }
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"myriad-dreamin.tinymist",
+				"tomoki1207.pdf"
+			]
+		}
+	}
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 

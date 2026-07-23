@@ -6,10 +6,22 @@
 #import "coercions.typ" as coerce
 #import "schemas.typ"
 
+/// Interrogate an object with respect to a schema.
+/// 
 #let parse(
+  /// Object to interrogate. 
+  /// -> any
   object,
+
+  ///
+  /// -> schema
   schemas,
+
+  ///
+  /// -> ctx
   ctx: z-ctx(),
+
+  /// -> array
   scope: ("argument",),
 ) = {
   // don't expose to external

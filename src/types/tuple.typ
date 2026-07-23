@@ -4,7 +4,7 @@
 #import "../assertions-util.typ": *
 
 /// Valkyrie schema generator for an array type with positional type reqruiements. If all entries
-/// have the same type, see @@array.
+/// have the same type, see @array
 /// exact (bool): Requires a tuple to match in length
 ///
 /// -> schema

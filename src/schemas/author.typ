@@ -1,6 +1,7 @@
 #import "../types.typ" as z;
 #import "../coercions.typ" as coerce;
 
+/// -> schema
 #let author = z.dictionary(
   aliases: (
     "affiliation": "affiliations",

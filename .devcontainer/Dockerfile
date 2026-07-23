@@ -22,6 +22,7 @@ RUN echo 'source ~/.cargo/env' >> ~/.bashrc
 
 # Install test runner
 RUN cargo install --locked tytanic@0.4.1
+RUN cargo install --locked typst-cli
 
 RUN apk add just
 
