@@ -1,6 +1,6 @@
 [package]
 name = "valkyrie"
-version = "1.0.0-rc1"
+version = "1.0.0"
 entrypoint = "src/lib.typ"
 authors = [
 	"James R. Swift", 
@@ -9,8 +9,8 @@ authors = [
 	"tinger <tinger@tinger.dev>",
 	"jneug",
 	"TimeTravelPenguin",
-	"NanamiNakano"
-
+	"NanamiNakano",
+	"RafDevX"
 ]
 license = "MIT"
 description = "Type safe type validation"
