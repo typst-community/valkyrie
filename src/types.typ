@@ -2,10 +2,11 @@
 #import "assertions.typ": one-of
 #import "types/array.typ": array
 #import "types/dictionary.typ": dictionary
+#import "types/key-value-dict.typ": key-value-dict
 #import "types/logical.typ": either
-#import "types/number.typ": number, integer, floating-point
+#import "types/number.typ": floating-point, integer, number
 #import "types/sink.typ": sink
-#import "types/string.typ": string, ip, email
+#import "types/string.typ": email, ip, string
 #import "types/tuple.typ": tuple
 
 /// see @base-type -> schema
@@ -63,7 +64,11 @@
 #let regex = base-type.with(name: "regex", types: (regex,))
 
 /// see @base-type -> schema
-#let relative = base-type.with(name: "relative", types: (relative, ratio, length))
+#let relative = base-type.with(name: "relative", types: (
+  relative,
+  ratio,
+  length,
+))
 
 /// see @base-type -> schema
 #let selector = base-type.with(name: "selector", types: (selector,))
@@ -78,10 +83,13 @@
 #let version = base-type.with(name: "version", types: (version,))
 
 /// see @base-type -> schema
-#let choice(list, assertions: (), ..args) = base-type(
-  name: "enum",
-  ..args,
-  assertions: (one-of(list), ..assertions),
-) + (
-  choices: list,
+#let choice(list, assertions: (), ..args) = (
+  base-type(
+    name: "enum",
+    ..args,
+    assertions: (one-of(list), ..assertions),
+  )
+    + (
+      choices: list,
+    )
 )
