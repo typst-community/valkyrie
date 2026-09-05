@@ -1,4 +1,5 @@
 
+/// -> internal | bool
 #let assert-base-type(arg, scope: ("arguments",)) = {
   assert(
     "valkyrie-type" in arg,

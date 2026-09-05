@@ -18,15 +18,14 @@
   schemas,
 
   ///
-  /// -> ctx
+  /// -> z-ctx
   ctx: z-ctx(),
 
-  /// -> array
+  /// -> scope
   scope: ("argument",),
 ) = {
   // don't expose to external
-  import "assertions-util.typ": assert-base-type
-
+  // import "assertions-util.typ": assert-base-type
 
   // Validate named arguments
 

@@ -3,13 +3,28 @@
 
 /// Schema generator. Provides default values for when defining custom types.
 #let base-type(
+  /// -> string
   name: "unknown",
+
+  /// -> string
   description: none,
+
+  /// -> bool
   optional: false,
+
+  /// -> any
   default: none,
+
+  /// -> array
   types: (),
+
+  /// -> array
   assertions: (),
+
+  /// -> function
   pre-transform: (self, it) => it,
+  
+  /// -> function
   post-transform: (self, it) => it,
 ) = {
 

@@ -1,9 +1,6 @@
 #import "../types.typ" as z;
 
-// -> schema
-#let papersize = z.choice.with(
-  description: "paper size",
-  (
+#let _papersize_choices = (
     "a0",
     "a1",
     "a2",
@@ -111,5 +108,8 @@
     "newspaper-broadsheet",
     "presentation-16-9",
     "presentation-4-3",
-  ),
-)
+  )
+
+
+/// -> schema
+#let papersize = z.choice.with(description: "paper size",_papersize_choices)
