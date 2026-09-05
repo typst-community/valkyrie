@@ -1,4 +1,4 @@
-#import "dependencies.typ": tidy
+#import "../dependencies.typ": tidy
 #import tidy.utilities: *
 
 // Color to highlight function names in
@@ -44,7 +44,10 @@
   "gradient": gradient-for-color-types,
   "tiling": gradient-for-tiling,
   "signature-func-name": rgb("#4b69c6"),
-  "schema": rgb("#f7a3ca")
+  "schema": rgb("#f7a3ca"),
+  "internal": rgb("#a3c5f7"),
+  "scope": rgb("#a3f7e9"),
+  "z-ctx": luma(65%)
 )
 
 #let get-type-color(type) = colors.at(str(type), default: rgb("#eff0f3"))
@@ -107,10 +110,13 @@
 #let show-function(
   fn, style-args,
 ) = {
+  show: block.with(inset: 1em, fill: luma(95%), width: 100%, radius: 3pt, breakable: false)
   [
-    #heading(fn.name, level: style-args.first-heading-level + 1)
+    #heading(style-args.label-prefix + "." + fn.name + "()", level: style-args.first-heading-level + 1)
     #label(style-args.label-prefix + fn.name + "()")
   ]
+
+
   
   eval-docstring(fn.description, style-args)
 
@@ -157,15 +163,15 @@
   list(..items)
 }
 
-#import tidy.show-example: show-example as show-example-base
+// #import tidy.show-example: show-example as show-example-base
 
-#let show-example(
-  ..args
-) = {
-  show-example-base(
-    ..args,
-    code-block: block.with(radius: 3pt, stroke: .5pt + luma(200)),
-    preview-block: block.with(radius: 3pt, fill: rgb("#e4e5ea")),
-    col-spacing: 5pt
-  )
-}
+// #let show-example(
+//   ..args
+// ) = {
+//   show-example-base(
+//     ..args,
+//     code-block: block.with(radius: 3pt, stroke: .5pt + luma(200)),
+//     preview-block: block.with(radius: 3pt, fill: rgb("#e4e5ea")),
+//     col-spacing: 5pt
+//   )
+// }

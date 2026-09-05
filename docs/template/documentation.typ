@@ -29,6 +29,8 @@
   set heading(numbering: "1.")
   set par(first-line-indent: 0em, justify: true)
 
+  set text(font: "TeX Gyre Heros")
+
   title-block()
   pagebreak()
 
