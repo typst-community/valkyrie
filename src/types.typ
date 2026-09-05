@@ -64,11 +64,7 @@
 #let regex = base-type.with(name: "regex", types: (regex,))
 
 /// see @base-type -> schema
-#let relative = base-type.with(name: "relative", types: (
-  relative,
-  ratio,
-  length,
-))
+#let relative = base-type.with(name: "relative", types: (relative,ratio, length,))
 
 /// see @base-type -> schema
 #let selector = base-type.with(name: "selector", types: (selector,))

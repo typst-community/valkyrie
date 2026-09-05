@@ -2,6 +2,7 @@
 #import "assertions-util.typ": assert-boilerplate-params
 
 /// Schema generator. Provides default values for when defining custom types.
+/// name -> string: sdf
 #let base-type(
   /// -> string
   name: "unknown",
